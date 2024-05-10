@@ -4,8 +4,7 @@ using OHS_program_api.API.Configurations.ColumnWriters;
 using System.Text;
 using Serilog;
 using Serilog.Core;
-using Serilog.Sinks.PostgreSQL;
-using NpgsqlTypes;
+using Serilog.Sinks.MSSqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.HttpLogging;
@@ -16,6 +15,7 @@ using OHS_program_api.Infrastructure.Services.Storage.Azure;
 using OHS_program_api.Infrastructure.Services.Storage.Local;
 using OHS_program_api.API.Extensions;
 using Microsoft.AspNetCore.Builder;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,18 +32,20 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 Logger log = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/log.txt")
-    .WriteTo.PostgreSQL(builder.Configuration.GetConnectionString("PostgreSQL"), "logs",
-        needAutoCreateTable: true,
-        columnOptions: new Dictionary<string, ColumnWriterBase>
-        {
-            {"message", new RenderedMessageColumnWriter(NpgsqlDbType.Text)},
-            {"message_template", new MessageTemplateColumnWriter(NpgsqlDbType.Text)},
-            {"level", new LevelColumnWriter(true , NpgsqlDbType.Varchar)},
-            {"time_stamp", new TimestampColumnWriter(NpgsqlDbType.Timestamp)},
-            {"exception", new ExceptionColumnWriter(NpgsqlDbType.Text)},
-            {"log_event", new LogEventSerializedColumnWriter(NpgsqlDbType.Json)},
-            {"user_name", new UsernameColumnWriter()}
-        })
+//    .WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("SqlServer"), "logs", autoCreateSqlTable: true,
+//        columnOptions: new Serilog.Sinks.MSSqlServer.ColumnOptions
+//{
+//            AdditionalColumns = new List<SqlColumn>
+//            {
+//                new SqlColumn {ColumnName = "message", DataType = System.Data.SqlDbType.NVarChar, DataLength = -1},
+//                new SqlColumn {ColumnName = "message_template", DataType = System.Data.SqlDbType.NVarChar, DataLength = -1},
+//                new SqlColumn {ColumnName = "level", DataType = System.Data.SqlDbType.VarChar, DataLength = 128},
+//                new SqlColumn {ColumnName = "time_stamp", DataType = System.Data.SqlDbType.DateTimeOffset},
+//                new SqlColumn {ColumnName = "exception", DataType = System.Data.SqlDbType.NVarChar, DataLength = -1},
+//                new SqlColumn {ColumnName = "log_event", DataType = System.Data.SqlDbType.NVarChar, DataLength = -1},
+//                new SqlColumn {ColumnName = "user_name", DataType = System.Data.SqlDbType.NVarChar, DataLength = 256}
+//            }
+//        })
     .WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
     .Enrich.FromLogContext()
     .MinimumLevel.Information()
@@ -70,24 +72,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new()
         {
-            ValidateAudience = true, //Olu�turulacak token de�erini kimlerin/hangi originlerin/sitelerin kullan�c� belirledi�imiz de�erdir. -> www.bilmemne.com
-            ValidateIssuer = true, //Olu�turulacak token de�erini kimin da��tt�n� ifade edece�imiz aland�r. -> www.myapi.com
-            ValidateLifetime = true, //Olu�turulan token de�erinin s�resini kontrol edecek olan do�rulamad�r.
-            ValidateIssuerSigningKey = true, //�retilecek token de�erinin uygulamam�za ait bir de�er oldu�unu ifade eden suciry key verisinin do�rulanmas�d�r.
+            ValidateAudience = true,
+            ValidateIssuer = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
 
             ValidAudience = builder.Configuration["Token:Audience"],
             ValidIssuer = builder.Configuration["Token:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
             LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
 
-            NameClaimType = ClaimTypes.Name //JWT �zerinde Name claimne kar��l�k gelen de�eri User.Identity.Name propertysinden elde edebiliriz.
+            NameClaimType = ClaimTypes.Name
         };
     });
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

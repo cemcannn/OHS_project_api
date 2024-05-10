@@ -9,15 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{871434C8-A7E3-47AE-9F9B-F34DB0DFF3D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHS_program_api.Application", "core\OHS_program_api.Application\OHS_program_api.Application.csproj", "{BCD44D61-4C9B-4111-AC65-F1B3E9A0E9B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.Application", "core\OHS_program_api.Application\OHS_program_api.Application.csproj", "{BCD44D61-4C9B-4111-AC65-F1B3E9A0E9B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHS_program_api.Domain", "core\OHS_program_api.Domain\OHS_program_api.Domain.csproj", "{DFDB7BB1-4025-4290-BED0-9CDBB6F271B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.Domain", "core\OHS_program_api.Domain\OHS_program_api.Domain.csproj", "{DFDB7BB1-4025-4290-BED0-9CDBB6F271B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHS_program_api.Infrastructure", "Infrastructure\OHS_program_api.Infrastructure\OHS_program_api.Infrastructure.csproj", "{B9C69164-EBB2-44FB-9094-C5926272AC28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.Infrastructure", "Infrastructure\OHS_program_api.Infrastructure\OHS_program_api.Infrastructure.csproj", "{B9C69164-EBB2-44FB-9094-C5926272AC28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHS_program_api.Persistence", "Infrastructure\OHS_program_api.Persistence\OHS_program_api.Persistence.csproj", "{47140C0C-78F5-4CA6-95E4-E4D553371DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.Persistence", "Infrastructure\OHS_program_api.Persistence\OHS_program_api.Persistence.csproj", "{47140C0C-78F5-4CA6-95E4-E4D553371DDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHS_program_api.API", "Presentation\OHS_program_api.API\OHS_program_api.API.csproj", "{EF632EE9-6D6D-4682-ADE6-5E1F2997457D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.API", "Presentation\OHS_program_api.API\OHS_program_api.API.csproj", "{EF632EE9-6D6D-4682-ADE6-5E1F2997457D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.SignalR", "Infrastructure\OHS_program_api.SignalR\OHS_program_api.SignalR.csproj", "{8CCCB2BA-2A8B-4BDC-A3F6-51923E5A9CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EF632EE9-6D6D-4682-ADE6-5E1F2997457D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF632EE9-6D6D-4682-ADE6-5E1F2997457D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF632EE9-6D6D-4682-ADE6-5E1F2997457D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCCB2BA-2A8B-4BDC-A3F6-51923E5A9CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCCB2BA-2A8B-4BDC-A3F6-51923E5A9CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCCB2BA-2A8B-4BDC-A3F6-51923E5A9CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCCB2BA-2A8B-4BDC-A3F6-51923E5A9CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{B9C69164-EBB2-44FB-9094-C5926272AC28} = {0A32D6C8-60C2-406E-827A-79D9A75673A1}
 		{47140C0C-78F5-4CA6-95E4-E4D553371DDE} = {0A32D6C8-60C2-406E-827A-79D9A75673A1}
 		{EF632EE9-6D6D-4682-ADE6-5E1F2997457D} = {871434C8-A7E3-47AE-9F9B-F34DB0DFF3D8}
+		{8CCCB2BA-2A8B-4BDC-A3F6-51923E5A9CDB} = {0A32D6C8-60C2-406E-827A-79D9A75673A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1BEE4D9-A120-4ED2-8362-91B7329E5B12}
