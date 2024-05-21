@@ -22,20 +22,20 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Accidents", Menu = "Accidents")]
-        public async Task<IActionResult> GetAccidents([FromRoute] GetAccidentsQueryRequest getRolesQueryRequest)
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Accident By Id", Menu = "Accidents")]
+        public async Task<IActionResult> GetAccidents([FromRoute] GetAccidentByIdQueryRequest getAccidentByIdQueryRequest)
         {
-            GetAccidentsQueryResponse response = await _mediator.Send(getRolesQueryRequest);
+            GetAccidentByIdQueryResponse response = await _mediator.Send(getAccidentByIdQueryRequest);
             return Ok(response);
         }
 
-        //[HttpGet("{Id}")]
-        //[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Accident By Id", Menu = "Accidents")]
-        //public async Task<IActionResult> GetRoles([FromRoute] GetRoleByIdQueryRequest getRoleByIdQueryRequest)
-        //{
-        //    GetRoleByIdQueryResponse response = await _mediator.Send(getRoleByIdQueryRequest);
-        //    return Ok(response);
-        //}
+        [HttpGet]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Accidents", Menu = "Accidents")]
+        public async Task<IActionResult> GetAccidents([FromQuery] GetAccidentsQueryRequest GgtAccidentsQueryRequest)
+        {
+            GetAccidentsQueryResponse response = await _mediator.Send(GgtAccidentsQueryRequest);
+            return Ok(response);
+        }
 
         [HttpPost()]
         [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Accident", Menu = "Accidents")]

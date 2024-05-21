@@ -1,47 +1,42 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Features.Queries.Safety.GetAccidents;
-using OHS_program_api.Application.Repositories;
-using OHS_program_api.Application.ViewModels.Safety.Accidents;
+using Microsoft.EntityFrameworkCore;
+using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
 
-public class GetAccidentsQueryHandler : IRequestHandler<GetAccidentsQueryRequest, GetAccidentsQueryResponse>
+namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
 {
-    readonly IPersonnelReadRepository _personnelReadRepository;
-
-    public GetAccidentsQueryHandler(IPersonnelReadRepository personnelReadRepository)
+    public class GetAccidentsQueryHandler : IRequestHandler<GetAccidentsQueryRequest, GetAccidentsQueryResponse>
     {
-        _personnelReadRepository = personnelReadRepository;
-    }
+        readonly IAccidentReadRepository _accidentReadRepository;
 
-    public async Task<GetAccidentsQueryResponse> Handle(GetAccidentsQueryRequest request, CancellationToken cancellationToken)
-    {
-        var totalAccidentCount = 0;
-        List<VM_List_Accident> accidents = new List<VM_List_Accident>();
-
-        // Belirli bir Personnel ID'sine sahip personelin Accident özelliklerini getir
-        var personnel = await _personnelReadRepository.GetPersonnelWithAccidentsByIdAsync(request.Id, false);
-
-        if (personnel != null)
+        public GetAccidentsQueryHandler(IAccidentReadRepository accidentReadRepository)
         {
-            totalAccidentCount = personnel.Accident.Count;
-
-            accidents = personnel.Accident
-                .Select(a => new VM_List_Accident
-                {
-                    Id = Convert.ToString(a.Id),
-                    PersonnelId = Convert.ToString(a.PersonnelId),
-                    TypeOfAccident = a.TypeOfAccident,
-                    AccidentDate = a.AccidentDate,
-                    AccidentHour = a.AccidentHour,
-                    OnTheJobDate = a.OnTheJobDate,
-                    Description = a.Description
-                })
-                .ToList();
+            _accidentReadRepository = accidentReadRepository;
         }
 
-        return new()
+        public async Task<GetAccidentsQueryResponse> Handle(GetAccidentsQueryRequest request, CancellationToken cancellationToken)
         {
-            Datas = accidents,
-            TotalCount = totalAccidentCount
-        };
+            var totalAccidentCount = _accidentReadRepository.GetAll(false).Count();
+            var accidents = _accidentReadRepository.GetAll(false).Skip(request.Page * request.Size).Take(request.Size)
+                .Include(p => p.Personnel)
+                .Select(p => new
+                {
+                    p.Id,
+                    p.AccidentDate,
+                    p.AccidentHour,
+                    p.TypeOfAccident,
+                    p.OnTheJobDate,
+                    p.Description,
+                    p.PersonnelId,
+                    p.Personnel.Name,
+                    p.Personnel.Surname,
+                    p.Personnel.TRIdNumber
+                }).ToList();
+
+            return new()
+            {
+                Datas = accidents,
+                TotalCount = totalAccidentCount
+            };
+        }
     }
 }
