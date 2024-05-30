@@ -13,7 +13,7 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.CreatePersonne
 {
     public class CreatePersonnelCommandRequest : IRequest<CreatePersonnelCommandResponse>
     {
-        public int TRIdNumber { get; set; }
+        public string TRIdNumber { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int? RetiredId { get; set; }

@@ -15,6 +15,10 @@ using OHS_program_api.Infrastructure.Services.Storage.Azure;
 using OHS_program_api.Infrastructure.Services.Storage.Local;
 using OHS_program_api.API.Extensions;
 using Microsoft.AspNetCore.Builder;
+using OHS_program_api.API.Filters;
+using OHS_program_api.Infrastructure.Filters;
+using FluentValidation.AspNetCore;
+using OHS_program_api.Application.Validators.Personnels;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,7 +66,13 @@ builder.Services.AddHttpLogging(logging =>
     logging.ResponseBodyLogLimit = 4096;
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+    options.Filters.Add<RolePermissionFilter>();
+})
+    .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreatePersonnelValidator>())
+    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

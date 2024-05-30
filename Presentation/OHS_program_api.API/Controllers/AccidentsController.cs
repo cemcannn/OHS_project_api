@@ -4,6 +4,7 @@ using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAccident;
 using OHS_program_api.Application.Features.Commands.Safety.Accident.DeleteAccident;
+using OHS_program_api.Application.Features.Commands.Safety.Accident.UpdateAccident;
 using OHS_program_api.Application.Features.Queries.Safety.GetAccidents;
 
 namespace OHS_program_api.API.Controllers
@@ -23,7 +24,7 @@ namespace OHS_program_api.API.Controllers
 
         [HttpGet("{Id}")]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Accident By Id", Menu = "Accidents")]
-        public async Task<IActionResult> GetAccidents([FromRoute] GetAccidentByIdQueryRequest getAccidentByIdQueryRequest)
+        public async Task<IActionResult> GetAccident([FromRoute] GetAccidentByIdQueryRequest getAccidentByIdQueryRequest)
         {
             GetAccidentByIdQueryResponse response = await _mediator.Send(getAccidentByIdQueryRequest);
             return Ok(response);
@@ -31,9 +32,9 @@ namespace OHS_program_api.API.Controllers
 
         [HttpGet]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Accidents", Menu = "Accidents")]
-        public async Task<IActionResult> GetAccidents([FromQuery] GetAccidentsQueryRequest GgtAccidentsQueryRequest)
+        public async Task<IActionResult> GetAccidents([FromQuery] GetAccidentsQueryRequest GetAccidentsQueryRequest)
         {
-            GetAccidentsQueryResponse response = await _mediator.Send(GgtAccidentsQueryRequest);
+            GetAccidentsQueryResponse response = await _mediator.Send(GetAccidentsQueryRequest);
             return Ok(response);
         }
 
@@ -45,17 +46,17 @@ namespace OHS_program_api.API.Controllers
             return Ok(response);
         }
 
-        //[HttpPut("{Id}")]
-        //[AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Accident", Menu = "Accidents")]
-        //public async Task<IActionResult> UpdateRole([FromBody, FromRoute] UpdateRoleCommandRequest updateRoleCommandRequest)
-        //{
-        //    UpdateRoleCommandResponse response = await _mediator.Send(updateRoleCommandRequest);
-        //    return Ok(response);
-        //}
+        [HttpPut]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Accident", Menu = "Accidents")]
+        public async Task<IActionResult> UpdateAccident([FromBody] UpdateAccidentCommandRequest updateAccidentCommandRequest)
+        {
+            UpdateAccidentCommandResponse response = await _mediator.Send(updateAccidentCommandRequest);
+            return Ok(response);
+        }
 
         [HttpDelete("{Id}")]
         [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Accident", Menu = "Accidents")]
-        public async Task<IActionResult> DeleteRole([FromRoute] DeleteAccidentCommandRequest deleteAccidentCommandRequest)
+        public async Task<IActionResult> DeleteAccident([FromRoute] DeleteAccidentCommandRequest deleteAccidentCommandRequest)
         {
             DeleteAccidentCommandResponse response = await _mediator.Send(deleteAccidentCommandRequest);
             return Ok(response);

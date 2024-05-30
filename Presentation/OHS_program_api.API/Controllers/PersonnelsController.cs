@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Personnel.CreatePersonnel;
 using OHS_program_api.Application.Features.Commands.Personnel.RemovePersonnel;
+using OHS_program_api.Application.Features.Commands.Personnel.UpdatePersonnel;
 using OHS_program_api.Application.Features.Queries.Personnel.GetPersonnels;
 using System.Net;
 
@@ -47,6 +46,14 @@ namespace OHS_program_api.API.Controllers
         public async Task<IActionResult> RemovePersonnel([FromRoute] RemovePersonnelCommandRequest removePersonnelCommandRequest)
         {
             RemovePersonnelCommandResponse response = await _mediator.Send(removePersonnelCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Personnel", Menu = "Accidents")]
+        public async Task<IActionResult> UpdatePersonnel([FromBody] UpdatePersonnelCommandRequest updatePersonnelCommandRequest)
+        {
+            UpdatePersonnelCommandResponse response = await _mediator.Send(updatePersonnelCommandRequest);
             return Ok(response);
         }
 

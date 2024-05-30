@@ -2,6 +2,7 @@
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.ViewModels.Personnel;
 using OHS_program_api.Domain.Entities;
+using OHS_program_api.Domain.Entities.OccupationalSafety;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace OHS_program_api.Persistence.Services
             throw new NotImplementedException();
         }
 
-        public Task<VM_List_Personnel> GetOrderByIdAsync(string id)
+        public Task<VM_List_Personnel> GetPersonnelByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -46,9 +47,22 @@ namespace OHS_program_api.Persistence.Services
             }
         }
 
-        public Task UpdatePersonnelAsync(VM_Update_Personnel updatePersonnel)
+        public async Task UpdatePersonnelAsync(VM_Update_Personnel personnel)
         {
-            throw new NotImplementedException();
+            Personnel? _personnel = await _personnelReadRepository.GetByIdAsync(personnel.Id);
+            if (_personnel != null)
+            {
+                _personnel.Id = new Guid(personnel.Id);
+                _personnel.TRIdNumber = personnel.TRIdNumber;
+                _personnel.Name = personnel.Name;
+                _personnel.Surname = personnel.Surname;
+                _personnel.RetiredId = personnel.RetiredId;
+                _personnel.InsuranceId = personnel.InsuranceId;
+                _personnel.StartDateOfWork = personnel.StartDateOfWork;
+                _personnel.TKIId = personnel.TKIId;
+
+                await _personnelWriteRepository.SaveAsync();
+            }
         }
     }
 }

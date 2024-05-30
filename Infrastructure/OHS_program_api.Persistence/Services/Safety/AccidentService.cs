@@ -80,9 +80,19 @@ namespace OHS_program_api.Persistence.Services.Safety
             throw new NotImplementedException();
         }
 
-        public Task UpdateAccidentAsync(VM_Update_Accident updateAccident)
+        public async Task UpdateAccidentAsync(VM_Update_Accident accident)
         {
-            throw new NotImplementedException();
+            Accident? _accident = await _accidentReadRepository.GetByIdAsync(accident.Id);
+            if (_accident != null)
+            {
+                _accident.AccidentDate = accident.AccidentDate;
+                _accident.AccidentHour = accident.AccidentHour;
+                _accident.TypeOfAccident = accident.TypeOfAccident;
+                _accident.OnTheJobDate = accident.OnTheJobDate;
+                _accident.Description = accident.Description;
+
+                await _accidentWriteRepository.SaveAsync();
+            }
         }
     }
 }

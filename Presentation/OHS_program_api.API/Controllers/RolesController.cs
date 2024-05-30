@@ -47,9 +47,9 @@ namespace OHS_program_api.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{Id}")]
+        [HttpPut]
         [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Role", Menu = "Roles")]
-        public async Task<IActionResult> UpdateRole([FromBody, FromRoute] UpdateRoleCommandRequest updateRoleCommandRequest)
+        public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleCommandRequest updateRoleCommandRequest)
         {
             UpdateRoleCommandResponse response = await _mediator.Send(updateRoleCommandRequest);
             return Ok(response);

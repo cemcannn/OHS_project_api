@@ -11,9 +11,9 @@ namespace OHS_program_api.Application.Abstractions.Services
     public interface IPersonnelService
     {
         Task<bool> AddPersonnelAsync(VM_Create_Personnel createPersonnel);
-        Task UpdatePersonnelAsync(VM_Update_Personnel updatePersonnel);
+        Task UpdatePersonnelAsync(VM_Update_Personnel personnel);
         Task<List<VM_List_Personnel>> GetAllPersonnelsAsync();
-        Task<VM_List_Personnel> GetOrderByIdAsync(string id);
+        Task<VM_List_Personnel> GetPersonnelByIdAsync(string id);
         Task RemovePersonnelAsync(string id);
     }
 }

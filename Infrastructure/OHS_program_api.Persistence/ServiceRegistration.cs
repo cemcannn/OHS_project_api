@@ -47,6 +47,7 @@ namespace OHS_program_api.Persistence
             //services.AddScoped<IExternalAuthentication, AuthService>();
             services.AddScoped<IInternalAuthentication, AuthService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPersonnelService, PersonnelService>();
             services.AddScoped<IAuthorizationEndpointService, AuthorizationEndpointService>();
             services.AddScoped<IAccidentService, AccidentService>();
 

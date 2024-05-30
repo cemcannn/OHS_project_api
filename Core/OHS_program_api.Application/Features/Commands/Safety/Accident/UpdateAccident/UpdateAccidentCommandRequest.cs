@@ -1,6 +1,8 @@
-﻿namespace OHS_program_api.Application.ViewModels.Safety.Accidents
+﻿using MediatR;
+
+namespace OHS_program_api.Application.Features.Commands.Safety.Accident.UpdateAccident
 {
-    public class VM_Update_Accident
+    public class UpdateAccidentCommandRequest : IRequest<UpdateAccidentCommandResponse>
     {
         public string Id { get; set; }
         public string TypeOfAccident { get; set; }

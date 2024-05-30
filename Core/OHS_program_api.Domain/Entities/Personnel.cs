@@ -7,7 +7,7 @@ namespace OHS_program_api.Domain.Entities
 {
     public class Personnel : BaseEntity
     {
-        public int TRIdNumber { get; set; }
+        public string TRIdNumber { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int? RetiredId { get; set; }

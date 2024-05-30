@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories;
-using OHS_program_api.Application.ViewModels.Personnel;
 
 namespace OHS_program_api.Application.Features.Queries.Personnel.GetPersonnels
 {
