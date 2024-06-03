@@ -20,6 +20,7 @@ namespace OHS_program_api.Application.Features.Queries.Role.GetRoleById
         public async Task<GetRoleByIdQueryResponse> Handle(GetRoleByIdQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await _roleService.GetRoleById(request.Id);
+
             return new()
             {
                 Id = data.id,

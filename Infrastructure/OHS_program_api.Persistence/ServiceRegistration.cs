@@ -5,10 +5,12 @@ using OHS_program_api.Application.Abstractions.Services;
 using OHS_program_api.Application.Abstractions.Services.Authentications;
 using OHS_program_api.Application.Abstractions.Services.Safety;
 using OHS_program_api.Application.Repositories;
+using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
 using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
 using OHS_program_api.Domain.Entities.Identity;
 using OHS_program_api.Persistence.Contexts;
 using OHS_program_api.Persistence.Repositories;
+using OHS_program_api.Persistence.Repositories.Definition.TypeOfAccidentRepository;
 using OHS_program_api.Persistence.Repositories.Endpoint;
 using OHS_program_api.Persistence.Repositories.Menu;
 using OHS_program_api.Persistence.Repositories.Safety.AccidentRepository;
@@ -40,6 +42,8 @@ namespace OHS_program_api.Persistence
             services.AddScoped<IAccidentWriteRepository, AccidentWriteRepository>();
             services.AddScoped<IPersonnelReadRepository, PersonnelReadRepository>();
             services.AddScoped<IPersonnelWriteRepository, PersonnelWriteRepository>();
+            services.AddScoped<ITypeOfAccidentReadRepository, TypeOfAccidentReadRepository>();
+            services.AddScoped<ITypeOfAccidentWriteRepository, TypeOfAccidentWriteRepository>();
 
 
             services.AddScoped<IUserService, UserService>();
