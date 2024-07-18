@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using OHS_program_api.Application.Abstractions.Services.Safety;
+using OHS_program_api.Domain.Entities.Definitions;
 
 namespace OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAccident
 {
@@ -19,6 +20,7 @@ namespace OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAc
 
                 PersonnelId = request.PersonnelId.ToString(),
                 TypeOfAccident = request.TypeOfAccident,
+                Limb = request.Limb,
                 AccidentDate = request.AccidentDate,
                 AccidentHour = request.AccidentHour,
                 OnTheJobDate = request.OnTheJobDate,

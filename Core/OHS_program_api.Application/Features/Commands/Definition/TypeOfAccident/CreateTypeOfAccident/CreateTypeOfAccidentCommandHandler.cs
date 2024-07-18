@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Features.Commands.Definition.TypeOfAccident.UpdateTypeOfAccident;
 using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.TypeOfAccident.CreateTypeOfAccident

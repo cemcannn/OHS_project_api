@@ -16,7 +16,7 @@ namespace OHS_program_api.Application.Features.Queries.Personnel.GetPersonnels
         public async Task<GetPersonnelsQueryResponse> Handle(GetPersonnelsQueryRequest request, CancellationToken cancellationToken)
         {
             var totalPersonnelCount = _personnelReadRepository.GetAll(false).Count();
-            var personnels = _personnelReadRepository.GetAll(false).Skip(request.Page * request.Size).Take(request.Size)
+            var personnels = _personnelReadRepository.GetAll(false)
                 .Include(p => p.Accident)
                 .Select(p => new
                 {

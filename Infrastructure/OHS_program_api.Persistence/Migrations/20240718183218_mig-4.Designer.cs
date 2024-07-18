@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OHS_program_api.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    partial class OHSProgramAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718183218_mig-4")]
+    partial class mig4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -735,8 +738,8 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Limb")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("LimbId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("OnTheJobDate")
                         .HasColumnType("datetime2");
@@ -751,6 +754,8 @@ namespace OHSprogramapi.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LimbId");
 
                     b.HasIndex("PersonnelId");
 
@@ -1221,11 +1226,17 @@ namespace OHSprogramapi.Persistence.Migrations
 
             modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.Accident", b =>
                 {
+                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Limb", "Limb")
+                        .WithMany()
+                        .HasForeignKey("LimbId");
+
                     b.HasOne("OHS_program_api.Domain.Entities.Personnel", "Personnel")
                         .WithMany("Accident")
                         .HasForeignKey("PersonnelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Limb");
 
                     b.Navigation("Personnel");
                 });

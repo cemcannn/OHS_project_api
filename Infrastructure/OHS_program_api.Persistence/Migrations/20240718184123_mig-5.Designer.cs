@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OHS_program_api.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    partial class OHSProgramAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718184123_mig-5")]
+    partial class mig5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

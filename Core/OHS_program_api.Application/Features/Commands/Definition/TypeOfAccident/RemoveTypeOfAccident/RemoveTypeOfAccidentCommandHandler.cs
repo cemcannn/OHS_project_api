@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.TypeOfAccident.RemoveTypeOfAccident
 {
-    public class RemoveTypeOfAccidenCommandtHandler : IRequestHandler<RemoveTypeOfAccidentCommandRequest, RemoveTypeOfAccidentCommandResponse>
+    public class RemoveTypeOfAccidentCommandHandler : IRequestHandler<RemoveTypeOfAccidentCommandRequest, RemoveTypeOfAccidentCommandResponse>
     {
         readonly ITypeOfAccidentWriteRepository _typeOfAccidentWriteRepository;
 
-        public RemoveTypeOfAccidenCommandtHandler(ITypeOfAccidentWriteRepository typeOfAccidentWriteRepository)
+        public RemoveTypeOfAccidentCommandHandler(ITypeOfAccidentWriteRepository typeOfAccidentWriteRepository)
         {
             _typeOfAccidentWriteRepository = typeOfAccidentWriteRepository;
         }

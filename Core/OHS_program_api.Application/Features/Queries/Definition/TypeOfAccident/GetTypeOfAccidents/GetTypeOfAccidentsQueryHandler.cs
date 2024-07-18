@@ -1,12 +1,5 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Features.Queries.Personnel.GetPersonnels;
-using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OHS_program_api.Application.Features.Queries.Definition.TypeOfAccident.GetTypeOfAccident
 {
@@ -22,8 +15,7 @@ namespace OHS_program_api.Application.Features.Queries.Definition.TypeOfAccident
         public async Task<GetTypeOfAccidentsQueryResponse> Handle(GetTypeOfAccidentsQueryRequest request, CancellationToken cancellationToken)
         {
             var totalCount = _typeOfAccidentReadRepository.GetAll(false).Count();
-            var typeOfAccident = _typeOfAccidentReadRepository.GetAll(false).Skip(request.Page * request.Size).Take(request.Size)
-
+            var typeOfAccident = _typeOfAccidentReadRepository.GetAll(false)
                 .Select(p => new
                 {
                     p.Id,

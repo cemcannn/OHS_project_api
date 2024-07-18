@@ -16,7 +16,7 @@ namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
         public async Task<GetAccidentsQueryResponse> Handle(GetAccidentsQueryRequest request, CancellationToken cancellationToken)
         {
             var totalAccidentCount = _accidentReadRepository.GetAll(false).Count();
-            var accidents = _accidentReadRepository.GetAll(false).Skip(request.Page * request.Size).Take(request.Size)
+            var accidents = _accidentReadRepository.GetAll(false)
                 .Include(p => p.Personnel)
                 .Select(p => new
                 {
@@ -24,6 +24,7 @@ namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
                     p.AccidentDate,
                     p.AccidentHour,
                     p.TypeOfAccident,
+                    p.Limb,
                     p.OnTheJobDate,
                     p.Description,
                     p.PersonnelId,
