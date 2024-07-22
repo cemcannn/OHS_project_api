@@ -21,9 +21,8 @@ namespace OHS_program_api.Application.ViewModels.Personnel
         public string? ProfessionId { get; set; }
         public Profession? Profession { get; set; }
         public PlaceEnum? TypeOfPlace { get; set; }
-        public int? TKIId { get; set; }
-        public Guid? UnitId { get; set; }
-        public Unit? Unit { get; set; }
+        public string? TKIId { get; set; }
+        public string? Unit { get; set; }
         public Guid? CertificateId { get; set; }
         public ICollection<Certificate>? Certificate { get; set; }
         public Guid? TaskInstructionID { get; set; }

@@ -7,12 +7,14 @@ using OHS_program_api.Application.Abstractions.Services.Safety;
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.Repositories.Definition.LimbRepository;
 using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
+using OHS_program_api.Application.Repositories.Definition.UnitRepository;
 using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
 using OHS_program_api.Domain.Entities.Identity;
 using OHS_program_api.Persistence.Contexts;
 using OHS_program_api.Persistence.Repositories;
 using OHS_program_api.Persistence.Repositories.Definition.LimbRepository;
 using OHS_program_api.Persistence.Repositories.Definition.TypeOfAccidentRepository;
+using OHS_program_api.Persistence.Repositories.Definition.UnitRepository;
 using OHS_program_api.Persistence.Repositories.Endpoint;
 using OHS_program_api.Persistence.Repositories.Menu;
 using OHS_program_api.Persistence.Repositories.Safety.AccidentRepository;
@@ -48,6 +50,8 @@ namespace OHS_program_api.Persistence
             services.AddScoped<ITypeOfAccidentWriteRepository, TypeOfAccidentWriteRepository>();
             services.AddScoped<ILimbReadRepository, LimbReadRepository>();
             services.AddScoped<ILimbWriteRepository, LimbWriteRepository>();
+            services.AddScoped<IUnitReadRepository, UnitReadRepository>();
+            services.AddScoped<IUnitWriteRepository, UnitWriteRepository>();
 
 
             services.AddScoped<IUserService, UserService>();

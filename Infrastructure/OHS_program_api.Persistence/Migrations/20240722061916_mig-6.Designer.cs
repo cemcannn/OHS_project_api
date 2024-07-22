@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OHS_program_api.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    partial class OHSProgramAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240722061916_mig-6")]
+    partial class mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -747,6 +750,9 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<string>("TypeOfAccident")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -972,8 +978,8 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("InsuranceId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("InsuranceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -982,8 +988,8 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<Guid?>("ProfessionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("RetiredId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("RetiredId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDateOfWork")
                         .HasColumnType("datetime2");
@@ -992,8 +998,8 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TKIId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TKIId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TRIdNumber")
                         .IsRequired()
@@ -1005,8 +1011,8 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<int?>("TypeOfPlace")
                         .HasColumnType("int");
 
-                    b.Property<string>("Unit")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("UnitId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -1014,6 +1020,8 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProfessionId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Personnels");
                 });
@@ -1294,7 +1302,13 @@ namespace OHSprogramapi.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ProfessionId");
 
+                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId");
+
                     b.Navigation("Profession");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Trainings.Certificate", b =>

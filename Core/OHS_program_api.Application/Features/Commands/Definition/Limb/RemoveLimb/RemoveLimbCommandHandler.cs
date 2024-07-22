@@ -1,12 +1,5 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Features.Commands.Definition.TypeOfAccident.RemoveTypeOfAccident;
 using OHS_program_api.Application.Repositories.Definition.LimbRepository;
-using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.Limb.RemoveLimb
 {

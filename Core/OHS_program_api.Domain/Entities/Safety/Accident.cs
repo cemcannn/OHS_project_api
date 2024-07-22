@@ -15,7 +15,6 @@ namespace OHS_program_api.Domain.Entities.OccupationalSafety
         public string? Limb { get; set; }
         //public string? Reason { get; set; }
         //public string? Site { get; set; }
-        //public string? Unit { get; set; }
     }
 }
 

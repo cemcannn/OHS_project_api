@@ -16,6 +16,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.Infrastructure", "Infrastructure\OHS_program_api.Infrastructure\OHS_program_api.Infrastructure.csproj", "{B9C69164-EBB2-44FB-9094-C5926272AC28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.Persistence", "Infrastructure\OHS_program_api.Persistence\OHS_program_api.Persistence.csproj", "{47140C0C-78F5-4CA6-95E4-E4D553371DDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9C69164-EBB2-44FB-9094-C5926272AC28} = {B9C69164-EBB2-44FB-9094-C5926272AC28}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OHS_program_api.API", "Presentation\OHS_program_api.API\OHS_program_api.API.csproj", "{EF632EE9-6D6D-4682-ADE6-5E1F2997457D}"
 EndProject

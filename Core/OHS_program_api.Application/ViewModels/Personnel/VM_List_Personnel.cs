@@ -23,7 +23,6 @@ namespace OHS_program_api.Application.ViewModels.Personnel
         public string? Profession { get; set; }
         public string? TypeOfPlace { get; set; }
         public string? TKIId { get; set; }
-        public string? UnitId { get; set; }
         public string? Unit { get; set; }
         public string? CertificateId { get; set; }
         public ICollection<string>? Certificate { get; set; }

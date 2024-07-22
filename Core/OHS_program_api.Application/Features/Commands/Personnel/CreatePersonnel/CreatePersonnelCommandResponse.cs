@@ -8,5 +8,6 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.CreatePersonne
 {
     public class CreatePersonnelCommandResponse
     {
+        public bool Succeeded { get; set; }
     }
 }

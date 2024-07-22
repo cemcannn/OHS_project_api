@@ -8,9 +8,9 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.UpdatePersonne
         public string TRIdNumber { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int? RetiredId { get; set; }
-        public int? InsuranceId { get; set; }
+        public string? RetiredId { get; set; }
+        public string? InsuranceId { get; set; }
         public DateTime? StartDateOfWork { get; set; }
-        public int? TKIId { get; set; }
+        public string? TKIId { get; set; }
     }
 }

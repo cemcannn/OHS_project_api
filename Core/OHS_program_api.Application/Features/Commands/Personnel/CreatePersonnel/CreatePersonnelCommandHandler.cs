@@ -1,26 +1,24 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OHS_program_api.Application.Abstractions.Services;
+using OHS_program_api.Application.Features.Commands.Personnel.UpdatePersonnel;
+using OHS_program_api.Application.ViewModels.Personnel;
 
 namespace OHS_program_api.Application.Features.Commands.Personnel.CreatePersonnel
 {
     public class CreatePersonnelCommandHandler : IRequestHandler<CreatePersonnelCommandRequest, CreatePersonnelCommandResponse>
     {
-        readonly IPersonnelWriteRepository _personnelWriteRepository;
+        readonly IPersonnelService _personnelService;
 
 
-        public CreatePersonnelCommandHandler(IPersonnelWriteRepository personnelWriteRepository)
+        public CreatePersonnelCommandHandler(IPersonnelService personnelService)
         {
-            _personnelWriteRepository = personnelWriteRepository;
+            _personnelService = personnelService;
         }
 
         public async Task<CreatePersonnelCommandResponse> Handle(CreatePersonnelCommandRequest request, CancellationToken cancellationToken)
         {
-            await _personnelWriteRepository.AddAsync(new()
+            // Create an instance of VM_Update_Personnel with the request data
+            var createPersonnel = new VM_Create_Personnel
             {
                 TRIdNumber = request.TRIdNumber,
                 Name = request.Name,
@@ -29,9 +27,15 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.CreatePersonne
                 InsuranceId = request.InsuranceId,
                 StartDateOfWork = request.StartDateOfWork,
                 TKIId = request.TKIId,
-            });
-            await _personnelWriteRepository.SaveAsync();
-            return new();
+                Unit = request.Unit,
+            };
+
+            await _personnelService.AddPersonnelAsync(createPersonnel);
+
+            return new CreatePersonnelCommandResponse
+            {
+                Succeeded = true
+            };
         }
     }
 }

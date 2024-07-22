@@ -22,9 +22,35 @@ namespace OHS_program_api.Persistence.Services
             _personnelWriteRepository = personnelWriteRepository;
         }
 
-        public Task<bool> AddPersonnelAsync(VM_Create_Personnel createPersonnel)
+        public async Task<bool> AddPersonnelAsync(VM_Create_Personnel createPersonnel)
         {
-            throw new NotImplementedException();
+            // Check TRIdNumber exist
+            var existingPersonnel = await _personnelReadRepository.GetSingleAsync(p => p.TRIdNumber == createPersonnel.TRIdNumber);
+            if (existingPersonnel != null)
+            {
+                // Hata döndürün
+                throw new Exception("Bu TC Kimlik Numarası ile kayıtlı bir personel zaten mevcut.");
+            }
+
+            Personnel _personnel = new()
+            {
+                TRIdNumber = createPersonnel.TRIdNumber,
+                Name = createPersonnel.Name,
+                Surname = createPersonnel.Surname,
+                RetiredId = createPersonnel.RetiredId,
+                InsuranceId = createPersonnel.InsuranceId,
+                StartDateOfWork = createPersonnel.StartDateOfWork,
+                TKIId = createPersonnel.TKIId,
+                Unit = createPersonnel.Unit,
+            };
+
+
+            await _personnelWriteRepository.AddAsync(_personnel);
+
+            // Değişiklikleri kaydedin
+            await _personnelWriteRepository.SaveAsync();
+
+            return true;
         }
 
         public Task<List<VM_List_Personnel>> GetAllPersonnelsAsync()
