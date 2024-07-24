@@ -29,8 +29,13 @@ public class GetAccidentByIdQueryHandler : IRequestHandler<GetAccidentByIdQueryR
                 {
                     Id = Convert.ToString(a.Id),
                     PersonnelId = Convert.ToString(a.PersonnelId),
+                    TRIdNumber = a.Personnel.TRIdNumber,
+                    TKIId = a.Personnel.TKIId,
+                    Name = a.Personnel.Name,
+                    Surname = a.Personnel.Surname,
                     TypeOfAccident = a.TypeOfAccident,
                     Limb = a.Limb,
+                    AccidentArea = a.AccidentArea,
                     AccidentDate = a.AccidentDate,
                     AccidentHour = a.AccidentHour,
                     OnTheJobDate = a.OnTheJobDate,

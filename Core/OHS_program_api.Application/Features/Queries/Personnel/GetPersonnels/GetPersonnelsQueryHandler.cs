@@ -22,17 +22,13 @@ namespace OHS_program_api.Application.Features.Queries.Personnel.GetPersonnels
                 {
                     p.Id,
                     p.TRIdNumber,
+                    p.TKIId,
                     p.Name,
                     p.Surname,
-                    p.RetiredId,
-                    p.InsuranceId,
                     p.StartDateOfWork,
-                    p.TypeOfPlace,
-                    p.TKIId,
-                    p.Unit,
-                    p.Certificate,
-                    p.TaskInstruction,
+                    p.Profession,
                     p.Accident,
+                    p.Directorate
                 }).ToList();
 
             return new()

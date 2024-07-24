@@ -22,6 +22,7 @@ namespace OHS_program_api.Application.Features.Commands.Safety.Accident.UpdateAc
                 AccidentDate = request.AccidentDate,
                 AccidentHour = request.AccidentHour,
                 TypeOfAccident = request.TypeOfAccident,
+                AccidentArea = request.AccidentArea,
                 Limb = request.Limb,
                 Description = request.Description,
                 OnTheJobDate = request.OnTheJobDate

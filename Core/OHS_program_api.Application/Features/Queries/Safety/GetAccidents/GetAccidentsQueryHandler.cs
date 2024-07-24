@@ -25,12 +25,14 @@ namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
                     p.AccidentHour,
                     p.TypeOfAccident,
                     p.Limb,
+                    p.AccidentArea,
                     p.OnTheJobDate,
                     p.Description,
                     p.PersonnelId,
                     p.Personnel.Name,
                     p.Personnel.Surname,
-                    p.Personnel.TRIdNumber
+                    p.Personnel.TRIdNumber,
+                    p.Personnel.TKIId
                 }).ToList();
 
             return new()

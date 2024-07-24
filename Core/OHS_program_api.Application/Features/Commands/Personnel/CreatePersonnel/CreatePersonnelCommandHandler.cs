@@ -21,13 +21,12 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.CreatePersonne
             var createPersonnel = new VM_Create_Personnel
             {
                 TRIdNumber = request.TRIdNumber,
+                TKIId = request.TKIId,
                 Name = request.Name,
                 Surname = request.Surname,
-                RetiredId = request.RetiredId,
-                InsuranceId = request.InsuranceId,
                 StartDateOfWork = request.StartDateOfWork,
-                TKIId = request.TKIId,
-                Unit = request.Unit,
+                Profession = request.Profession,
+                Directorate = request.Directorate,
             };
 
             await _personnelService.AddPersonnelAsync(createPersonnel);

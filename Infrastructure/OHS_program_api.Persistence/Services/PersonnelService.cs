@@ -2,12 +2,6 @@
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.ViewModels.Personnel;
 using OHS_program_api.Domain.Entities;
-using OHS_program_api.Domain.Entities.OccupationalSafety;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OHS_program_api.Persistence.Services
 {
@@ -35,15 +29,13 @@ namespace OHS_program_api.Persistence.Services
             Personnel _personnel = new()
             {
                 TRIdNumber = createPersonnel.TRIdNumber,
+                TKIId = createPersonnel.TKIId,
                 Name = createPersonnel.Name,
                 Surname = createPersonnel.Surname,
-                RetiredId = createPersonnel.RetiredId,
-                InsuranceId = createPersonnel.InsuranceId,
                 StartDateOfWork = createPersonnel.StartDateOfWork,
-                TKIId = createPersonnel.TKIId,
-                Unit = createPersonnel.Unit,
+                Profession = createPersonnel.Profession,
+                Directorate = createPersonnel.Directorate
             };
-
 
             await _personnelWriteRepository.AddAsync(_personnel);
 
@@ -80,12 +72,13 @@ namespace OHS_program_api.Persistence.Services
             {
                 _personnel.Id = new Guid(personnel.Id);
                 _personnel.TRIdNumber = personnel.TRIdNumber;
+                _personnel.TKIId = personnel.TKIId;
                 _personnel.Name = personnel.Name;
                 _personnel.Surname = personnel.Surname;
-                _personnel.RetiredId = personnel.RetiredId;
-                _personnel.InsuranceId = personnel.InsuranceId;
                 _personnel.StartDateOfWork = personnel.StartDateOfWork;
-                _personnel.TKIId = personnel.TKIId;
+                _personnel.Profession = personnel.Profession;
+                _personnel.Directorate = personnel.Directorate;
+
 
                 await _personnelWriteRepository.SaveAsync();
             }

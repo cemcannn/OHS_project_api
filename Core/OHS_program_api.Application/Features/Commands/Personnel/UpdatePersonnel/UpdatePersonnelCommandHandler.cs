@@ -20,12 +20,12 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.UpdatePersonne
             {
                 Id = request.Id,
                 TRIdNumber = request.TRIdNumber,
+                TKIId = request.TKIId,
                 Name = request.Name,
                 Surname = request.Surname,
-                RetiredId = request.RetiredId,
-                InsuranceId = request.InsuranceId,
                 StartDateOfWork = request.StartDateOfWork,
-                TKIId = request.TKIId,
+                Profession = request.Profession,
+                Directorate = request.Directorate
             };
 
             // Pass the VM_Update_Personnel instance to UpdatePersonnelAsync

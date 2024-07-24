@@ -143,6 +143,48 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.AccidentArea", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccidentAreas");
+                });
+
+            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.Directorate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Directorates");
+                });
+
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.Limb", b =>
                 {
                     b.Property<Guid>("Id")
@@ -177,60 +219,12 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfPlace")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Professions");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.Reason", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reasons");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.Site", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TypeOfPlace")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sites");
                 });
 
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfAccident", b =>
@@ -251,196 +245,7 @@ namespace OHSprogramapi.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeOfAccidents");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfAnalysis", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeOfAnalyses");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfCertificate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CertificateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CertificateId");
-
-                    b.ToTable("TypeOfCertificates");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfDisease", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("OccupationalDiseaseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OccupationalDiseaseId");
-
-                    b.ToTable("TypeOfDiseases");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfExamination", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("HealthSurveillanceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Period")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HealthSurveillanceId");
-
-                    b.ToTable("TypeOfExaminations");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfReport", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeOfReports");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfSafetyEquipment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeOfEquipments");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfWorkEquipment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Period")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeOfWorkEquipments");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.Unit", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Units");
+                    b.ToTable("TypeOfAccident");
                 });
 
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Identity.AppRole", b =>
@@ -604,124 +409,14 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.ToTable("Menus");
                 });
 
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.HealthPersonnel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("PersonnelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonnelId");
-
-                    b.ToTable("HealthPersonnels");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.HealthSurveillance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExaminationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TypeOfExaminationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HealthSurveillances");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.OccupationalDisease", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("NotificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("OnTheJobDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TypeOfDiseaseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OccupationalDiseases");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.WorkplaceTestAndAnalysis", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("AnalysisDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TypeOfAnalysisId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TypeOfAnalysisId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("WorkplaceTestAndAnalyses");
-                });
-
             modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.Accident", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AccidentArea")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("AccidentDate")
                         .HasColumnType("datetime2");
@@ -757,206 +452,6 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.ToTable("Accidents");
                 });
 
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.ActualWageAndPersonnelNumber", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ApprenticeActualWageNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ApprenticeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("InternActualWageNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InternNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Month")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OfficerNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SalableProduction")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeOfPlace")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("WageEmployeeActualWageNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WagePersonNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Year")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ActualWageAndPersonnelNumbers");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.OHSComittee", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Hour")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("OHSComittees");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.PeriodicControl", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CheckDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TypeOfWorkEquipmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TypeOfWorkEquipmentId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("PeriodicControls");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.SafetyEquipment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("GivenDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TypeOfSafetyEquipmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TypeOfSafetyEquipmentId");
-
-                    b.ToTable("SafetyEquipments");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.SafetyExpert", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("HazardClass")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsBidAssignment")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TRIdNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalAmount")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("TypeOfCertificateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UnitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("UnitPrice")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("WorkPlaceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TypeOfCertificateId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("SafetyExperts");
-                });
-
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Personnel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -966,23 +461,17 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<Guid?>("AccidentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CertificateId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("InsuranceId")
+                    b.Property<string>("Directorate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProfessionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RetiredId")
+                    b.Property<string>("Profession")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("StartDateOfWork")
@@ -996,97 +485,14 @@ namespace OHSprogramapi.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TRIdNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TaskInstructionID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("TypeOfPlace")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProfessionId");
 
                     b.ToTable("Personnels");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Trainings.Certificate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PersonnelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("TakenDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TypeOfCertificateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonnelId");
-
-                    b.ToTable("Certificates");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Trainings.TaskInstruction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("BornDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PersonnelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartDateOfWork")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonnelId");
-
-                    b.ToTable("TaskInstructions");
                 });
 
             modelBuilder.Entity("AppRoleEndpoint", b =>
@@ -1155,27 +561,6 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfCertificate", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Trainings.Certificate", null)
-                        .WithMany("TypeOfCertificates")
-                        .HasForeignKey("CertificateId");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfDisease", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.OccupationalHealth.OccupationalDisease", null)
-                        .WithMany("TypeOfDisease")
-                        .HasForeignKey("OccupationalDiseaseId");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Definitions.TypeOfExamination", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.OccupationalHealth.HealthSurveillance", null)
-                        .WithMany("TypeOfExamination")
-                        .HasForeignKey("HealthSurveillanceId");
-                });
-
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Identity.Endpoint", b =>
                 {
                     b.HasOne("OHS_program_api.Domain.Entities.Menu", "Menu")
@@ -1185,36 +570,6 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.HealthPersonnel", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Personnel", "Personnel")
-                        .WithMany()
-                        .HasForeignKey("PersonnelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Personnel");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.WorkplaceTestAndAnalysis", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.TypeOfAnalysis", "TypeOfAnalysis")
-                        .WithMany()
-                        .HasForeignKey("TypeOfAnalysisId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TypeOfAnalysis");
-
-                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.Accident", b =>
@@ -1228,124 +583,14 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Navigation("Personnel");
                 });
 
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.OHSComittee", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.PeriodicControl", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.TypeOfWorkEquipment", "TypeOfWorkEquipment")
-                        .WithMany()
-                        .HasForeignKey("TypeOfWorkEquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TypeOfWorkEquipment");
-
-                    b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.SafetyEquipment", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.TypeOfSafetyEquipment", "TypeOfEquipment")
-                        .WithMany()
-                        .HasForeignKey("TypeOfSafetyEquipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TypeOfEquipment");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalSafety.SafetyExpert", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.TypeOfCertificate", "TypeOfCertificate")
-                        .WithMany()
-                        .HasForeignKey("TypeOfCertificateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TypeOfCertificate");
-
-                    b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Personnel", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Definitions.Profession", "Profession")
-                        .WithMany()
-                        .HasForeignKey("ProfessionId");
-
-                    b.Navigation("Profession");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Trainings.Certificate", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Personnel", "Personnel")
-                        .WithMany("Certificate")
-                        .HasForeignKey("PersonnelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Personnel");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Trainings.TaskInstruction", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Personnel", "Personnel")
-                        .WithMany("TaskInstruction")
-                        .HasForeignKey("PersonnelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Personnel");
-                });
-
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Menu", b =>
                 {
                     b.Navigation("Endpoints");
                 });
 
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.HealthSurveillance", b =>
-                {
-                    b.Navigation("TypeOfExamination");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.OccupationalHealth.OccupationalDisease", b =>
-                {
-                    b.Navigation("TypeOfDisease");
-                });
-
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Personnel", b =>
                 {
                     b.Navigation("Accident");
-
-                    b.Navigation("Certificate");
-
-                    b.Navigation("TaskInstruction");
-                });
-
-            modelBuilder.Entity("OHS_program_api.Domain.Entities.Trainings.Certificate", b =>
-                {
-                    b.Navigation("TypeOfCertificates");
                 });
 #pragma warning restore 612, 618
         }

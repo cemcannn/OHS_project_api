@@ -46,6 +46,7 @@ namespace OHS_program_api.Persistence.Services.Safety
                 PersonnelId = personnel.Id,
                 TypeOfAccident = createAccident.TypeOfAccident,
                 Limb = createAccident.Limb,
+                AccidentArea = createAccident.AccidentArea,
                 AccidentDate = createAccident.AccidentDate,
                 AccidentHour = createAccident.AccidentHour,
                 OnTheJobDate = createAccident.OnTheJobDate,
@@ -90,6 +91,7 @@ namespace OHS_program_api.Persistence.Services.Safety
                 _accident.AccidentHour = accident.AccidentHour;
                 _accident.TypeOfAccident = accident.TypeOfAccident;
                 _accident.Limb = accident.Limb;
+                _accident.AccidentArea = accident.AccidentArea;
                 _accident.OnTheJobDate = accident.OnTheJobDate;
                 _accident.Description = accident.Description;
 

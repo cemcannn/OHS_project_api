@@ -21,6 +21,7 @@ namespace OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAc
                 PersonnelId = request.PersonnelId.ToString(),
                 TypeOfAccident = request.TypeOfAccident,
                 Limb = request.Limb,
+                AccidentArea = request.AccidentArea,
                 AccidentDate = request.AccidentDate,
                 AccidentHour = request.AccidentHour,
                 OnTheJobDate = request.OnTheJobDate,
