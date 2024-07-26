@@ -38,7 +38,7 @@ public class GetAccidentByIdQueryHandler : IRequestHandler<GetAccidentByIdQueryR
                     AccidentArea = a.AccidentArea,
                     AccidentDate = a.AccidentDate,
                     AccidentHour = a.AccidentHour,
-                    OnTheJobDate = a.OnTheJobDate,
+                    ReportDay = a.ReportDay,
                     Description = a.Description
                 })
                 .ToList();

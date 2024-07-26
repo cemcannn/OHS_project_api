@@ -24,7 +24,7 @@ namespace OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAc
                 AccidentArea = request.AccidentArea,
                 AccidentDate = request.AccidentDate,
                 AccidentHour = request.AccidentHour,
-                OnTheJobDate = request.OnTheJobDate,
+                ReportDay = request.ReportDay,
                 Description = request.Description
 
             });

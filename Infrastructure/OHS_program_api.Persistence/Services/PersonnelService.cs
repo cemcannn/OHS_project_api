@@ -32,7 +32,7 @@ namespace OHS_program_api.Persistence.Services
                 TKIId = createPersonnel.TKIId,
                 Name = createPersonnel.Name,
                 Surname = createPersonnel.Surname,
-                StartDateOfWork = createPersonnel.StartDateOfWork,
+                BornDate = createPersonnel.BornDate,
                 Profession = createPersonnel.Profession,
                 Directorate = createPersonnel.Directorate
             };
@@ -75,7 +75,7 @@ namespace OHS_program_api.Persistence.Services
                 _personnel.TKIId = personnel.TKIId;
                 _personnel.Name = personnel.Name;
                 _personnel.Surname = personnel.Surname;
-                _personnel.StartDateOfWork = personnel.StartDateOfWork;
+                _personnel.BornDate = personnel.BornDate;
                 _personnel.Profession = personnel.Profession;
                 _personnel.Directorate = personnel.Directorate;
 

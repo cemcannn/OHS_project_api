@@ -25,7 +25,7 @@ namespace OHS_program_api.Application.Features.Queries.Personnel.GetPersonnels
                     p.TKIId,
                     p.Name,
                     p.Surname,
-                    p.StartDateOfWork,
+                    p.BornDate,
                     p.Profession,
                     p.Accident,
                     p.Directorate

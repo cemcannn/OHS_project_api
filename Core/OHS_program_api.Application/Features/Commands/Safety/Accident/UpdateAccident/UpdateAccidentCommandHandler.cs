@@ -25,7 +25,7 @@ namespace OHS_program_api.Application.Features.Commands.Safety.Accident.UpdateAc
                 AccidentArea = request.AccidentArea,
                 Limb = request.Limb,
                 Description = request.Description,
-                OnTheJobDate = request.OnTheJobDate
+                ReportDay = request.ReportDay
             };
 
             // Pass the VM_Update_Accident instance to UpdateAccidentAsync

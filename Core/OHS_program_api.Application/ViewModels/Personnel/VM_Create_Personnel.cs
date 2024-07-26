@@ -8,7 +8,7 @@ namespace OHS_program_api.Application.ViewModels.Personnel
         public string? TKIId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public DateTime? StartDateOfWork { get; set; }
+        public DateTime? BornDate { get; set; }
         public string? Profession { get; set; }
         public string? Directorate { get; set; }
         public Guid? AccidentId { get; set; }

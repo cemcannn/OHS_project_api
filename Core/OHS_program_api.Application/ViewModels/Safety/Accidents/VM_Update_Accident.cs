@@ -8,7 +8,7 @@
         public string AccidentArea { get; set; }
         public DateTime? AccidentDate { get; set; }
         public string? AccidentHour { get; set; }
-        public DateTime? OnTheJobDate { get; set; }
+        public string? ReportDay { get; set; }
         public string? Description { get; set; }
     }
 }

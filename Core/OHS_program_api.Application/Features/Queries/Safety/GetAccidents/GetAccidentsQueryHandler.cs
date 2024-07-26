@@ -26,7 +26,7 @@ namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
                     p.TypeOfAccident,
                     p.Limb,
                     p.AccidentArea,
-                    p.OnTheJobDate,
+                    p.ReportDay,
                     p.Description,
                     p.PersonnelId,
                     p.Personnel.Name,

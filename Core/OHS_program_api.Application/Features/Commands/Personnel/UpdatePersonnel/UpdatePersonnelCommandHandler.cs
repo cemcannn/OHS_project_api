@@ -23,7 +23,7 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.UpdatePersonne
                 TKIId = request.TKIId,
                 Name = request.Name,
                 Surname = request.Surname,
-                StartDateOfWork = request.StartDateOfWork,
+                BornDate = request.BornDate,
                 Profession = request.Profession,
                 Directorate = request.Directorate
             };

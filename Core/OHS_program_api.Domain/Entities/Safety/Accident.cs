@@ -12,7 +12,7 @@ namespace OHS_program_api.Domain.Entities.OccupationalSafety
         public string? AccidentArea { get; set; }
         public string? TypeOfAccident { get; set; }
         public string? Limb { get; set; }
-        public DateTime? OnTheJobDate { get; set; }
+        public string? ReportDay { get; set; }
         public string? Description { get; set; }
 
     }

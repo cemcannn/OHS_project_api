@@ -1,15 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OHS_program_api.Application.Abstractions.Services.Safety;
+﻿using OHS_program_api.Application.Abstractions.Services.Safety;
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
 using OHS_program_api.Application.ViewModels.Safety.Accidents;
 using OHS_program_api.Domain.Entities;
 using OHS_program_api.Domain.Entities.OccupationalSafety;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OHS_program_api.Persistence.Services.Safety
 {
@@ -49,7 +43,7 @@ namespace OHS_program_api.Persistence.Services.Safety
                 AccidentArea = createAccident.AccidentArea,
                 AccidentDate = createAccident.AccidentDate,
                 AccidentHour = createAccident.AccidentHour,
-                OnTheJobDate = createAccident.OnTheJobDate,
+                ReportDay = createAccident.ReportDay,
                 Description = createAccident.Description
             };
 
@@ -92,7 +86,7 @@ namespace OHS_program_api.Persistence.Services.Safety
                 _accident.TypeOfAccident = accident.TypeOfAccident;
                 _accident.Limb = accident.Limb;
                 _accident.AccidentArea = accident.AccidentArea;
-                _accident.OnTheJobDate = accident.OnTheJobDate;
+                _accident.ReportDay = accident.ReportDay;
                 _accident.Description = accident.Description;
 
                 await _accidentWriteRepository.SaveAsync();
