@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
 
-namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
+namespace OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccidents
 {
     public class GetAccidentsQueryHandler : IRequestHandler<GetAccidentsQueryRequest, GetAccidentsQueryResponse>
     {

@@ -1,4 +1,4 @@
-﻿namespace OHS_program_api.Application.Features.Queries.Safety.GetAccidents
+﻿namespace OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccidentById
 {
     public class GetAccidentByIdQueryResponse
     {

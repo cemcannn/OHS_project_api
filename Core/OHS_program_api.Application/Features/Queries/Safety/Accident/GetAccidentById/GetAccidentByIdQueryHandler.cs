@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Features.Queries.Safety.GetAccidents;
+using OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccidentById;
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.ViewModels.Safety.Accidents;
 

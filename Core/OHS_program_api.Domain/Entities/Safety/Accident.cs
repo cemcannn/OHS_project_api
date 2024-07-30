@@ -1,5 +1,4 @@
 ﻿using OHS_program_api.Domain.Entities.Common;
-using OHS_program_api.Domain.Entities.Definitions;
 
 namespace OHS_program_api.Domain.Entities.OccupationalSafety
 {

@@ -5,7 +5,8 @@ using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAccident;
 using OHS_program_api.Application.Features.Commands.Safety.Accident.DeleteAccident;
 using OHS_program_api.Application.Features.Commands.Safety.Accident.UpdateAccident;
-using OHS_program_api.Application.Features.Queries.Safety.GetAccidents;
+using OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccidentById;
+using OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccidents;
 
 namespace OHS_program_api.API.Controllers
 {

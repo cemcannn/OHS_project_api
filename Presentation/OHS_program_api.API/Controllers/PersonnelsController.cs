@@ -50,7 +50,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Personnel", Menu = "Accidents")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Personnel", Menu = "Personnels")]
         public async Task<IActionResult> UpdatePersonnel([FromBody] UpdatePersonnelCommandRequest updatePersonnelCommandRequest)
         {
             UpdatePersonnelCommandResponse response = await _mediator.Send(updatePersonnelCommandRequest);
