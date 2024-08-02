@@ -1,10 +1,8 @@
-﻿using MediatR;
-using OHS_program_api.Domain.Entities.Definitions;
-using OHS_program_api.Domain.Entities;
+﻿using OHS_program_api.Domain.Entities;
 
-namespace OHS_program_api.Application.Features.Commands.Safety.Accident.CreateAccident
+namespace OHS_program_api.Application.ViewModels.Safety.Accidents
 {
-    public class CreateAccidentCommandRequest : IRequest<CreateAccidentCommandResponse>
+    public class VM_Create_Accident
     {
         public string PersonnelId { get; set; }
         public string TypeOfAccident { get; set; }

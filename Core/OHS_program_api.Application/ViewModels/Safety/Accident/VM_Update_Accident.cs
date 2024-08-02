@@ -1,13 +1,11 @@
-﻿using MediatR;
-
-namespace OHS_program_api.Application.Features.Commands.Safety.Accident.UpdateAccident
+﻿namespace OHS_program_api.Application.ViewModels.Safety.Accidents
 {
-    public class UpdateAccidentCommandRequest : IRequest<UpdateAccidentCommandResponse>
+    public class VM_Update_Accident
     {
         public string Id { get; set; }
         public string TypeOfAccident { get; set; }
         public string Limb {  get; set; }
-        public string? AccidentArea { get; set; }
+        public string AccidentArea { get; set; }
         public DateTime? AccidentDate { get; set; }
         public string? AccidentHour { get; set; }
         public string? LostDayOfWork { get; set; }

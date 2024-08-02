@@ -11,8 +11,7 @@ using OHS_program_api.Application.Repositories.Definition.LimbRepository;
 using OHS_program_api.Application.Repositories.Definition.ProfessionRepository;
 using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
 using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
-using OHS_program_api.Application.Repositories.Safety.ActualDailyWageRepository;
-using OHS_program_api.Application.Repositories.Safety.ActualWageRepository;
+using OHS_program_api.Application.Repositories.Safety.AccidentStatisticRepository;
 using OHS_program_api.Domain.Entities.Identity;
 using OHS_program_api.Persistence.Contexts;
 using OHS_program_api.Persistence.Repositories;
@@ -24,7 +23,7 @@ using OHS_program_api.Persistence.Repositories.Definition.TypeOfAccidentReposito
 using OHS_program_api.Persistence.Repositories.Endpoint;
 using OHS_program_api.Persistence.Repositories.Menu;
 using OHS_program_api.Persistence.Repositories.Safety.AccidentRepository;
-using OHS_program_api.Persistence.Repositories.Safety.ActualDailyWageRepository;
+using OHS_program_api.Persistence.Repositories.Safety.AccidentStatisticRepository;
 using OHS_program_api.Persistence.Services;
 using OHS_program_api.Persistence.Services.Safety;
 
@@ -63,18 +62,16 @@ namespace OHS_program_api.Persistence
             services.AddScoped<IDirectorateWriteRepository, DirectorateWriteRepository>();
             services.AddScoped<IAccidentAreaReadRepository, AccidentAreaReadRepository>();
             services.AddScoped<IAccidentAreaWriteRepository, AccidentAreaWriteRepository>();
-            services.AddScoped<IActualDailyWageReadRepository, ActualDailyWageReadRepository>();
-            services.AddScoped<IActualDailyWageWriteRepository, ActualDailyWageWriteRepository>();
+            services.AddScoped<IAccidentStatisticReadRepository, AccidentStatisticReadRepository>();
+            services.AddScoped<IAccidentStatisticWriteRepository, AccidentStatisticWriteRepository>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
-            //services.AddScoped<IExternalAuthentication, AuthService>();
             services.AddScoped<IInternalAuthentication, AuthService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IPersonnelService, PersonnelService>();
             services.AddScoped<IAuthorizationEndpointService, AuthorizationEndpointService>();
             services.AddScoped<IAccidentService, AccidentService>();
-
         }
     }
 }

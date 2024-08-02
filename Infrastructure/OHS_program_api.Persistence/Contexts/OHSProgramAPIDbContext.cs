@@ -23,7 +23,7 @@ namespace OHS_program_api.Persistence.Contexts
         public DbSet<Accident> Accidents { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Endpoint> Endpoints { get; set; }
-        public DbSet<ActualDailyWage> ActualDailyWages { get; set; }
+        public DbSet<AccidentStatistic> AccidentStatistics { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

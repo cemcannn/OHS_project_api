@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OHS_program_api.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    partial class OHSProgramAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240802163214_mig-16")]
+    partial class mig16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -499,11 +502,11 @@ namespace OHSprogramapi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ActualDailyWageSurface")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("ActualDailyWageSurface")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("ActualDailyWageUnderground")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("ActualDailyWageUnderground")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -511,11 +514,11 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<string>("Directorate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmployeesNumberSurface")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("EmployeesNumberSurface")
+                        .HasColumnType("int");
 
-                    b.Property<string>("EmployeesNumberUnderground")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("EmployeesNumberUnderground")
+                        .HasColumnType("int");
 
                     b.Property<string>("Month")
                         .HasColumnType("nvarchar(max)");

@@ -43,7 +43,7 @@ namespace OHS_program_api.Persistence.Services.Safety
                 AccidentArea = createAccident.AccidentArea,
                 AccidentDate = createAccident.AccidentDate,
                 AccidentHour = createAccident.AccidentHour,
-                ReportDay = createAccident.ReportDay,
+                LostDayOfWork = createAccident.LostDayOfWork,
                 Description = createAccident.Description
             };
 
@@ -66,7 +66,7 @@ namespace OHS_program_api.Persistence.Services.Safety
             throw new NotImplementedException();
         }
 
-        public Task<VM_List_Accident> GetOrderByIdAsync(string id)
+        public Task<VM_List_Accident> GetAccidentByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -86,7 +86,7 @@ namespace OHS_program_api.Persistence.Services.Safety
                 _accident.TypeOfAccident = accident.TypeOfAccident;
                 _accident.Limb = accident.Limb;
                 _accident.AccidentArea = accident.AccidentArea;
-                _accident.ReportDay = accident.ReportDay;
+                _accident.LostDayOfWork = accident.LostDayOfWork;
                 _accident.Description = accident.Description;
 
                 await _accidentWriteRepository.SaveAsync();
