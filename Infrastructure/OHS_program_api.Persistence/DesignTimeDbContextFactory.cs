@@ -9,7 +9,7 @@ namespace OHS_program_api.Persistence
         public OHSProgramAPIDbContext CreateDbContext(string[] args)
         {
             DbContextOptionsBuilder<OHSProgramAPIDbContext> dbContextOptionsBuilder = new();
-            dbContextOptionsBuilder.UseSqlServer(Configurations.ConnectionString);
+            dbContextOptionsBuilder.UseNpgsql(Configurations.ConnectionString);
             return new OHSProgramAPIDbContext(dbContextOptionsBuilder.Options);
         }
     }

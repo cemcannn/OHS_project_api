@@ -12,7 +12,7 @@ namespace OHS_program_api.Persistence
                 configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/OHS_program_api.API"));
                 configurationManager.AddJsonFile("appsettings.json");
 
-                return configurationManager.GetConnectionString("SqlServer");
+                return configurationManager.GetConnectionString("PostgreSQL");
             }
         }
     }

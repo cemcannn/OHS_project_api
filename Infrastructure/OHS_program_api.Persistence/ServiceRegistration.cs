@@ -33,7 +33,7 @@ namespace OHS_program_api.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddDbContext<OHSProgramAPIDbContext>(options => options.UseSqlServer(Configurations.ConnectionString));
+            services.AddDbContext<OHSProgramAPIDbContext>(options => options.UseNpgsql(Configurations.ConnectionString));
             services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Password.RequiredLength = 3;

@@ -13,20 +13,24 @@ using Serilog.Context;
 using OHS_program_api.Infrastructure;
 using OHS_program_api.Infrastructure.Services.Storage.Azure;
 using OHS_program_api.Infrastructure.Services.Storage.Local;
+using OHS_program_api.SignalR;
 using OHS_program_api.API.Extensions;
-using Microsoft.AspNetCore.Builder;
 using OHS_program_api.API.Filters;
 using OHS_program_api.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
 using OHS_program_api.Application.Validators.Personnels;
+using NpgsqlTypes;
+using Serilog.Sinks.PostgreSQL;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();//Client'tan gelen request neticvesinde oluþturulan HttpContext nesnesine katmanlardaki class'lar üzerinden(busineess logic) eriþebilmemizi saðlayan bir servistir.
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddSignalRServices();
 builder.Services.AddStorage<LocalStorage>();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
@@ -50,6 +54,18 @@ Logger log = new LoggerConfiguration()
 //                new SqlColumn {ColumnName = "user_name", DataType = System.Data.SqlDbType.NVarChar, DataLength = 256}
 //            }
 //        })
+    .WriteTo.PostgreSQL(builder.Configuration.GetConnectionString("PostgreSQL"), "logs",
+        needAutoCreateTable: true,
+        columnOptions: new Dictionary<string, ColumnWriterBase>
+        {
+            {"message", new RenderedMessageColumnWriter(NpgsqlDbType.Text)},
+            {"message_template", new MessageTemplateColumnWriter(NpgsqlDbType.Text)},
+            {"level", new LevelColumnWriter(true , NpgsqlDbType.Varchar)},
+            {"time_stamp", new TimestampColumnWriter(NpgsqlDbType.Timestamp)},
+            {"exception", new ExceptionColumnWriter(NpgsqlDbType.Text)},
+            {"log_event", new LogEventSerializedColumnWriter(NpgsqlDbType.Json)},
+            {"user_name", new UsernameColumnWriter()}
+        })
     .WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
     .Enrich.FromLogContext()
     .MinimumLevel.Information()
@@ -124,5 +140,5 @@ app.Use(async (context, next) =>
 });
 
 app.MapControllers();
-
+app.MapHubs();
 app.Run();

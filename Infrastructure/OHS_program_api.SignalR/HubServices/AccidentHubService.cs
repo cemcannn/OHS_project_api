@@ -14,8 +14,6 @@ namespace OHS_program_api.SignalR.HubServices
         }
 
         public async Task AccidentAddedMessageAsync(string message)
-        {
-            await _hubContext.Clients.All.SendAsync(ReceiveFunctionNames.AccidentAddedMessage, message);
-        }
+            => await _hubContext.Clients.All.SendAsync(ReceiveFunctionNames.AccidentAddedMessage, message);
     }
 }
