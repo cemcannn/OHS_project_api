@@ -24,7 +24,7 @@ namespace OHS_program_api.API.Controllers
             _mailService = mailService;
         }
 
-        [HttpPost("create-user")]
+        [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommandRequest createUserCommandRequest)
         {
             CreateUserCommandResponse response = await _mediator.Send(createUserCommandRequest);
@@ -38,9 +38,7 @@ namespace OHS_program_api.API.Controllers
             return Ok(response);
         }
 
-
-
-        [HttpGet("get-all-users")]
+        [HttpGet]
         //[Authorize(AuthenticationSchemes = "Admin")]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Users", Menu = "Users")]
         public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)

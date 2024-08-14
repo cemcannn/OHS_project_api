@@ -66,11 +66,9 @@ namespace OHS_program_api.Persistence.Services
             }
         }
 
-        public async Task<List<ListUser>> GetAllUsersAsync(int page, int size)
+        public async Task<List<ListUser>> GetAllUsersAsync()
         {
             var users = await _userManager.Users
-                  .Skip(page * size)
-                  .Take(size)
                   .ToListAsync();
 
             return users.Select(user => new ListUser

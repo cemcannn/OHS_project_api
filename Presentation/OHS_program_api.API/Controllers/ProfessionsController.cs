@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;

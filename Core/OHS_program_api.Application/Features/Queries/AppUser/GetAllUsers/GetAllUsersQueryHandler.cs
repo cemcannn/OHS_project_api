@@ -1,10 +1,5 @@
 ﻿using MediatR;
 using OHS_program_api.Application.Abstractions.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OHS_program_api.Application.Features.Queries.AppUser.GetAllUsers
 {
@@ -19,7 +14,7 @@ namespace OHS_program_api.Application.Features.Queries.AppUser.GetAllUsers
 
         public async Task<GetAllUsersQueryResponse> Handle(GetAllUsersQueryRequest request, CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAllUsersAsync(request.Page, request.Size);
+            var users = await _userService.GetAllUsersAsync();
             return new()
             {
                 Users = users,
