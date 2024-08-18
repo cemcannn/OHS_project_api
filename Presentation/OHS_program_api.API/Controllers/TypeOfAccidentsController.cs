@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Definition.TypeOfAccident.CreateTypeOfAccident;
@@ -25,7 +26,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Type Of Accident By Id", Menu = "TypeOfAccidents")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Type Of Accident By Id", Menu = AuthorizeDefinitionConstants.TypeOfAccidents)]
         public async Task<IActionResult> GetTypeOfAccident([FromRoute] GetTypeOfAccidentByIdQueryRequest getTypeOfAccidentByIdQueryRequest)
         {
             GetTypeOfAccidentByIdQueryResponse response = await _mediator.Send(getTypeOfAccidentByIdQueryRequest);
@@ -33,7 +34,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Type Of Accidents", Menu = "TypeOfAccidents")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Type Of Accidents", Menu = AuthorizeDefinitionConstants.TypeOfAccidents)]
         public async Task<IActionResult> GetTypeOfAccidents([FromQuery] GetTypeOfAccidentsQueryRequest GetTypeOfAccidentsQueryRequest)
         {
             GetTypeOfAccidentsQueryResponse response = await _mediator.Send(GetTypeOfAccidentsQueryRequest);
@@ -41,7 +42,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost()]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Type Of Accident", Menu = "TypeOfAccidents")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Type Of Accident", Menu = AuthorizeDefinitionConstants.TypeOfAccidents)]
         public async Task<IActionResult> CreateTypeOfAccident([FromBody] CreateTypeOfAccidentCommandRequest createTypeOfAccidentCommandRequest)
         {
             CreateTypeOfAccidentCommandResponse response = await _mediator.Send(createTypeOfAccidentCommandRequest);
@@ -49,7 +50,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Type Of Accident", Menu = "TypeOfAccidents")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Type Of Accident", Menu = AuthorizeDefinitionConstants.TypeOfAccidents)]
         public async Task<IActionResult> UpdateTypeOfAccident([FromBody] UpdateTypeOfAccidentCommandRequest updateTypeOfAccidentCommandRequest)
         {
             UpdateTypeOfAccidentCommandResponse response = await _mediator.Send(updateTypeOfAccidentCommandRequest);
@@ -57,7 +58,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Type Of Accident", Menu = "TypeOfAccidents")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Type Of Accident", Menu = AuthorizeDefinitionConstants.TypeOfAccidents)]
         public async Task<IActionResult> DeleteTypeOfAccident([FromRoute] RemoveTypeOfAccidentCommandRequest removeTypeOfAccidentCommandRequest)
         {
             RemoveTypeOfAccidentCommandResponse response = await _mediator.Send(removeTypeOfAccidentCommandRequest);

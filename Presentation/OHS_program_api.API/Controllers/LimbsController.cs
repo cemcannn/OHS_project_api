@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Definition.Limb.CreateLimb;
@@ -14,6 +15,7 @@ namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class LimbsController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -26,7 +28,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Limb By Id", Menu = "Limbs")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Limb By Id", Menu = AuthorizeDefinitionConstants.Limbs)]
         public async Task<IActionResult> GetLimb([FromRoute] GetLimbByIdQueryRequest getLimbByIdQueryRequest)
         {
             GetLimbByIdQueryResponse response = await _mediator.Send(getLimbByIdQueryRequest);
@@ -34,7 +36,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Limbs", Menu = "Limbs")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Limbs", Menu = AuthorizeDefinitionConstants.Limbs)]
         public async Task<IActionResult> GetLimbs([FromQuery] GetLimbsQueryRequest GetLimbsQueryRequest)
         {
             GetLimbsQueryResponse response = await _mediator.Send(GetLimbsQueryRequest);
@@ -42,7 +44,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost()]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Limb", Menu = "Limbs")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Limb", Menu = AuthorizeDefinitionConstants.Limbs)]
         public async Task<IActionResult> CreateLimb([FromBody] CreateLimbCommandRequest createLimbCommandRequest)
         {
             CreateLimbCommandResponse response = await _mediator.Send(createLimbCommandRequest);
@@ -50,7 +52,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Limb", Menu = "Limbs")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Limb", Menu = AuthorizeDefinitionConstants.Limbs)]
         public async Task<IActionResult> UpdateLimb([FromBody] UpdateLimbCommandRequest updateLimbCommandRequest)
         {
             UpdateLimbCommandResponse response = await _mediator.Send(updateLimbCommandRequest);
@@ -58,7 +60,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Limb", Menu = "Limbs")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Limb", Menu = AuthorizeDefinitionConstants.Limbs)]
         public async Task<IActionResult> DeleteLimb([FromRoute] RemoveLimbCommandRequest removeLimbCommandRequest)
         {
             RemoveLimbCommandResponse response = await _mediator.Send(removeLimbCommandRequest);

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Definition.Profession.CreateProfession;
@@ -26,7 +27,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Profession By Id", Menu = "Professions")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Profession By Id", Menu = AuthorizeDefinitionConstants.Professions)]
         public async Task<IActionResult> GetProfession([FromRoute] GetProfessionByIdQueryRequest getProfessionByIdQueryRequest)
         {
             GetProfessionByIdQueryResponse response = await _mediator.Send(getProfessionByIdQueryRequest);
@@ -34,7 +35,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Professions", Menu = "Professions")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Professions", Menu = AuthorizeDefinitionConstants.Professions)]
         public async Task<IActionResult> GetProfessions([FromQuery] GetProfessionsQueryRequest GetProfessionsQueryRequest)
         {
             GetProfessionsQueryResponse response = await _mediator.Send(GetProfessionsQueryRequest);
@@ -42,7 +43,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost()]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Profession", Menu = "Professions")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Profession", Menu = AuthorizeDefinitionConstants.Professions)]
         public async Task<IActionResult> CreateProfession([FromBody] CreateProfessionCommandRequest createProfessionCommandRequest)
         {
             CreateProfessionCommandResponse response = await _mediator.Send(createProfessionCommandRequest);
@@ -50,7 +51,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Profession", Menu = "Professions")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Profession", Menu = AuthorizeDefinitionConstants.Professions)]
         public async Task<IActionResult> UpdateProfession([FromBody] UpdateProfessionCommandRequest updateProfessionCommandRequest)
         {
             UpdateProfessionCommandResponse response = await _mediator.Send(updateProfessionCommandRequest);
@@ -58,7 +59,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Profession", Menu = "Professions")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Profession", Menu = AuthorizeDefinitionConstants.Professions)]
         public async Task<IActionResult> DeleteProfession([FromRoute] RemoveProfessionCommandRequest removeProfessionCommandRequest)
         {
             RemoveProfessionCommandResponse response = await _mediator.Send(removeProfessionCommandRequest);

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Personnel.CreatePersonnel;
@@ -26,7 +27,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Personnels", Menu = "Personnels")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Personnels", Menu = AuthorizeDefinitionConstants.Personnels)]
         public async Task<IActionResult> GetAllPersonnels([FromQuery] GetPersonnelsQueryRequest getPersonnelsQueryRequest)
         {
             GetPersonnelsQueryResponse response = await _mediator.Send(getPersonnelsQueryRequest);
@@ -35,7 +36,7 @@ namespace OHS_program_api.API.Controllers
 
         [HttpPost]
         //[Authorize(AuthenticationSchemes = "Admin")]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Personnel", Menu = "Personnels")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Personnel", Menu = AuthorizeDefinitionConstants.Personnels)]
         public async Task<IActionResult> Post(CreatePersonnelCommandRequest createPersonnelCommandRequest)
         {
             CreatePersonnelCommandResponse response = await _mediator.Send(createPersonnelCommandRequest);
@@ -43,7 +44,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Remove Personnel", Menu = "Personnels")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Remove Personnel", Menu = AuthorizeDefinitionConstants.Personnels)]
         public async Task<IActionResult> RemovePersonnel([FromRoute] RemovePersonnelCommandRequest removePersonnelCommandRequest)
         {
             RemovePersonnelCommandResponse response = await _mediator.Send(removePersonnelCommandRequest);
@@ -51,7 +52,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Personnel", Menu = "Personnels")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Personnel", Menu = AuthorizeDefinitionConstants.Personnels)]
         public async Task<IActionResult> UpdatePersonnel([FromBody] UpdatePersonnelCommandRequest updatePersonnelCommandRequest)
         {
             UpdatePersonnelCommandResponse response = await _mediator.Send(updatePersonnelCommandRequest);
@@ -59,7 +60,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         //[HttpGet("{Id}")]
-        //[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Personnel By Id", Menu = "Personnels")]
+        //[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Personnel By Id", Menu = AuthorizeDefinitionConstants.Personnels)]
         //public async Task<IActionResult> GetPersonnel([FromRoute] GetPersonnelByIdQueryRequest getPersonnelsByIdQueryRequest)
         //{
         //    GetPersonnelByIdQueryResponse response = await _mediator.Send(getPersonnelsByIdQueryRequest);

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Definition.Directorate.CreateDirectorate;
@@ -14,6 +15,7 @@ namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class DirectoratesController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -26,7 +28,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Directorate By Id", Menu = "Directorates")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Directorate By Id", Menu = AuthorizeDefinitionConstants.Directorates)]
         public async Task<IActionResult> GetDirectorate([FromRoute] GetDirectorateByIdQueryRequest getDirectorateByIdQueryRequest)
         {
             GetDirectorateByIdQueryResponse response = await _mediator.Send(getDirectorateByIdQueryRequest);
@@ -34,7 +36,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Directorates", Menu = "Directorates")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Directorates", Menu = AuthorizeDefinitionConstants.Directorates)]
         public async Task<IActionResult> GetDirectorates([FromQuery] GetDirectoratesQueryRequest GetDirectoratesQueryRequest)
         {
             GetDirectoratesQueryResponse response = await _mediator.Send(GetDirectoratesQueryRequest);
@@ -42,7 +44,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost()]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Directorate", Menu = "Directorates")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Directorate", Menu = AuthorizeDefinitionConstants.Directorates)]
         public async Task<IActionResult> CreateDirectorate([FromBody] CreateDirectorateCommandRequest createDirectorateCommandRequest)
         {
             CreateDirectorateCommandResponse response = await _mediator.Send(createDirectorateCommandRequest);
@@ -50,7 +52,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Directorate", Menu = "Directorates")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Directorate", Menu = AuthorizeDefinitionConstants.Directorates)]
         public async Task<IActionResult> UpdateDirectorate([FromBody] UpdateDirectorateCommandRequest updateDirectorateCommandRequest)
         {
             UpdateDirectorateCommandResponse response = await _mediator.Send(updateDirectorateCommandRequest);
@@ -58,7 +60,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Directorate", Menu = "Directorates")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete Directorate", Menu = AuthorizeDefinitionConstants.Directorates)]
         public async Task<IActionResult> DeleteDirectorate([FromRoute] RemoveDirectorateCommandRequest removeDirectorateCommandRequest)
         {
             RemoveDirectorateCommandResponse response = await _mediator.Send(removeDirectorateCommandRequest);

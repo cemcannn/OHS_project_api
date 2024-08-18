@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace OHS_program_api.Domain.Entities.Identity
 {

@@ -1,4 +1,4 @@
-﻿namespace OHS_program_api.Application.Hubs
+﻿namespace OHS_program_api.Application.Abstractions.Hubs
 {
     public interface IAccidentHubService
     {

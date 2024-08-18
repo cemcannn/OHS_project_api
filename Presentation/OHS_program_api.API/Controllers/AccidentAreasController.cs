@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Definition.AccidentArea.CreateAccidentArea;
@@ -26,7 +27,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get AccidentArea By Id", Menu = "AccidentAreas")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get AccidentArea By Id", Menu = AuthorizeDefinitionConstants.AccidentAreas)]
         public async Task<IActionResult> GetAccidentArea([FromRoute] GetAccidentAreaByIdQueryRequest getAccidentAreaByIdQueryRequest)
         {
             GetAccidentAreaByIdQueryResponse response = await _mediator.Send(getAccidentAreaByIdQueryRequest);
@@ -34,7 +35,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All AccidentAreas", Menu = "AccidentAreas")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All AccidentAreas", Menu = AuthorizeDefinitionConstants.AccidentAreas)]
         public async Task<IActionResult> GetAccidentAreas([FromQuery] GetAccidentAreasQueryRequest GetAccidentAreasQueryRequest)
         {
             GetAccidentAreasQueryResponse response = await _mediator.Send(GetAccidentAreasQueryRequest);
@@ -42,7 +43,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost()]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create AccidentArea", Menu = "AccidentAreas")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create AccidentArea", Menu = AuthorizeDefinitionConstants.AccidentAreas)]
         public async Task<IActionResult> CreateAccidentArea([FromBody] CreateAccidentAreaCommandRequest createAccidentAreaCommandRequest)
         {
             CreateAccidentAreaCommandResponse response = await _mediator.Send(createAccidentAreaCommandRequest);
@@ -50,7 +51,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update AccidentArea", Menu = "AccidentAreas")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update AccidentArea", Menu = AuthorizeDefinitionConstants.AccidentAreas)]
         public async Task<IActionResult> UpdateAccidentArea([FromBody] UpdateAccidentAreaCommandRequest updateAccidentAreaCommandRequest)
         {
             UpdateAccidentAreaCommandResponse response = await _mediator.Send(updateAccidentAreaCommandRequest);
@@ -58,7 +59,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete AccidentArea", Menu = "AccidentAreas")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete AccidentArea", Menu = AuthorizeDefinitionConstants.AccidentAreas)]
         public async Task<IActionResult> DeleteAccidentArea([FromRoute] RemoveAccidentAreaCommandRequest removeAccidentAreaCommandRequest)
         {
             RemoveAccidentAreaCommandResponse response = await _mediator.Send(removeAccidentAreaCommandRequest);

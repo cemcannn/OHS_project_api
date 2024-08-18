@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OHS_program_api.Application.Hubs;
+using OHS_program_api.Application.Abstractions.Hubs;
 using OHS_program_api.SignalR.HubServices;
 
 

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using OHS_program_api.Application.Features.Commands.Safety.AccidentStatistic.CreateAccidentStatistic;
@@ -24,7 +25,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         //[HttpGet("{Id}")]
-        //[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get AccidentStatistic By Id", Menu = "AccidentStatistics")]
+        //[AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get AccidentStatistic By Id", Menu = AuthorizeDefinitionConstants.AccidentStatistics)]
         //public async Task<IActionResult> GetAccidentStatistic([FromRoute] GetAccidentStatisticByIdQueryRequest getAccidentStatisticByIdQueryRequest)
         //{
         //    GetAccidentStatisticByIdQueryResponse response = await _mediator.Send(getAccidentStatisticByIdQueryRequest);
@@ -32,7 +33,7 @@ namespace OHS_program_api.API.Controllers
         //}
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All AccidentStatistics", Menu = "AccidentStatistics")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All AccidentStatistics", Menu = AuthorizeDefinitionConstants.AccidentStatistics)]
         public async Task<IActionResult> GetAccidentStatistics([FromQuery] GetAccidentStatisticsQueryRequest GetAccidentStatisticsQueryRequest)
         {
             GetAccidentStatisticsQueryResponse response = await _mediator.Send(GetAccidentStatisticsQueryRequest);
@@ -40,7 +41,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost()]
-        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create AccidentStatistic", Menu = "AccidentStatistics")]
+        [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create AccidentStatistic", Menu = AuthorizeDefinitionConstants.AccidentStatistics)]
         public async Task<IActionResult> CreateAccidentStatistics([FromBody] CreateAccidentStatisticCommandRequest createAccidentStatisticCommandRequest)
         {
             CreateAccidentStatisticCommandResponse response = await _mediator.Send(createAccidentStatisticCommandRequest);
@@ -48,7 +49,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPut]
-        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update AccidentStatistic", Menu = "AccidentStatistics")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update AccidentStatistic", Menu = AuthorizeDefinitionConstants.AccidentStatistics)]
         public async Task<IActionResult> UpdateAccidentStatistics([FromBody] UpdateAccidentStatisticCommandRequest updateAccidentStatisticCommandRequest)
         {
             UpdateAccidentStatisticCommandResponse response = await _mediator.Send(updateAccidentStatisticCommandRequest);
@@ -56,7 +57,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete AccidentStatistic", Menu = "AccidentStatistics")]
+        [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Delete AccidentStatistic", Menu = AuthorizeDefinitionConstants.AccidentStatistics)]
         public async Task<IActionResult> DeleteAccidentStatistics([FromRoute] DeleteAccidentStatisticCommandRequest deleteAccidentStatisticCommandRequest)
         {
             DeleteAccidentStatisticCommandResponse response = await _mediator.Send(deleteAccidentStatisticCommandRequest);
