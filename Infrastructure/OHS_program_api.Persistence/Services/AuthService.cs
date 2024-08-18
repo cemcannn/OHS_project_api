@@ -46,7 +46,7 @@ namespace OHS_program_api.Persistence.Services
                         Id = Guid.NewGuid().ToString(),
                         Email = email,
                         UserName = email,
-                        NameSurname = name
+                        Name = name
                     };
                     var identityResult = await _userManager.CreateAsync(user);
                     result = identityResult.Succeeded;

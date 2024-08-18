@@ -94,7 +94,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer("Admin", options =>
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
         {
@@ -107,8 +107,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Token:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
             LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
-
-            NameClaimType = ClaimTypes.Name //JWT üzerinde Name claimne karşılık gelen değeri User.Identity.Name propertysinden elde edebiliriz.
         };
     });
 
@@ -137,6 +135,7 @@ app.Use(async (context, next) =>
     var username = context.User?.Identity?.IsAuthenticated != null || true ? context.User.Identity.Name : null;
     LogContext.PushProperty("user_name", username);
     await next();
+
 });
 
 app.MapControllers();

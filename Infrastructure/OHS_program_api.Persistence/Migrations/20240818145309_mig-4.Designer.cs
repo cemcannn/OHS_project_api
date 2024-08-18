@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OHS_program_api.Persistence.Contexts;
@@ -11,9 +12,11 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    partial class OHSProgramAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240818145309_mig-4")]
+    partial class mig4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace OHSprogramapi.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AppRoleEndpoint", b =>
-                {
-                    b.Property<Guid>("EndpointsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("RolesId")
-                        .HasColumnType("text");
-
-                    b.HasKey("EndpointsId", "RolesId");
-
-                    b.HasIndex("RolesId");
-
-                    b.ToTable("AppRoleEndpoint");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -257,6 +245,9 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("EndpointId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -265,7 +256,12 @@ namespace OHSprogramapi.Persistence.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<int>("Permissions")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("EndpointId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -529,21 +525,6 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.ToTable("AccidentStatistics");
                 });
 
-            modelBuilder.Entity("AppRoleEndpoint", b =>
-                {
-                    b.HasOne("OHS_program_api.Domain.Entities.Identity.Endpoint", null)
-                        .WithMany()
-                        .HasForeignKey("EndpointsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OHS_program_api.Domain.Entities.Identity.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("OHS_program_api.Domain.Entities.Identity.AppRole", null)
@@ -595,6 +576,13 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OHS_program_api.Domain.Entities.Identity.AppRole", b =>
+                {
+                    b.HasOne("OHS_program_api.Domain.Entities.Identity.Endpoint", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("EndpointId");
+                });
+
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Identity.Endpoint", b =>
                 {
                     b.HasOne("OHS_program_api.Domain.Entities.Menu", "Menu")
@@ -615,6 +603,11 @@ namespace OHSprogramapi.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Personnel");
+                });
+
+            modelBuilder.Entity("OHS_program_api.Domain.Entities.Identity.Endpoint", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("OHS_program_api.Domain.Entities.Menu", b =>

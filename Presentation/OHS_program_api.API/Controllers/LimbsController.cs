@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OHS_program_api.API.Filters;
 using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
@@ -9,13 +10,14 @@ using OHS_program_api.Application.Features.Commands.Definition.Limb.RemoveLimb;
 using OHS_program_api.Application.Features.Commands.Definition.Limb.UpdateLimb;
 using OHS_program_api.Application.Features.Queries.Definition.Limb.GetLimbById;
 using OHS_program_api.Application.Features.Queries.Definition.Limb.GetLimbs;
+using OHS_program_api.Domain.Entities.Common;
 
 
 namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class LimbsController : ControllerBase
     {
         readonly IMediator _mediator;

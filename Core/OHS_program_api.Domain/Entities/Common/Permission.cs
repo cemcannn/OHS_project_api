@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OHS_program_api.Domain.Entities.Common
 {
-    public enum PermissionEnum
+    public enum Permission
     {
         Admin = 1,
         User = 2
