@@ -28,7 +28,7 @@ namespace OHS_program_api.Persistence.Services
                 Id = Guid.NewGuid().ToString(),
                 UserName = model.Username,
                 Email = model.Email,
-                NameSurname = model.NameSurname,
+                Name = model.Name,
             }, model.Password);
 
             CreateUserResponse response = new() { Succeeded = result.Succeeded };
@@ -75,7 +75,7 @@ namespace OHS_program_api.Persistence.Services
             {
                 Id = user.Id,
                 Email = user.Email,
-                NameSurname = user.NameSurname,
+                Name = user.Name,
                 TwoFactorEnabled = user.TwoFactorEnabled,
                 UserName = user.UserName
 

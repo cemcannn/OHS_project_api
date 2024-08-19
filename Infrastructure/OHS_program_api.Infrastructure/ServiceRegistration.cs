@@ -2,8 +2,6 @@
 using OHS_program_api.Application.Abstractions.Services;
 using OHS_program_api.Application.Abstractions.Services.Configurations;
 using OHS_program_api.Application.Abstractions.Storage;
-using OHS_program_api.Application.Abstractions.Storage.Azure;
-using OHS_program_api.Application.Abstractions.Storage.Local;
 using OHS_program_api.Application.Abstractions.Token;
 using OHS_program_api.Infrastructure.Enums;
 using OHS_program_api.Infrastructure.Services;

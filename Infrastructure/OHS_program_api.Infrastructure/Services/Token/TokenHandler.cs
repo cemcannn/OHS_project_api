@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using OHS_program_api.Application.Abstractions.Token;
-using System.Text;
+﻿
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+using OHS_program_api.Application.Abstractions.Token;
 using OHS_program_api.Domain.Entities.Identity;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace OHS_program_api.Infrastructure.Services.Token
 {
