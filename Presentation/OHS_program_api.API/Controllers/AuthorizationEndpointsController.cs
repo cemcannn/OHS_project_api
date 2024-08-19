@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OHS_program_api.Application.Features.Commands.AuthorizationEndpoint.AssignRoleEndpoint;
 using OHS_program_api.Application.Features.Queries.GetRolesToEndpoint;
@@ -7,6 +8,7 @@ namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(AuthenticationSchemes = "Admin")]
     public class AuthorizationEndpointsController : ControllerBase
     {
         readonly IMediator _mediator;

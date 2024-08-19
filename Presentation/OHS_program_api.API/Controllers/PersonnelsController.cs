@@ -14,6 +14,7 @@ namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class PersonnelsController : ControllerBase
     {
         readonly IMediator _mediator;
@@ -35,7 +36,6 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = "Admin")]
         [AuthorizeDefinition(ActionType = ActionType.Writing, Definition = "Create Personnel", Menu = AuthorizeDefinitionConstants.Personnels)]
         public async Task<IActionResult> Post(CreatePersonnelCommandRequest createPersonnelCommandRequest)
         {

@@ -6,6 +6,7 @@ using OHS_program_api.Application.Exceptions;
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Domain.Entities.Identity;
 using OHS_program_api.Application.Helpers;
+using OHS_program_api.Application.Features.Commands.AppUser.RemoveUser;
 
 namespace OHS_program_api.Persistence.Services
 {
@@ -135,5 +136,19 @@ namespace OHS_program_api.Persistence.Services
 
             return false;
         }
+
+        public async Task RemoveUserAsync(string userId)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
+            else
+            {
+                throw new NotFoundUserException();
+            }
+        }
+
     }
 }

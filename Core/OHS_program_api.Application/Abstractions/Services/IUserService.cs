@@ -13,5 +13,6 @@ namespace OHS_program_api.Application.Abstractions.Services
         Task AssignRoleToUserAsnyc(string userId, string[] roles);
         Task<string[]> GetRolesToUserAsync(string userIdOrName);
         Task<bool> HasRolePermissionToEndpointAsync(string name, string code);
+        Task RemoveUserAsync(string iduserId);
     }
 }
