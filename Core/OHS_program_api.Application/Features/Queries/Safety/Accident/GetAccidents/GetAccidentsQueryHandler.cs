@@ -32,7 +32,8 @@ namespace OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccide
                     p.Personnel.Name,
                     p.Personnel.Surname,
                     p.Personnel.TRIdNumber,
-                    p.Personnel.TKIId
+                    p.Personnel.TKIId,
+                    p.Personnel.Directorate
                 }).ToList();
 
             return new()
