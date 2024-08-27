@@ -15,6 +15,7 @@ namespace OHS_program_api.Infrastructure.Services
         {
             _configuration = configuration;
         }
+
         public async Task SendMailAsync(string to, string subject, string body, bool isBodyHtml = true)
         {
             await SendMailAsync(new[] { to }, subject, body, isBodyHtml);
@@ -35,6 +36,7 @@ namespace OHS_program_api.Infrastructure.Services
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.Host = _configuration["Mail:Host"];
+
             await smtp.SendMailAsync(mail);
         }
 
@@ -58,8 +60,6 @@ namespace OHS_program_api.Infrastructure.Services
                 $"{orderDate} tarihinde vermiş olduğunuz {orderCode} kodlu siparişiniz tamamlanmış ve kargo firmasına verilmiştir.<br>Hayrını görünüz efendim...";
 
             await SendMailAsync(to, $"{orderCode} Sipariş Numaralı Siparişiniz Tamamlandı", mail);
-
         }
-
     }
 }

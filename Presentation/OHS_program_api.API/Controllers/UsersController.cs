@@ -8,6 +8,7 @@ using OHS_program_api.Application.Features.Commands.AppUser.AssignRoleToUser;
 using OHS_program_api.Application.Features.Commands.AppUser.CreateUser;
 using OHS_program_api.Application.Features.Commands.AppUser.RemoveUser;
 using OHS_program_api.Application.Features.Commands.AppUser.UpdatePassword;
+using OHS_program_api.Application.Features.Commands.AppUser.UpdateUser;
 using OHS_program_api.Application.Features.Queries.AppUser.GetAllUsers;
 using OHS_program_api.Application.Features.Queries.AppUser.GetRolesToUser;
 
@@ -30,6 +31,14 @@ namespace OHS_program_api.API.Controllers
         public async Task<IActionResult> CreateUser(CreateUserCommandRequest createUserCommandRequest)
         {
             CreateUserCommandResponse response = await _mediator.Send(createUserCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update User", Menu = "Users")]
+        public async Task<IActionResult> UpdateUser (UpdateUserCommandRequest updateUserCommandRequest)
+        {
+            UpdateUserCommandResponse response = await _mediator.Send(updateUserCommandRequest);
             return Ok(response);
         }
 

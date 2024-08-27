@@ -3,10 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Abstractions.Services;
 using OHS_program_api.Application.DTOs.User;
 using OHS_program_api.Application.Exceptions;
+using OHS_program_api.Application.Helpers;
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Domain.Entities.Identity;
-using OHS_program_api.Application.Helpers;
-using OHS_program_api.Application.Features.Commands.AppUser.RemoveUser;
 
 namespace OHS_program_api.Persistence.Services
 {
@@ -42,6 +41,37 @@ namespace OHS_program_api.Persistence.Services
 
             return response;
         }
+
+        public async Task<UpdateUserResponse> UpdateUserAsync(UpdateUser model)
+        {
+            // Kullanıcının varlığını kontrol edin
+            AppUser? _user = await _userManager.FindByIdAsync(model.Id);
+            if (_user == null)
+            {
+                throw new NotFoundUserException();
+            }
+
+            // Kullanıcı bilgilerini güncelle
+            _user.Id = model.Id;
+            _user.UserName = model.Username;
+            _user.Email = model.Email;
+            _user.Name = model.Name;
+
+            IdentityResult result = await _userManager.UpdateAsync(_user);
+
+            // Yanıtı oluşturun
+            UpdateUserResponse response = new() { Succeeded = result.Succeeded };
+
+            if (result.Succeeded)
+                response.Message = "Kullanıcı başarıyla güncellenmiştir.";
+            else
+                foreach (var error in result.Errors)
+                    response.Message += $"{error.Code} - {error.Description}\n";
+
+            return response;
+        }
+
+
         public async Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate)
         {
             if (user != null)
@@ -96,6 +126,7 @@ namespace OHS_program_api.Persistence.Services
                 await _userManager.AddToRolesAsync(user, roles);
             }
         }
+
         public async Task<string[]> GetRolesToUserAsync(string userIdOrName)
         {
             AppUser user = await _userManager.FindByIdAsync(userIdOrName);
@@ -149,6 +180,5 @@ namespace OHS_program_api.Persistence.Services
                 throw new NotFoundUserException();
             }
         }
-
     }
 }
