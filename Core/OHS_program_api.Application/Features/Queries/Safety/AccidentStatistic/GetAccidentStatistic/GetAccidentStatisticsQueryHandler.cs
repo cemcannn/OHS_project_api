@@ -1,39 +1,24 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Repositories.Safety.AccidentStatisticRepository;
+using OHS_program_api.Application.Abstractions.Services.Safety;
+using OHS_program_api.Application.Features.Queries.Safety.AccidentStatistic.GetAccidentStatistics;
 
-namespace OHS_program_api.Application.Features.Queries.Safety.AccidentStatistic.GetAccidentStatistics
+public class GetAccidentStatisticsQueryHandler : IRequestHandler<GetAccidentStatisticsQueryRequest, GetAccidentStatisticsQueryResponse>
 {
-    public class GetAccidentStatisticsQueryHandler : IRequestHandler<GetAccidentStatisticsQueryRequest, GetAccidentStatisticsQueryResponse>
+    private readonly IAccidentStatisticService _accidentStatisticService;
+
+    public GetAccidentStatisticsQueryHandler(IAccidentStatisticService accidentStatisticService)
     {
-        readonly IAccidentStatisticReadRepository _accidentStatisticReadRepository;
+        _accidentStatisticService = accidentStatisticService;
+    }
 
-        public GetAccidentStatisticsQueryHandler(IAccidentStatisticReadRepository accidentStatisticReadRepository)
+    public async Task<GetAccidentStatisticsQueryResponse> Handle(GetAccidentStatisticsQueryRequest request, CancellationToken cancellationToken)
+    {
+        var (accidentStatistics, totalCount) = await _accidentStatisticService.GetAllAccidentStatisticsAsync();
+
+        return new GetAccidentStatisticsQueryResponse
         {
-            _accidentStatisticReadRepository = accidentStatisticReadRepository;
-        }
-
-        public async Task<GetAccidentStatisticsQueryResponse> Handle(GetAccidentStatisticsQueryRequest request, CancellationToken cancellationToken)
-        {
-            var totalCount = _accidentStatisticReadRepository.GetAll(false).Count();
-            var accidentStatistic = _accidentStatisticReadRepository.GetAll(false)
-                .Select(p => new
-                {
-                    p.Id,
-                    p.Month,
-                    p.Year,
-                    p.Directorate,
-                    p.ActualDailyWageSurface,
-                    p.ActualDailyWageUnderground,
-                    p.EmployeesNumberSurface,
-                    p.EmployeesNumberUnderground
-
-                }).ToList();
-
-            return new()
-            {
-                Datas = accidentStatistic,
-                TotalCount = totalCount
-            };
-        }
+            Datas = accidentStatistics,
+            TotalCount = totalCount
+        };
     }
 }

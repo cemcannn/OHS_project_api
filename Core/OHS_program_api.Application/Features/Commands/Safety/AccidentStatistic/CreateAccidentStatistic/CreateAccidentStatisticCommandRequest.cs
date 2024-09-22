@@ -7,9 +7,9 @@ namespace OHS_program_api.Application.Features.Commands.Safety.AccidentStatistic
         public string? Month { get; set; }
         public string? Year { get; set; }
         public string? Directorate { get; set; }
-        public string? ActualDailyWageSurface { get; set; }
-        public string? ActualDailyWageUnderground { get; set; }
-        public string? EmployeesNumberSurface { get; set; }
-        public string? EmployeesNumberUnderground { get; set; }
+        public int? ActualDailyWageSurface { get; set; }
+        public int? ActualDailyWageUnderground { get; set; }
+        public int? EmployeesNumberSurface { get; set; }
+        public int? EmployeesNumberUnderground { get; set; }
     }
 }

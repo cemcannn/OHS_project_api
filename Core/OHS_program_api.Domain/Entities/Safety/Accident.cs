@@ -11,10 +11,7 @@ namespace OHS_program_api.Domain.Entities.OccupationalSafety
         public string? AccidentArea { get; set; }
         public string? TypeOfAccident { get; set; }
         public string? Limb { get; set; }
-        public string? LostDayOfWork { get; set; }
+        public int? LostDayOfWork { get; set; }
         public string? Description { get; set; }
-
     }
 }
-
-

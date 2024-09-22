@@ -72,6 +72,7 @@ namespace OHS_program_api.Persistence
             services.AddScoped<IPersonnelService, PersonnelService>();
             services.AddScoped<IAuthorizationEndpointService, AuthorizationEndpointService>();
             services.AddScoped<IAccidentService, AccidentService>();
+            services.AddScoped<IAccidentStatisticService, AccidentStatisticService>();
         }
     }
 }

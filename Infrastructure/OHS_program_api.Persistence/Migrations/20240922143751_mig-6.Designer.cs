@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OHS_program_api.Persistence.Contexts;
@@ -11,9 +12,11 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    partial class OHSProgramAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240922143751_mig-6")]
+    partial class mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -497,11 +500,11 @@ namespace OHSprogramapi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("ActualDailyWageSurface")
-                        .HasColumnType("integer");
+                    b.Property<string>("ActualDailyWageSurface")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("ActualDailyWageUnderground")
-                        .HasColumnType("integer");
+                    b.Property<string>("ActualDailyWageUnderground")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -509,11 +512,11 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<string>("Directorate")
                         .HasColumnType("text");
 
-                    b.Property<int?>("EmployeesNumberSurface")
-                        .HasColumnType("integer");
+                    b.Property<string>("EmployeesNumberSurface")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("EmployeesNumberUnderground")
-                        .HasColumnType("integer");
+                    b.Property<string>("EmployeesNumberUnderground")
+                        .HasColumnType("text");
 
                     b.Property<string>("Month")
                         .HasColumnType("text");
