@@ -3,7 +3,6 @@ using OHS_program_api.Application.Abstractions.Services.Safety;
 using OHS_program_api.Application.Repositories.Safety.AccidentRepository;
 using OHS_program_api.Application.Repositories.Safety.AccidentStatisticRepository;
 using OHS_program_api.Application.ViewModels.Safety.AccidentStatistic;
-using OHS_program_api.Domain.Entities.OccupationalSafety;
 
 public class AccidentStatisticService : IAccidentStatisticService
 {
@@ -18,7 +17,6 @@ public class AccidentStatisticService : IAccidentStatisticService
 
     public async Task<(List<VM_List_AccidentStatistic> accidentStatistics, int totalCount)> GetAllAccidentStatisticsAsync()
     {
-        // Veriyi çekiyoruz, ancak LostDayOfWork hesaplamasını burada yapmıyoruz
         var accidentStatistics = _accidentStatisticReadRepository.GetAll(false)
             .Select(p => new
             {
@@ -30,11 +28,11 @@ public class AccidentStatisticService : IAccidentStatisticService
                 p.ActualDailyWageUnderground,
                 p.EmployeesNumberSurface,
                 p.EmployeesNumberUnderground
+
             }).ToList();
 
         var totalCount = accidentStatistics.Count;
 
-        // İş günü kayıplarını veriyi çektikten sonra hesaplıyoruz
     var result = accidentStatistics.Select(p => new VM_List_AccidentStatistic
     {
         Id = p.Id.ToString(),
@@ -43,20 +41,10 @@ public class AccidentStatisticService : IAccidentStatisticService
         Directorate = p.Directorate,
         ActualDailyWageSurface = p.ActualDailyWageSurface,
         ActualDailyWageUnderground = p.ActualDailyWageUnderground,
-        
-        // ActualDailyWage toplamı
-        ActualDailyWageSummary = (p.ActualDailyWageSurface + p.ActualDailyWageUnderground),
+        EmployeesNumberSurface = p.EmployeesNumberSurface, 
+        EmployeesNumberUnderground = p.EmployeesNumberUnderground,
+        LostDayOfWorkSummary = CalculateLostDayOfWorkSummary(p.Month, p.Year, p.Directorate),
 
-        // EmployeesNumber toplamı
-        EmployeesNumberSummary = (p.EmployeesNumberSurface+ p.EmployeesNumberUnderground),
-
-        // Çalışma saatleri hesaplamaları
-        WorkingHoursSurface = (p.ActualDailyWageSurface * 8),
-        WorkingHoursUnderground = (p.ActualDailyWageUnderground * 8),
-        WorkingHoursSummary = ((p.ActualDailyWageSurface * 8) + (p.ActualDailyWageUnderground * 8)),
-
-        // İş günü kayıplarını hesaplıyoruz
-        LostDayOfWorkSummary = CalculateLostDayOfWorkSummary(p.Month, p.Year, p.Directorate)
     }).ToList();
 
     return (result, totalCount);
@@ -64,21 +52,18 @@ public class AccidentStatisticService : IAccidentStatisticService
 
     private int CalculateLostDayOfWorkSummary(string month, string year, string directorate)
     {
-        // Ayı ve yılı sayısal olarak dönüştür
         int monthNumber = int.Parse(month);
         int yearNumber = int.Parse(year);
 
-        // Bu ay, yıl ve işletmeye karşılık gelen kazaları alıyoruz
         var accidentsInMonth = _accidentReadRepository.GetAll(false)
-            .Include(a => a.Personnel) // Personnel'ı dahil ediyoruz
+            .Include(a => a.Personnel) 
             .Where(a => a.AccidentDate.HasValue
-                        && a.AccidentDate.Value.Month == monthNumber // Sayısal karşılaştırma
-                        && a.AccidentDate.Value.Year == yearNumber // Sayısal karşılaştırma
+                        && a.AccidentDate.Value.Month == monthNumber 
+                        && a.AccidentDate.Value.Year == yearNumber 
                         && a.Personnel != null
-                        && a.Personnel.Directorate == directorate) // İşletme filtrelemesi
+                        && a.Personnel.Directorate == directorate) 
             .ToList();
 
-        // İş günü kayıplarını topluyoruz
         var totalLostDays = accidentsInMonth.Sum(a => a.LostDayOfWork ?? 0);
 
         return totalLostDays;

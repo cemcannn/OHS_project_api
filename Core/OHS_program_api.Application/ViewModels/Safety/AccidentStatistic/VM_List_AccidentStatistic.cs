@@ -16,6 +16,6 @@
         public int? WorkingHoursUnderground { get; set; }
         public int? WorkingHoursSummary { get; set; }
         public int? LostDayOfWorkSummary { get; set; }
-        public int? AccidentSeverityRate { get; set; }
+        public double? AccidentSeverityRate { get; set; }
     }
 }
