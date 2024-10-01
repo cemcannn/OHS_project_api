@@ -19,11 +19,11 @@ namespace OHS_program_api.Persistence.Services
         public async Task<bool> AddPersonnelAsync(VM_Create_Personnel createPersonnel)
         {
             // Check TRIdNumber exist
-            var existingPersonnel = await _personnelReadRepository.GetSingleAsync(p => p.TRIdNumber == createPersonnel.TRIdNumber);
+            var existingPersonnel = await _personnelReadRepository.GetSingleAsync(p => p.TKIId == createPersonnel.TKIId);
             if (existingPersonnel != null)
             {
                 // Hata döndürün
-                throw new Exception("Bu TC Kimlik Numarası ile kayıtlı bir personel zaten mevcut.");
+                throw new Exception("Bu TKI Sicil Numarası ile kayıtlı bir personel zaten mevcut.");
             }
 
             Personnel _personnel = new()
