@@ -14,7 +14,7 @@ namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class AccidentsController : ControllerBase
     {
         readonly IMediator _mediator;

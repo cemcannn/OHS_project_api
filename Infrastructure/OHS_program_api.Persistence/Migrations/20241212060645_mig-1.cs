@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace OHSprogramapi.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class mig2 : Migration
+    public partial class mig1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,10 +34,10 @@ namespace OHSprogramapi.Persistence.Migrations
                     Month = table.Column<string>(type: "text", nullable: true),
                     Year = table.Column<string>(type: "text", nullable: true),
                     Directorate = table.Column<string>(type: "text", nullable: true),
-                    ActualDailyWageSurface = table.Column<string>(type: "text", nullable: true),
-                    ActualDailyWageUnderground = table.Column<string>(type: "text", nullable: true),
-                    EmployeesNumberSurface = table.Column<string>(type: "text", nullable: true),
-                    EmployeesNumberUnderground = table.Column<string>(type: "text", nullable: true),
+                    ActualDailyWageSurface = table.Column<int>(type: "integer", nullable: true),
+                    ActualDailyWageUnderground = table.Column<int>(type: "integer", nullable: true),
+                    EmployeesNumberSurface = table.Column<int>(type: "integer", nullable: true),
+                    EmployeesNumberUnderground = table.Column<int>(type: "integer", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -65,7 +65,7 @@ namespace OHSprogramapi.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    NameSurname = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -320,7 +320,7 @@ namespace OHSprogramapi.Persistence.Migrations
                     AccidentArea = table.Column<string>(type: "text", nullable: true),
                     TypeOfAccident = table.Column<string>(type: "text", nullable: true),
                     Limb = table.Column<string>(type: "text", nullable: true),
-                    LostDayOfWork = table.Column<string>(type: "text", nullable: true),
+                    LostDayOfWork = table.Column<int>(type: "integer", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

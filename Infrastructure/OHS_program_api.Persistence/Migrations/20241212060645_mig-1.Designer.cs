@@ -12,8 +12,8 @@ using OHS_program_api.Persistence.Contexts;
 namespace OHSprogramapi.Persistence.Migrations
 {
     [DbContext(typeof(OHSProgramAPIDbContext))]
-    [Migration("20240804203344_mig-2")]
-    partial class mig2
+    [Migration("20241212060645_mig-1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -302,7 +302,7 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("NameSurname")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -434,8 +434,8 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<string>("Limb")
                         .HasColumnType("text");
 
-                    b.Property<string>("LostDayOfWork")
-                        .HasColumnType("text");
+                    b.Property<int?>("LostDayOfWork")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("PersonnelId")
                         .HasColumnType("uuid");
@@ -500,11 +500,11 @@ namespace OHSprogramapi.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("ActualDailyWageSurface")
-                        .HasColumnType("text");
+                    b.Property<int?>("ActualDailyWageSurface")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("ActualDailyWageUnderground")
-                        .HasColumnType("text");
+                    b.Property<int?>("ActualDailyWageUnderground")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -512,11 +512,11 @@ namespace OHSprogramapi.Persistence.Migrations
                     b.Property<string>("Directorate")
                         .HasColumnType("text");
 
-                    b.Property<string>("EmployeesNumberSurface")
-                        .HasColumnType("text");
+                    b.Property<int?>("EmployeesNumberSurface")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("EmployeesNumberUnderground")
-                        .HasColumnType("text");
+                    b.Property<int?>("EmployeesNumberUnderground")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Month")
                         .HasColumnType("text");
