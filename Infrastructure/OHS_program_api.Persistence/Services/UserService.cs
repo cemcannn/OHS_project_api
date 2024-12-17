@@ -113,6 +113,7 @@ namespace OHS_program_api.Persistence.Services
             }).ToList();
         }
 
+
         public int TotalUsersCount => _userManager.Users.Count();
 
         public async Task AssignRoleToUserAsnyc(string userId, string[] roles)
@@ -179,6 +180,26 @@ namespace OHS_program_api.Persistence.Services
             {
                 throw new NotFoundUserException();
             }
+        }
+
+        public async Task<ListUser> GetUserByIdAsync(string id)
+        {
+            // Kullanıcıyı ID'ye göre bul
+            AppUser? user = await _userManager.FindByIdAsync(id);
+
+            // Kullanıcı bulunamazsa özel durum fırlat
+            if (user == null)
+                throw new NotFoundUserException();
+
+            // Kullanıcı bilgilerini DTO'ya dönüştür ve döndür
+            return new ListUser
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = user.Name,
+                TwoFactorEnabled = user.TwoFactorEnabled,
+                UserName = user.UserName
+            };
         }
     }
 }

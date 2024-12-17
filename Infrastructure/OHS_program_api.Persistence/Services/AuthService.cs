@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OHS_program_api.Application.Abstractions.Services;
@@ -7,6 +8,7 @@ using OHS_program_api.Application.DTOs;
 using OHS_program_api.Application.Exceptions;
 using OHS_program_api.Application.Helpers;
 using OHS_program_api.Domain.Entities.Identity;
+using System.Text;
 
 namespace OHS_program_api.Persistence.Services
 {
@@ -33,6 +35,7 @@ namespace OHS_program_api.Persistence.Services
             _signInManager = signInManager;
             _userService = userService;
         }
+
         async Task<Token> CreateUserExternalAsync(AppUser user, string email, string name, UserLoginInfo info, int accessTokenLifeTime)
         {
             bool result = user != null;
@@ -63,6 +66,7 @@ namespace OHS_program_api.Persistence.Services
             }
             throw new Exception("Invalid external authentication.");
         }
+
         public async Task<Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime)
         {
             Domain.Entities.Identity.AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);

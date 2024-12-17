@@ -10,6 +10,7 @@ using OHS_program_api.Application.Features.Commands.AppUser.RemoveUser;
 using OHS_program_api.Application.Features.Commands.AppUser.UpdatePassword;
 using OHS_program_api.Application.Features.Queries.AppUser.GetAllUsers;
 using OHS_program_api.Application.Features.Queries.AppUser.GetRolesToUser;
+using OHS_program_api.Application.Features.Queries.AppUser.GetUserById;
 
 namespace OHS_program_api.API.Controllers
 {
@@ -18,11 +19,9 @@ namespace OHS_program_api.API.Controllers
     public class UsersController : ControllerBase
     {
         readonly IMediator _mediator;
-        readonly IMailService _mailService;
-        public UsersController(IMediator mediator, IMailService mailService)
+        public UsersController(IMediator mediator)
         {
             _mediator = mediator;
-            _mailService = mailService;
         }
 
         [HttpPost]
@@ -47,6 +46,14 @@ namespace OHS_program_api.API.Controllers
         public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
         {
             GetAllUsersQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
+            return Ok(response);
+        }
+
+        [HttpGet("{Id}")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get User By Id", Menu = "Users")]
+        public async Task<IActionResult> GetUser([FromQuery] GetUserByIdQueryRequest getUserByIdQueryRequest)
+        {
+            GetUserByIdQueryResponse response = await _mediator.Send(getUserByIdQueryRequest);
             return Ok(response);
         }
 
