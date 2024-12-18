@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using OHS_program_api.Application.Features.Queries.Role.GetRoleById;
 
 namespace OHS_program_api.Application.Features.Queries.AppUser.GetUserById
 {

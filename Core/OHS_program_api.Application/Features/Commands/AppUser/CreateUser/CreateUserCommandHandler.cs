@@ -20,7 +20,7 @@ namespace OHS_program_api.Application.Features.Commands.AppUser.CreateUser
                 Name = request.Name,
                 Password = request.Password,
                 PasswordConfirm = request.PasswordConfirm,
-                Username = request.Username,
+                UserName = request.UserName,
             });
 
             return new()

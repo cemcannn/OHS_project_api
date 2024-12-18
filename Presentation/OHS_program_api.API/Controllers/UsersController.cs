@@ -8,6 +8,7 @@ using OHS_program_api.Application.Features.Commands.AppUser.AssignRoleToUser;
 using OHS_program_api.Application.Features.Commands.AppUser.CreateUser;
 using OHS_program_api.Application.Features.Commands.AppUser.RemoveUser;
 using OHS_program_api.Application.Features.Commands.AppUser.UpdatePassword;
+using OHS_program_api.Application.Features.Commands.AppUser.UpdateUser;
 using OHS_program_api.Application.Features.Queries.AppUser.GetAllUsers;
 using OHS_program_api.Application.Features.Queries.AppUser.GetRolesToUser;
 using OHS_program_api.Application.Features.Queries.AppUser.GetUserById;
@@ -32,8 +33,16 @@ namespace OHS_program_api.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost("update-password")]
+        [HttpPut]
         [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update User", Menu = "Users")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest UpdateUserCommandRequest)
+        {
+            UpdateUserCommandResponse response = await _mediator.Send(UpdateUserCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPut("update-password")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Update Password", Menu = "Users")]
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
         {
             UpdatePasswordCommandResponse response = await _mediator.Send(updatePasswordCommandRequest);
@@ -51,7 +60,7 @@ namespace OHS_program_api.API.Controllers
 
         [HttpGet("{Id}")]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get User By Id", Menu = "Users")]
-        public async Task<IActionResult> GetUser([FromQuery] GetUserByIdQueryRequest getUserByIdQueryRequest)
+        public async Task<IActionResult> GetUser([FromRoute] GetUserByIdQueryRequest getUserByIdQueryRequest)
         {
             GetUserByIdQueryResponse response = await _mediator.Send(getUserByIdQueryRequest);
             return Ok(response);

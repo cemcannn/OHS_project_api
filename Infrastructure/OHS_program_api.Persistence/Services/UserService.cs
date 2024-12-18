@@ -26,7 +26,7 @@ namespace OHS_program_api.Persistence.Services
             IdentityResult result = await _userManager.CreateAsync(new()
             {
                 Id = Guid.NewGuid().ToString(),
-                UserName = model.Username,
+                UserName = model.UserName,
                 Email = model.Email,
                 Name = model.Name,
             }, model.Password);
@@ -53,7 +53,7 @@ namespace OHS_program_api.Persistence.Services
 
             // Kullanıcı bilgilerini güncelle
             _user.Id = model.Id;
-            _user.UserName = model.Username;
+            _user.UserName = model.UserName;
             _user.Email = model.Email;
             _user.Name = model.Name;
 
@@ -83,18 +83,23 @@ namespace OHS_program_api.Persistence.Services
             else
                 throw new NotFoundUserException();
         }
-        public async Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)
+
+        public async Task UpdatePasswordAsync(string userId, string newPassword)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+            if (user == null)
             {
-                resetToken = resetToken.UrlDecode();
-                IdentityResult result = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
-                if (result.Succeeded)
+                throw new NotFoundUserException();
+            }
+
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            IdentityResult resetResult = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                if (resetResult.Succeeded)
                     await _userManager.UpdateSecurityStampAsync(user);
                 else
                     throw new PasswordChangeFailedException();
-            }
+            
         }
 
         public async Task<List<ListUser>> GetAllUsersAsync()

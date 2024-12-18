@@ -19,10 +19,9 @@ namespace OHS_program_api.Application.Features.Queries.AppUser.GetUserById
 
             return new()
             {
-                Id = user.Id.ToString(),
                 Name = user.Name,
                 Email = user.Email,
-                UserName = user.Name,
+                UserName = user.UserName,
                 TwoFactorEnabled = user.TwoFactorEnabled
             };
         }

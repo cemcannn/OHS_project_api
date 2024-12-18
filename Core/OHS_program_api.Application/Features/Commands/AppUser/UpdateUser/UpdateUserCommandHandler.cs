@@ -20,7 +20,7 @@ namespace OHS_program_api.Application.Features.Commands.AppUser.UpdateUser
                 Id = request.Id,
                 Email = request.Email,
                 Name = request.Name,
-                Username = request.Username,
+                UserName = request.UserName,
             });
 
             return new()
