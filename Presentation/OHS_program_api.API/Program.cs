@@ -1,4 +1,4 @@
-﻿using FluentValidation.AspNetCore;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +19,7 @@ using Serilog.Core;
 using Serilog.Sinks.PostgreSQL;
 using System.Security.Claims;
 using System.Text;
+using OHS_program_api.API.Seed;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -117,6 +118,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+// Development ortamında SuperAdmin kullanıcı/rol seed
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    await SuperAdminSeeder.SeedAsync(scope.ServiceProvider, app.Configuration, app.Logger);
 }
 app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 app.UseStaticFiles();

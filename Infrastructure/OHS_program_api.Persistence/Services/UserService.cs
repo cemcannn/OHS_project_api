@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Abstractions.Services;
 using OHS_program_api.Application.DTOs.User;
@@ -11,6 +11,8 @@ namespace OHS_program_api.Persistence.Services
 {
     public class UserService : IUserService
     {
+        private const string SuperAdminRoleName = "SuperAdmin";
+
         readonly UserManager<Domain.Entities.Identity.AppUser> _userManager;
         readonly IEndpointReadRepository _endpointReadRepository;
 
@@ -153,6 +155,10 @@ namespace OHS_program_api.Persistence.Services
 
             if (!userRoles.Any())
                 return false;
+
+            // Super admin, endpoint/rol eşlemesi aranmadan her zaman yetkilidir.
+            if (userRoles.Any(r => string.Equals(r, SuperAdminRoleName, StringComparison.OrdinalIgnoreCase)))
+                return true;
 
             Endpoint? endpoint = await _endpointReadRepository.Table
                      .Include(e => e.Roles)
