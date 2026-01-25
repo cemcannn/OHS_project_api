@@ -1,16 +1,16 @@
-﻿using FluentValidation;
+using FluentValidation;
 using OHS_program_api.Application.ViewModels.Safety.Accidents;
 
 namespace OHS_program_api.Application.Validators.Accidents
 {
-    public class CreateAccidentValidator : AbstractValidator<VM_Create_Accident>
+    public class UpdateAccidentValidator : AbstractValidator<VM_Update_Accident>
     {
-        public CreateAccidentValidator()
+        public UpdateAccidentValidator()
         {
-            RuleFor(x => x.PersonnelId)
+            RuleFor(x => x.Id)
                 .NotEmpty()
                 .NotNull()
-                    .WithMessage("Lütfen personel seçiniz.");
+                    .WithMessage("Kaza ID boş olamaz.");
 
             RuleFor(x => x.TypeOfAccident)
                 .NotEmpty()
@@ -23,10 +23,8 @@ namespace OHS_program_api.Application.Validators.Accidents
                     .WithMessage("Lütfen yaralanan uzuv seçiniz.");
 
             RuleFor(x => x.AccidentDate)
-                .NotEmpty()
-                .NotNull()
-                    .WithMessage("Lütfen kaza tarihini giriniz.")
                 .LessThanOrEqualTo(DateTime.Now)
+                    .When(x => x.AccidentDate.HasValue)
                     .WithMessage("Kaza tarihi gelecek bir tarih olamaz.");
 
             RuleFor(x => x.AccidentHour)
