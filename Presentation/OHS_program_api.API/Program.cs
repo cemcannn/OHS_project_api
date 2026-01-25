@@ -109,6 +109,25 @@ builder.Services.AddAuthentication(options =>
         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
         NameClaimType = ClaimTypes.Name
     };
+
+    // SignalR WebSocket/SSE bağlantılarında token querystring'den gelebilir:
+    // https://localhost:7170/accidents-hub?access_token=...
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken) &&
+                (path.StartsWithSegments("/accidents-hub") || path.StartsWithSegments("/personnels-hub")))
+            {
+                context.Token = accessToken;
+            }
+
+            return Task.CompletedTask;
+        }
+    };
 });
 
 
@@ -130,9 +149,9 @@ app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<P
 app.UseStaticFiles();
 app.UseSerilogRequestLogging();
 app.UseHttpLogging();
-app.UseCors();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.Use(async (context, next) =>
