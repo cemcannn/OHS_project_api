@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OHS_program_api.Application.Abstractions.Services;
 using OHS_program_api.Application.Abstractions.Services.Authentications;
 using OHS_program_api.Application.Abstractions.Services.Safety;
@@ -26,6 +27,7 @@ using OHS_program_api.Persistence.Repositories.Safety.AccidentRepository;
 using OHS_program_api.Persistence.Repositories.Safety.AccidentStatisticRepository;
 using OHS_program_api.Persistence.Services;
 using OHS_program_api.Persistence.Services.Safety;
+using OHS_program_api.Persistence.Interceptors;
 
 namespace OHS_program_api.Persistence
 {
@@ -33,7 +35,19 @@ namespace OHS_program_api.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddDbContext<OHSProgramAPIDbContext>(options => options.UseNpgsql(Configurations.ConnectionString));
+            services.AddDbContext<OHSProgramAPIDbContext>((serviceProvider, options) =>
+            {
+                options.UseNpgsql(Configurations.ConnectionString);
+                
+                // Query performance interceptors
+                options.AddInterceptors(
+                    new SlowQueryInterceptor(
+                        serviceProvider.GetRequiredService<ILogger<SlowQueryInterceptor>>(),
+                        slowQueryThresholdMs: 1000),
+                    new QueryStatisticsInterceptor(
+                        serviceProvider.GetRequiredService<ILogger<QueryStatisticsInterceptor>>()));
+            });
+            
             services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Password.RequiredLength = 3;
@@ -73,6 +87,7 @@ namespace OHS_program_api.Persistence
             services.AddScoped<IAuthorizationEndpointService, AuthorizationEndpointService>();
             services.AddScoped<IAccidentService, AccidentService>();
             services.AddScoped<IAccidentStatisticService, AccidentStatisticService>();
+            services.AddScoped<IDataArchivingService, DataArchivingService>(); // Database optimization
         }
     }
 }

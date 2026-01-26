@@ -6,6 +6,7 @@ using OHS_program_api.Domain.Entities.Definitions;
 using OHS_program_api.Domain.Entities.Identity;
 using OHS_program_api.Domain.Entities.OccupationalSafety;
 using OHS_program_api.Domain.Entities.Safety;
+using OHS_program_api.Persistence.Extensions;
 
 namespace OHS_program_api.Persistence.Contexts
 {
@@ -42,6 +43,15 @@ namespace OHS_program_api.Persistence.Contexts
             }
 
             return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Performance indexes
+            modelBuilder.Entity<Accident>().ConfigureAccidentIndexes();
+            modelBuilder.Entity<Personnel>().ConfigurePersonnelIndexes();
         }
     }
 }

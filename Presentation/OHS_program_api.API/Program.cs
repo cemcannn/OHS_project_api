@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Tokens;
 using NpgsqlTypes;
+using OHS_program_api.API.Configurations;
 using OHS_program_api.API.Configurations.ColumnWriters;
 using OHS_program_api.API.Extensions;
 using OHS_program_api.API.Filters;
+using OHS_program_api.API.Middlewares;
+using OHS_program_api.API.Services;
 using OHS_program_api.Application;
 using OHS_program_api.Application.Validators.Personnels;
 using OHS_program_api.Infrastructure;
@@ -30,6 +33,8 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddSignalRServices();
 builder.Services.AddStorage<LocalStorage>();
+builder.Services.AddMemoryCache(); // In-memory cache
+builder.Services.AddScoped<ICacheService, MemoryCacheService>(); // Cache service
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
     policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 ));
@@ -88,7 +93,7 @@ builder.Services.AddControllers(options =>
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -134,8 +139,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerDocumentation();
 }
 
 // Development ortamında SuperAdmin kullanıcı/rol seed
@@ -144,6 +148,10 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     await SuperAdminSeeder.SeedAsync(scope.ServiceProvider, app.Configuration, app.Logger);
 }
+
+// Rate limiting middleware
+app.UseMiddleware<RateLimitingMiddleware>();
+
 app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 app.UseStaticFiles();
 app.UseSerilogRequestLogging();
