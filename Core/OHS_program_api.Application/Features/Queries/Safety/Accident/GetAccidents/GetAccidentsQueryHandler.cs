@@ -15,9 +15,13 @@ namespace OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccide
 
         public async Task<GetAccidentsQueryResponse> Handle(GetAccidentsQueryRequest request, CancellationToken cancellationToken)
         {
-            var totalAccidentCount = _accidentReadRepository.GetAll(false).Count();
-            var accidents = _accidentReadRepository.GetAll(false)
-                .Include(p => p.Personnel)
+            var query = _accidentReadRepository
+                .GetAll(false)
+                .Include(p => p.Personnel);
+
+            var totalAccidentCount = await query.CountAsync(cancellationToken);
+
+            var accidents = await query
                 .Select(p => new
                 {
                     p.Id,
@@ -29,12 +33,13 @@ namespace OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccide
                     p.LostDayOfWork,
                     p.Description,
                     p.PersonnelId,
-                    p.Personnel.Name,
-                    p.Personnel.Surname,
-                    p.Personnel.TRIdNumber,
-                    p.Personnel.TKIId,
-                    p.Personnel.Directorate
-                }).ToList();
+                    Name = p.Personnel != null ? p.Personnel.Name : null,
+                    Surname = p.Personnel != null ? p.Personnel.Surname : null,
+                    TRIdNumber = p.Personnel != null ? p.Personnel.TRIdNumber : null,
+                    TKIId = p.Personnel != null ? p.Personnel.TKIId : null,
+                    Directorate = p.Personnel != null ? p.Personnel.Directorate : null
+                })
+                .ToListAsync(cancellationToken);
 
             return new()
             {

@@ -1,3 +1,4 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
@@ -39,6 +40,8 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
     policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 ));
 
+var seqServerUrl = builder.Configuration["Seq:ServerURL"] ?? "http://localhost:5341";
+
 Logger log = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/log.txt")
@@ -68,7 +71,7 @@ Logger log = new LoggerConfiguration()
             {"log_event", new LogEventSerializedColumnWriter(NpgsqlDbType.Json)},
             {"user_name", new UsernameColumnWriter()}
         })
-    .WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
+    .WriteTo.Seq(seqServerUrl)
     .Enrich.FromLogContext()
     .MinimumLevel.Information()
     .CreateLogger();
@@ -89,11 +92,16 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<ValidationFilter>();
     options.Filters.Add<RolePermissionFilter>();
 })
-    .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreatePersonnelValidator>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<CreatePersonnelValidator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerDocumentation();
+
+var securityKey = builder.Configuration["Token:SecurityKey"] ?? throw new InvalidOperationException("Token:SecurityKey is not configured.");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -109,7 +117,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Token:Issuer"],
         ValidAudience = builder.Configuration["Token:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey)),
         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
         NameClaimType = ClaimTypes.Name
     };
@@ -137,11 +145,6 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwaggerDocumentation();
-}
-
 // Development ortamında SuperAdmin kullanıcı/rol seed
 if (app.Environment.IsDevelopment())
 {
@@ -163,7 +166,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.Use(async (context, next) =>
 {
-    var userName = context.User?.Identity?.IsAuthenticated != null || true ? context.User.Identity.Name : null;
+    var userName = context.User?.Identity?.IsAuthenticated == true
+        ? context.User.Identity?.Name ?? string.Empty
+        : string.Empty;
     LogContext.PushProperty("user_name", userName);
     await next();
 });

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Definition.DirectorateRepository;
 
 namespace OHS_program_api.Application.Features.Queries.Definition.Directorate.GetDirectorates
@@ -14,16 +15,19 @@ namespace OHS_program_api.Application.Features.Queries.Definition.Directorate.Ge
 
         public async Task<GetDirectoratesQueryResponse> Handle(GetDirectoratesQueryRequest request, CancellationToken cancellationToken)
         {
-            var totalCount = _directorateReadRepository.GetAll(false).Count();
-            var directorate = _directorateReadRepository.GetAll(false)
+            var query = _directorateReadRepository.GetAll(false);
+
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            var directorate = await query
                 .Select(p => new
                 {
                     p.Id,
                     p.Name
+                })
+                .ToListAsync(cancellationToken);
 
-                }).ToList();
-
-            return new()
+            return new GetDirectoratesQueryResponse
             {
                 Datas = directorate,
                 TotalCount = totalCount

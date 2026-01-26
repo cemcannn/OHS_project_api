@@ -12,14 +12,15 @@ namespace OHS_program_api.Application.Features.Queries.Role.GetRoles
             _roleService = roleService;
         }
 
-        public async Task<GetRolesQueryResponse> Handle(GetRolesQueryRequest request, CancellationToken cancellationToken)
+        public Task<GetRolesQueryResponse> Handle(GetRolesQueryRequest request, CancellationToken cancellationToken)
         {
             var (datas, count) = _roleService.GetAllRoles(request.Page, request.Size);
-            return new()
+
+            return Task.FromResult(new GetRolesQueryResponse
             {
                 Datas = datas,
                 TotalCount = count
-            };
+            });
         }
     }
 }

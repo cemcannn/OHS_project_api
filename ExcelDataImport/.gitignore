@@ -1,0 +1,9 @@
+# Excel dosyalarını git'e ekleme
+ExcelFiles/*.xlsx
+ExcelFiles/*.xls
+
+# İşlenmiş dosyaları ekleme
+ExcelFiles/Processed/
+
+# Sadece README'leri tut
+!ExcelFiles/README.md

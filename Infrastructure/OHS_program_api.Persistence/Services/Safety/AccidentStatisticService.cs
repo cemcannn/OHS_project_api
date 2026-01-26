@@ -17,7 +17,7 @@ public class AccidentStatisticService : IAccidentStatisticService
 
     public async Task<(List<VM_List_AccidentStatistic> accidentStatistics, int totalCount)> GetAllAccidentStatisticsAsync()
     {
-        var accidentStatistics = _accidentStatisticReadRepository.GetAll(false)
+        var accidentStatistics = await _accidentStatisticReadRepository.GetAll(false)
             .Select(p => new
             {
                 p.Id,
@@ -28,32 +28,35 @@ public class AccidentStatisticService : IAccidentStatisticService
                 p.ActualDailyWageUnderground,
                 p.EmployeesNumberSurface,
                 p.EmployeesNumberUnderground
-
-            }).ToList();
+            })
+            .ToListAsync();
 
         var totalCount = accidentStatistics.Count;
 
-    var result = accidentStatistics.Select(p => new VM_List_AccidentStatistic
+        var result = accidentStatistics.Select(p => new VM_List_AccidentStatistic
+        {
+            Id = p.Id.ToString(),
+            Month = p.Month,
+            Year = p.Year,
+            Directorate = p.Directorate,
+            ActualDailyWageSurface = p.ActualDailyWageSurface,
+            ActualDailyWageUnderground = p.ActualDailyWageUnderground,
+            EmployeesNumberSurface = p.EmployeesNumberSurface,
+            EmployeesNumberUnderground = p.EmployeesNumberUnderground,
+            LostDayOfWorkSummary = CalculateLostDayOfWorkSummary(p.Month, p.Year, p.Directorate),
+
+        }).ToList();
+
+        return (result, totalCount);
+    }
+
+    private int CalculateLostDayOfWorkSummary(string? month, string? year, string? directorate)
     {
-        Id = p.Id.ToString(),
-        Month = p.Month,
-        Year = p.Year,
-        Directorate = p.Directorate,
-        ActualDailyWageSurface = p.ActualDailyWageSurface,
-        ActualDailyWageUnderground = p.ActualDailyWageUnderground,
-        EmployeesNumberSurface = p.EmployeesNumberSurface, 
-        EmployeesNumberUnderground = p.EmployeesNumberUnderground,
-        LostDayOfWorkSummary = CalculateLostDayOfWorkSummary(p.Month, p.Year, p.Directorate),
+        if (string.IsNullOrWhiteSpace(month) || string.IsNullOrWhiteSpace(year) || string.IsNullOrWhiteSpace(directorate))
+            return 0;
 
-    }).ToList();
-
-    return (result, totalCount);
-}
-
-    private int CalculateLostDayOfWorkSummary(string month, string year, string directorate)
-    {
-        int monthNumber = int.Parse(month);
-        int yearNumber = int.Parse(year);
+        if (!int.TryParse(month, out int monthNumber) || !int.TryParse(year, out int yearNumber))
+            return 0;
 
         var accidentsInMonth = _accidentReadRepository.GetAll(false)
             .Include(a => a.Personnel) 

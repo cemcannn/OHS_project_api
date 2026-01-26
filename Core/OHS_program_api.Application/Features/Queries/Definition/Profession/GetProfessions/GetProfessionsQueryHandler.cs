@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Definition.ProfessionRepository;
 
 namespace OHS_program_api.Application.Features.Queries.Definition.Profession.GetProfessions
@@ -14,16 +15,19 @@ namespace OHS_program_api.Application.Features.Queries.Definition.Profession.Get
 
         public async Task<GetProfessionsQueryResponse> Handle(GetProfessionsQueryRequest request, CancellationToken cancellationToken)
         {
-            var totalCount = _professionReadRepository.GetAll(false).Count();
-            var profession = _professionReadRepository.GetAll(false)
+            var query = _professionReadRepository.GetAll(false);
+
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            var profession = await query
                 .Select(p => new
                 {
                     p.Id,
                     p.Name
+                })
+                .ToListAsync(cancellationToken);
 
-                }).ToList();
-
-            return new()
+            return new GetProfessionsQueryResponse
             {
                 Datas = profession,
                 TotalCount = totalCount

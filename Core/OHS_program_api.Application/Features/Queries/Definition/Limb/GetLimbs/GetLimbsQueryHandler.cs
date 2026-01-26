@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Definition.LimbRepository;
 
 namespace OHS_program_api.Application.Features.Queries.Definition.Limb.GetLimbs
@@ -14,16 +15,19 @@ namespace OHS_program_api.Application.Features.Queries.Definition.Limb.GetLimbs
 
         public async Task<GetLimbsQueryResponse> Handle(GetLimbsQueryRequest request, CancellationToken cancellationToken)
         {
-            var totalCount = _limbReadRepository.GetAll(false).Count();
-            var limb = _limbReadRepository.GetAll(false)
+            var query = _limbReadRepository.GetAll(false);
+
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            var limb = await query
                 .Select(p => new
                 {
                     p.Id,
                     p.Name
+                })
+                .ToListAsync(cancellationToken);
 
-                }).ToList();
-
-            return new()
+            return new GetLimbsQueryResponse
             {
                 Datas = limb,
                 TotalCount = totalCount
