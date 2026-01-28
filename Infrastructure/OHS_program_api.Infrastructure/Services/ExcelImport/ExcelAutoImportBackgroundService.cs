@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Linq;
 
 namespace OHS_program_api.Infrastructure.Services.ExcelImport
 {
@@ -21,14 +23,39 @@ namespace OHS_program_api.Infrastructure.Services.ExcelImport
             _serviceProvider = serviceProvider;
             _logger = logger;
             
-            // Excel dosyalarının bulunduğu klasör (API projesi içinde)
-            _excelFolderPath = Path.Combine(
-                Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.FullName ?? "",
-                "ExcelDataImport",
-                "ExcelFiles");
+            // Excel dosyalarının bulunduğu klasörü çöz (çözüm kökünde ExcelDataImport/ExcelFiles)
+            _excelFolderPath = ResolveExcelFolderPath();
             
             // Her 60 saniyede bir kontrol et (opsiyonel: appsettings.json'dan okunabilir)
             _checkIntervalSeconds = 60;
+        }
+
+        private string ResolveExcelFolderPath()
+        {
+            var baseDir = AppContext.BaseDirectory;
+            var current = new DirectoryInfo(baseDir);
+            string? resolvedPath = null;
+
+            // Yukarı doğru gezinerek mevcut ExcelDataImport/ExcelFiles klasörünü bul
+            for (int i = 0; i < 6 && current != null; i++)
+            {
+                var candidate = Path.Combine(current.FullName, "ExcelDataImport", "ExcelFiles");
+                if (Directory.Exists(candidate))
+                {
+                    resolvedPath = candidate; // en yukarıdaki (çözüm kökü) klasörü tercih etmek için aramaya devam et
+                }
+
+                current = current.Parent;
+            }
+
+            if (!string.IsNullOrWhiteSpace(resolvedPath))
+            {
+                return resolvedPath;
+            }
+
+            // Bulunamazsa çözüm kökünü varsay ve klasörü oraya kur
+            var fallbackRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", ".."));
+            return Path.Combine(fallbackRoot, "ExcelDataImport", "ExcelFiles");
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

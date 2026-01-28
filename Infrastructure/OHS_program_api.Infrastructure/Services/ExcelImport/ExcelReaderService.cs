@@ -99,15 +99,15 @@ namespace OHS_program_api.Infrastructure.Services.ExcelImport
                         var registrationNo = GetCellValue(worksheet, row, 1); // Sicil No
                         var name = GetCellValue(worksheet, row, 2); // Adı
                         var surname = GetCellValue(worksheet, row, 3); // Soyadı
-                        var directorate = GetCellValue(worksheet, row, 4); // İşletme
-                        var birthDate = GetCellValue(worksheet, row, 5); // Doğum Tarihi
-                        var professionCode = GetCellValue(worksheet, row, 6); // Sanatı (kod)
-                        var accidentDate = GetCellValue(worksheet, row, 7); // Kaza Tarihi
-                        var accidentHour = GetCellValue(worksheet, row, 8); // Saat
-                        var accidentAreaCode = GetCellValue(worksheet, row, 9); // Yer (kod)
-                        var typeOfAccidentCode = GetCellValue(worksheet, row, 10); // Neden (kod)
-                        var limbCode = GetCellValue(worksheet, row, 11); // Uzuv (kod)
-                        var lostDays = GetCellValue(worksheet, row, 12); // Gün Kaybı
+                        var birthDate = GetCellValue(worksheet, row, 4); // Doğum Tarihi
+                        var accidentDate = GetCellValue(worksheet, row, 5); // Kaza Tarihi
+                        var accidentHour = GetCellValue(worksheet, row, 6); // Saat
+                        var professionCode = GetCellValue(worksheet, row, 7); // Sanatı (kod)
+                        var accidentAreaCode = GetCellValue(worksheet, row, 8); // Yer (kod)
+                        var typeOfAccidentCode = GetCellValue(worksheet, row, 9); // Neden (kod)
+                        var limbCode = GetCellValue(worksheet, row, 10); // Uzuv (kod)
+                        var lostDays = GetCellValue(worksheet, row, 11); // Gün Kaybı
+                        var directorate = GetCellValue(worksheet, row, 12); // İşletme
                         var description = GetCellValue(worksheet, row, 13); // Kazanın Kısa Açıklaması
 
                         // Boş satırı atla
@@ -184,11 +184,11 @@ namespace OHS_program_api.Infrastructure.Services.ExcelImport
 
             // DD.MM.YYYY formatını dene
             if (DateTime.TryParseExact(dateStr, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date1))
-                return date1;
+                return DateTime.SpecifyKind(date1, DateTimeKind.Utc);
 
             // Diğer formatları dene
             if (DateTime.TryParse(dateStr, out DateTime date2))
-                return date2;
+                return DateTime.SpecifyKind(date2, DateTimeKind.Utc);
 
             return null;
         }
