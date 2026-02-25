@@ -37,7 +37,9 @@ namespace OHS_program_api.Application.Features.Queries.Safety.Accident.GetAccide
                     Surname = p.Personnel != null ? p.Personnel.Surname : null,
                     TRIdNumber = p.Personnel != null ? p.Personnel.TRIdNumber : null,
                     TKIId = p.Personnel != null ? p.Personnel.TKIId : null,
-                    Directorate = p.Personnel != null ? p.Personnel.Directorate : null
+                    Directorate = p.Personnel != null ? p.Personnel.Directorate : null,
+                    Profession = p.Personnel != null ? p.Personnel.Profession : null,
+                    BornDate = p.Personnel != null ? p.Personnel.BornDate : null
                 })
                 .ToListAsync(cancellationToken);
 
