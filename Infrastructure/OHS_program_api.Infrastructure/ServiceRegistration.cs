@@ -10,7 +10,7 @@ using OHS_program_api.Infrastructure.Services.Storage;
 using OHS_program_api.Infrastructure.Services.Storage.Azure;
 using OHS_program_api.Infrastructure.Services.Storage.Local;
 using OHS_program_api.Infrastructure.Services.Token;
-using OHS_program_api.Infrastructure.Services.ExcelImport;
+//using OHS_program_api.Infrastructure.Services.ExcelImport;
 
 namespace OHS_program_api.Infrastructure
 {
@@ -23,9 +23,9 @@ namespace OHS_program_api.Infrastructure
             serviceCollection.AddScoped<IApplicationService, ApplicationService>();
             
             // Excel Import Servisleri
-            serviceCollection.AddScoped<IExcelReaderService, ExcelReaderService>();
-            serviceCollection.AddScoped<IExcelImportService, ExcelImportService>();
-            serviceCollection.AddHostedService<ExcelAutoImportBackgroundService>();
+            //serviceCollection.AddScoped<IExcelReaderService, ExcelReaderService>();
+            //serviceCollection.AddScoped<IExcelImportService, ExcelImportService>();
+            //serviceCollection.AddHostedService<ExcelAutoImportBackgroundService>();
         }
         public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
         {

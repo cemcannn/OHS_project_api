@@ -10,5 +10,6 @@
         public const string Directorates = "Directorates";
         public const string Professions = "Professions";
         public const string TypeOfAccidents = "TypeOfAccidents";
+        public const string DataImport = "DataImport";
     }
 }
