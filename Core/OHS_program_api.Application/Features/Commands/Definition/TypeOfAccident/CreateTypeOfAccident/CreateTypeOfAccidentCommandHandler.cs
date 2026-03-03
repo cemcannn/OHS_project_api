@@ -17,6 +17,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.TypeOfAcciden
             await _typeOfAccidentWriteRepository.AddAsync(new()
             {
                 Name = request.Name,
+                Description = request.Description,
             });
             await _typeOfAccidentWriteRepository.SaveAsync();
 

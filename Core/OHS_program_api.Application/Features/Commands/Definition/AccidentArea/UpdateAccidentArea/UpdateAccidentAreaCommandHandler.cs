@@ -22,6 +22,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.AccidentArea.
             {
                 _accidentArea.Id = new Guid(request.Id);
                 _accidentArea.Name = request.Name;
+                _accidentArea.Description = request.Description;
 
                 await _accidentAreaWriteRepository.SaveAsync();
             }

@@ -17,6 +17,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Limb.CreateLi
             await _limbWriteRepository.AddAsync(new()
             {
                 Name = request.Name,
+                Description = request.Description,
             });
             await _limbWriteRepository.SaveAsync();
 

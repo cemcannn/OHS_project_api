@@ -5,5 +5,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.TypeOfAcciden
     public class CreateTypeOfAccidentCommandRequest : IRequest<CreateTypeOfAccidentCommandResponse>
     {
         public string Name { get; set; }
+        public string? Description { get; set; }
     }
 }

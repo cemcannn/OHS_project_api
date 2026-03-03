@@ -17,6 +17,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.AccidentArea.
             await _accidentAreaWriteRepository.AddAsync(new()
             {
                 Name = request.Name,
+                Description = request.Description,
             });
             await _accidentAreaWriteRepository.SaveAsync();
 

@@ -5,5 +5,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Limb.CreateLi
     public class CreateLimbCommandRequest : IRequest<CreateLimbCommandResponse>
     {
         public string Name { get; set; }
+        public string? Description { get; set; }
     }
 }

@@ -23,7 +23,8 @@ namespace OHS_program_api.Application.Features.Queries.Definition.TypeOfAccident
                 .Select(p => new
                 {
                     p.Id,
-                    p.Name
+                    p.Name,
+                    p.Description
                 })
                 .ToListAsync(cancellationToken);
 

@@ -5,5 +5,6 @@ namespace OHS_program_api.Domain.Entities.Definitions
     public class AccidentArea : BaseEntity
     {
         public string Name { get; set; }
+        public string? Description { get; set; }
     }
 }

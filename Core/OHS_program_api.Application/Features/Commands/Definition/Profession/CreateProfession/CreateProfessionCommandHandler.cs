@@ -17,6 +17,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Profession.Cr
             await _professionWriteRepository.AddAsync(new()
             {
                 Name = request.Name,
+                Description = request.Description,
             });
             await _professionWriteRepository.SaveAsync();
 

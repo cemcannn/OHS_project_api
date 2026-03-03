@@ -21,6 +21,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Profession.Up
             {
                 _profession.Id = new Guid(request.Id);
                 _profession.Name = request.Name;
+                _profession.Description = request.Description;
 
                 await _professionWriteRepository.SaveAsync();
             }
