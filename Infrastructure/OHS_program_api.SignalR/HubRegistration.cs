@@ -10,6 +10,7 @@ namespace OHS_program_api.SignalR
         {
             webApplication.MapHub<AccidentHub>("/accidents-hub");
             webApplication.MapHub<PersonnelHub>("/personnels-hub");
+            webApplication.MapHub<UserActivityHub>("/activity-hub");
         }
     }
 }

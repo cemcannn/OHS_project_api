@@ -22,7 +22,8 @@ namespace OHS_program_api.Application.Features.Queries.AppUser.GetUserById
                 Name = user.Name,
                 Email = user.Email,
                 UserName = user.UserName,
-                TwoFactorEnabled = user.TwoFactorEnabled
+                TwoFactorEnabled = user.TwoFactorEnabled,
+                ProfilePhoto = user.ProfilePhoto
             };
         }
     }

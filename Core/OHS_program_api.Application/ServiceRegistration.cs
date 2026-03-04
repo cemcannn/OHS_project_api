@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MediatR;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using OHS_program_api.Application.Behaviors;
 
 namespace OHS_program_api.Application
 {
@@ -9,6 +10,7 @@ namespace OHS_program_api.Application
         {
             collection.AddMediatR(typeof(ServiceRegistration));
             collection.AddHttpClient();
+            collection.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         }
     }
 }

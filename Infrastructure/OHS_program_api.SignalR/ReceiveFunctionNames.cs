@@ -4,5 +4,6 @@
     {
         public const string AccidentAddedMessage = "receiveAccidentAddedMessage";
         public const string PersonnelAddedMessage = "receivePersonnelAddedMessage";
+        public const string UserActivityMessage = "receiveUserActivity";
     }
 }

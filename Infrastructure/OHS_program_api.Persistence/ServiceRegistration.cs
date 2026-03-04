@@ -88,6 +88,7 @@ namespace OHS_program_api.Persistence
             services.AddScoped<IAccidentService, AccidentService>();
             services.AddScoped<IAccidentStatisticService, AccidentStatisticService>();
             services.AddScoped<IDataArchivingService, DataArchivingService>(); // Database optimization
+            services.AddScoped<IAuditLogService, AuditLogService>();
         }
     }
 }

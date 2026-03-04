@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.Profession.UpdateProfession
 {
@@ -7,5 +7,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Profession.Up
         public string Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
+        public string? WorkType { get; set; }
     }
 }

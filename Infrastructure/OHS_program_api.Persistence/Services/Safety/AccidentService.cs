@@ -51,12 +51,8 @@ namespace OHS_program_api.Persistence.Services.Safety
 
             await _accidentWriteRepository.AddAsync(_accident);
 
-            personnel.Accident.Add(_accident);
-
-
             // Değişiklikleri kaydedin
             await _accidentWriteRepository.SaveAsync();
-            await _personnelWriteRepository.SaveAsync();
 
             return true;
         }

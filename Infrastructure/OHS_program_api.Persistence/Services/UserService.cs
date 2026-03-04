@@ -180,6 +180,16 @@ namespace OHS_program_api.Persistence.Services
             return false;
         }
 
+        public async Task UploadProfilePhotoAsync(string userId, string photoBase64)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                throw new NotFoundUserException();
+
+            user.ProfilePhoto = photoBase64;
+            await _userManager.UpdateAsync(user);
+        }
+
         public async Task RemoveUserAsync(string userId)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
@@ -209,7 +219,8 @@ namespace OHS_program_api.Persistence.Services
                 Email = user.Email,
                 Name = user.Name,
                 TwoFactorEnabled = user.TwoFactorEnabled,
-                UserName = user.UserName
+                UserName = user.UserName,
+                ProfilePhoto = user.ProfilePhoto
             };
         }
     }

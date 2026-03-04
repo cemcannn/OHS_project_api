@@ -25,6 +25,7 @@ namespace OHS_program_api.Persistence.Contexts
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Endpoint> Endpoints { get; set; }
         public DbSet<AccidentStatistic> AccidentStatistics { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

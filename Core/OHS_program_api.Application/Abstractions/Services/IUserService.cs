@@ -16,5 +16,6 @@ namespace OHS_program_api.Application.Abstractions.Services
         Task<string[]> GetRolesToUserAsync(string userIdOrName);
         Task<bool> HasRolePermissionToEndpointAsync(string name, string code);
         Task RemoveUserAsync(string iduserId);
+        Task UploadProfilePhotoAsync(string userId, string photoBase64);
     }
 }

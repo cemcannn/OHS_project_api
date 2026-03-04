@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using OHS_program_api.Application.Repositories.Definition.ProfessionRepository;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.Profession.CreateProfession
@@ -18,6 +18,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Profession.Cr
             {
                 Name = request.Name,
                 Description = request.Description,
+                WorkType = request.WorkType,
             });
             await _professionWriteRepository.SaveAsync();
 

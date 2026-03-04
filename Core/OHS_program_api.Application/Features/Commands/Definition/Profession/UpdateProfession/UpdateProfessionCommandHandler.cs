@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using OHS_program_api.Application.Repositories.Definition.ProfessionRepository;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.Profession.UpdateProfession
@@ -22,6 +22,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Profession.Up
                 _profession.Id = new Guid(request.Id);
                 _profession.Name = request.Name;
                 _profession.Description = request.Description;
+                _profession.WorkType = request.WorkType;
 
                 await _professionWriteRepository.SaveAsync();
             }

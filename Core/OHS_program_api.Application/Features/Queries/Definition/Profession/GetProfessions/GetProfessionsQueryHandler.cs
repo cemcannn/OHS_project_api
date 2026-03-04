@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Definition.ProfessionRepository;
 
@@ -24,7 +24,8 @@ namespace OHS_program_api.Application.Features.Queries.Definition.Profession.Get
                 {
                     p.Id,
                     p.Name,
-                    p.Description
+                    p.Description,
+                    p.WorkType
                 })
                 .ToListAsync(cancellationToken);
 

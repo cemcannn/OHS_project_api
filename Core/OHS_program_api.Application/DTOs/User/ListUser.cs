@@ -7,5 +7,6 @@
         public string Name { get; set; }
         public string UserName { get; set; }
         public bool TwoFactorEnabled { get; set; }
+        public string? ProfilePhoto { get; set; }
     }
 }

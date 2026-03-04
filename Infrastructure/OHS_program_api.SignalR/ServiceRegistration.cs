@@ -11,6 +11,7 @@ namespace OHS_program_api.SignalR
         {
             collection.AddTransient<IAccidentHubService, AccidentHubService>();
             collection.AddTransient<IPersonnelHubService, PersonnelHubService>();
+            collection.AddTransient<IUserActivityHubService, UserActivityHubService>();
             collection.AddSignalR();
         }
     }

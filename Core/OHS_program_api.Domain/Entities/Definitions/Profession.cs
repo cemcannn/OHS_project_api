@@ -6,5 +6,6 @@ namespace OHS_program_api.Domain.Entities.Definitions
     {
         public string Name { get; set; }
         public string? Description { get; set; }
+        public string? WorkType { get; set; }
     }
 }

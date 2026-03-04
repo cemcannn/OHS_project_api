@@ -9,6 +9,7 @@ using OHS_program_api.Application.Features.Commands.AppUser.CreateUser;
 using OHS_program_api.Application.Features.Commands.AppUser.RemoveUser;
 using OHS_program_api.Application.Features.Commands.AppUser.UpdatePassword;
 using OHS_program_api.Application.Features.Commands.AppUser.UpdateUser;
+using OHS_program_api.Application.Features.Commands.AppUser.UploadProfilePhoto;
 using OHS_program_api.Application.Features.Queries.AppUser.GetAllUsers;
 using OHS_program_api.Application.Features.Queries.AppUser.GetRolesToUser;
 using OHS_program_api.Application.Features.Queries.AppUser.GetUserById;
@@ -81,6 +82,14 @@ namespace OHS_program_api.API.Controllers
         public async Task<IActionResult> AssignRoleToUser(AssignRoleToUserCommandRequest assignRoleToUserCommandRequest)
         {
             AssignRoleToUserCommandResponse response = await _mediator.Send(assignRoleToUserCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPut("upload-photo")]
+        [AuthorizeDefinition(ActionType = ActionType.Updating, Definition = "Upload Profile Photo", Menu = "Users")]
+        public async Task<IActionResult> UploadProfilePhoto([FromBody] UploadProfilePhotoCommandRequest request)
+        {
+            UploadProfilePhotoCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
