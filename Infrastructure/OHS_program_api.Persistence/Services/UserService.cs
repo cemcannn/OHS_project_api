@@ -104,6 +104,13 @@ namespace OHS_program_api.Persistence.Services
             
         }
 
+        public async Task<bool> CheckPasswordAsync(string userId, string currentPassword)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return false;
+            return await _userManager.CheckPasswordAsync(user, currentPassword);
+        }
+
         public async Task<List<ListUser>> GetAllUsersAsync()
         {
             var users = await _userManager.Users

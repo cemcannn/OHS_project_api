@@ -105,8 +105,8 @@ var securityKey = builder.Configuration["Token:SecurityKey"] ?? throw new Invali
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = "Admin";
+    options.DefaultChallengeScheme = "Admin";
 }).AddJwtBearer("Admin", options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters

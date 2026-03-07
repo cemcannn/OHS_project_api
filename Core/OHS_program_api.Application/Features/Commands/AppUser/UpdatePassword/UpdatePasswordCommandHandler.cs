@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using OHS_program_api.Application.Abstractions.Services;
 using OHS_program_api.Application.Exceptions;
 
@@ -17,6 +17,13 @@ namespace OHS_program_api.Application.Features.Commands.AppUser.UpdatePassword
         {
             if (!request.Password.Equals(request.PasswordConfirm))
                 throw new PasswordChangeFailedException("Lütfen şifreyi birebir doğrulayınız.");
+
+            if (!string.IsNullOrEmpty(request.CurrentPassword))
+            {
+                bool isCurrentPasswordValid = await _userService.CheckPasswordAsync(request.UserId, request.CurrentPassword);
+                if (!isCurrentPasswordValid)
+                    throw new PasswordChangeFailedException("Mevcut şifre hatalı.");
+            }
 
             await _userService.UpdatePasswordAsync(request.UserId, request.Password);
             return new();

@@ -37,10 +37,11 @@ namespace OHS_program_api.Infrastructure.Services.Token
                 expires: token.Expiration,
                 notBefore: DateTime.UtcNow,
                 signingCredentials: signingCredentials,
-                claims: new List<Claim> 
-                { 
-                    new(ClaimTypes.Name, user.UserName), 
-                    new(ClaimTypes.NameIdentifier, user.Id)
+                claims: new List<Claim>
+                {
+                    new(ClaimTypes.Name, user.UserName ?? string.Empty),
+                    new(ClaimTypes.NameIdentifier, user.Id),
+                    new("display_name", user.Name ?? user.UserName ?? string.Empty)
                 });
 
             //Token oluşturucu sınıfından bir örnek alalım.

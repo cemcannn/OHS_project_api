@@ -9,6 +9,7 @@ namespace OHS_program_api.Application.Abstractions.Services
         Task<UpdateUserResponse> UpdateUserAsync(UpdateUser model);
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate);
         Task UpdatePasswordAsync(string userId, string newPassword);
+        Task<bool> CheckPasswordAsync(string userId, string currentPassword);
         Task<List<ListUser>> GetAllUsersAsync();
         Task<ListUser> GetUserByIdAsync(string id);
         int TotalUsersCount { get; }
