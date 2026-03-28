@@ -14,9 +14,12 @@ namespace OHS_program_api.Persistence.Services
 {
     public class AuthService : IAuthService
     {
+        private const string ObserverRoleName = "Observer";
+
         readonly HttpClient _httpClient;
         readonly IConfiguration _configuration;
         readonly UserManager<Domain.Entities.Identity.AppUser> _userManager;
+        readonly RoleManager<AppRole> _roleManager;
         readonly ITokenHandler _tokenHandler;
         readonly SignInManager<Domain.Entities.Identity.AppUser> _signInManager;
         readonly IUserService _userService;
@@ -24,6 +27,7 @@ namespace OHS_program_api.Persistence.Services
         public AuthService(IHttpClientFactory httpClientFactory,
             IConfiguration configuration,
             UserManager<Domain.Entities.Identity.AppUser> userManager,
+            RoleManager<AppRole> roleManager,
             ITokenHandler tokenHandler,
             SignInManager<AppUser> signInManager,
             IUserService userService)
@@ -31,6 +35,7 @@ namespace OHS_program_api.Persistence.Services
             _httpClient = httpClientFactory.CreateClient();
             _configuration = configuration;
             _userManager = userManager;
+            _roleManager = roleManager;
             _tokenHandler = tokenHandler;
             _signInManager = signInManager;
             _userService = userService;
@@ -60,7 +65,7 @@ namespace OHS_program_api.Persistence.Services
             {
                 await _userManager.AddLoginAsync(user, info); //AspNetUserLogins
 
-                Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
+                Token token = await _tokenHandler.CreateAccessTokenAsync(accessTokenLifeTime, user);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
                 return token;
             }
@@ -79,7 +84,8 @@ namespace OHS_program_api.Persistence.Services
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (result.Succeeded) //Authentication başarılı!
             {
-                Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
+                await EnsureDefaultRoleAsync(user);
+                Token token = await _tokenHandler.CreateAccessTokenAsync(accessTokenLifeTime, user);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
                 return token;
             }
@@ -91,12 +97,25 @@ namespace OHS_program_api.Persistence.Services
             AppUser? user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
             if (user != null && user?.RefreshTokenEndDate > DateTime.UtcNow)
             {
-                Token token = _tokenHandler.CreateAccessToken(15, user);
+                await EnsureDefaultRoleAsync(user);
+                Token token = await _tokenHandler.CreateAccessTokenAsync(15, user);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 300);
                 return token;
             }
             else
                 throw new NotFoundUserException();
+        }
+
+        private async Task EnsureDefaultRoleAsync(AppUser user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Any())
+                return;
+
+            if (!await _roleManager.RoleExistsAsync(ObserverRoleName))
+                await _roleManager.CreateAsync(new AppRole { Id = Guid.NewGuid().ToString(), Name = ObserverRoleName });
+
+            await _userManager.AddToRoleAsync(user, ObserverRoleName);
         }
 
         public async Task PasswordResetAsnyc(string email)

@@ -6,6 +6,8 @@ namespace OHS_program_api.API.Seed
     public static class SuperAdminSeeder
     {
         private const string SuperAdminRoleName = "SuperAdmin";
+        private const string AdminRoleName = "Admin";
+        private const string ObserverRoleName = "Observer";
 
         /// <summary>
         /// Development ortamında super admin kullanıcı/rol seed etmek için.
@@ -21,12 +23,6 @@ namespace OHS_program_api.API.Seed
             var password =
                 Environment.GetEnvironmentVariable("SUPERADMIN_PASSWORD")
                 ?? configuration["SuperAdmin:Seed:Password"];
-
-            if (enabled != true && string.IsNullOrWhiteSpace(password))
-            {
-                logger.LogInformation("SuperAdmin seed atlandı (SUPERADMIN_PASSWORD yok).");
-                return;
-            }
 
             var userName =
                 Environment.GetEnvironmentVariable("SUPERADMIN_USERNAME")
@@ -46,20 +42,30 @@ namespace OHS_program_api.API.Seed
             var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
             var userManager = services.GetRequiredService<UserManager<AppUser>>();
 
-            // Role
-            if (!await roleManager.RoleExistsAsync(SuperAdminRoleName))
+            var roleNames = new[] { SuperAdminRoleName, AdminRoleName, ObserverRoleName };
+
+            foreach (var roleName in roleNames)
             {
+                if (await roleManager.RoleExistsAsync(roleName))
+                    continue;
+
                 var roleResult = await roleManager.CreateAsync(new AppRole
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = SuperAdminRoleName
+                    Name = roleName
                 });
 
                 if (!roleResult.Succeeded)
                 {
-                    logger.LogWarning("SuperAdmin rolü oluşturulamadı: {Errors}", string.Join(" | ", roleResult.Errors.Select(e => e.Description)));
+                    logger.LogWarning("{RoleName} rolü oluşturulamadı: {Errors}", roleName, string.Join(" | ", roleResult.Errors.Select(e => e.Description)));
                     return;
                 }
+            }
+
+            if (enabled != true && string.IsNullOrWhiteSpace(password))
+            {
+                logger.LogInformation("SuperAdmin kullanıcı seed atlandı (SUPERADMIN_PASSWORD yok). Standart roller hazırlandı.");
+                return;
             }
 
             // User (email veya username ile bul)

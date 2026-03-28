@@ -12,14 +12,18 @@ namespace OHS_program_api.Persistence.Services
     public class UserService : IUserService
     {
         private const string SuperAdminRoleName = "SuperAdmin";
+        private const string ObserverRoleName = "Observer";
 
         readonly UserManager<Domain.Entities.Identity.AppUser> _userManager;
+        readonly RoleManager<AppRole> _roleManager;
         readonly IEndpointReadRepository _endpointReadRepository;
 
         public UserService(UserManager<AppUser> userManager,
+            RoleManager<AppRole> roleManager,
             IEndpointReadRepository endpointReadRepository)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _endpointReadRepository = endpointReadRepository;
         }
 
@@ -36,7 +40,25 @@ namespace OHS_program_api.Persistence.Services
             CreateUserResponse response = new() { Succeeded = result.Succeeded };
 
             if (result.Succeeded)
+            {
+                var createdUser = await _userManager.FindByNameAsync(model.UserName);
+                if (createdUser != null)
+                {
+                    if (!await _roleManager.RoleExistsAsync(ObserverRoleName))
+                    {
+                        await _roleManager.CreateAsync(new AppRole
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Name = ObserverRoleName
+                        });
+                    }
+
+                    if (!await _userManager.IsInRoleAsync(createdUser, ObserverRoleName))
+                        await _userManager.AddToRoleAsync(createdUser, ObserverRoleName);
+                }
+
                 response.Message = "Kullanıcı başarıyla oluşturulmuştur.";
+            }
             else
                 foreach (var error in result.Errors)
                     response.Message += $"{error.Code} - {error.Description}\n";

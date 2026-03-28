@@ -5,7 +5,7 @@ namespace OHS_program_api.Application.Abstractions.Token
 {
     public interface ITokenHandler
     {
-        DTOs.Token CreateAccessToken(int second, AppUser appUser);
+        Task<DTOs.Token> CreateAccessTokenAsync(int second, AppUser appUser);
         string CreateRefreshToken();
     }
 }

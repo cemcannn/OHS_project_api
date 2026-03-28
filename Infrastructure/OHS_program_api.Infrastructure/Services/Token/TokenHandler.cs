@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 using OHS_program_api.Application.Abstractions.Token;
 using OHS_program_api.Domain.Entities.Identity;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,13 +14,15 @@ namespace OHS_program_api.Infrastructure.Services.Token
     public class TokenHandler : ITokenHandler
     {
         readonly IConfiguration _configuration;
+        readonly UserManager<AppUser> _userManager;
 
-        public TokenHandler(IConfiguration configuration)
+        public TokenHandler(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _configuration = configuration;
+            _userManager = userManager;
         }
 
-        public Application.DTOs.Token CreateAccessToken(int second, AppUser user)
+        public async Task<Application.DTOs.Token> CreateAccessTokenAsync(int second, AppUser user)
         {
             Application.DTOs.Token token = new();
 
@@ -29,6 +32,16 @@ namespace OHS_program_api.Infrastructure.Services.Token
             //Şifrelenmiş kimliği oluşturuyoruz.
             SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
+            var roles = await _userManager.GetRolesAsync(user);
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.Name, user.UserName ?? string.Empty),
+                new(ClaimTypes.NameIdentifier, user.Id),
+                new("display_name", user.Name ?? user.UserName ?? string.Empty)
+            };
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
             //Oluşturulacak token ayarlarını veriyoruz.
             token.Expiration = DateTime.UtcNow.AddSeconds(second);
             JwtSecurityToken securityToken = new(
@@ -37,12 +50,7 @@ namespace OHS_program_api.Infrastructure.Services.Token
                 expires: token.Expiration,
                 notBefore: DateTime.UtcNow,
                 signingCredentials: signingCredentials,
-                claims: new List<Claim>
-                {
-                    new(ClaimTypes.Name, user.UserName ?? string.Empty),
-                    new(ClaimTypes.NameIdentifier, user.Id),
-                    new("display_name", user.Name ?? user.UserName ?? string.Empty)
-                });
+                claims: claims);
 
             //Token oluşturucu sınıfından bir örnek alalım.
             JwtSecurityTokenHandler tokenHandler = new();

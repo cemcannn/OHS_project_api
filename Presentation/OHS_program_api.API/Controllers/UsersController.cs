@@ -51,7 +51,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Admin")]
+        [Authorize(AuthenticationSchemes = "Admin", Roles = "SuperAdmin")]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Users", Menu = "Users")]
         public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
         {
@@ -68,7 +68,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpGet("get-roles-to-user/{UserId}")]
-        [Authorize(AuthenticationSchemes = "Admin")]
+        [Authorize(AuthenticationSchemes = "Admin", Roles = "SuperAdmin")]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Roles To Users", Menu = "Users")]
         public async Task<IActionResult> GetRolesToUser([FromRoute] GetRolesToUserQueryRequest getRolesToUserQueryRequest)
         {
@@ -77,7 +77,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpPost("assign-role-to-user")]
-        [Authorize(AuthenticationSchemes = "Admin")]
+        [Authorize(AuthenticationSchemes = "Admin", Roles = "SuperAdmin")]
         [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Assign Role To User", Menu = "Users")]
         public async Task<IActionResult> AssignRoleToUser(AssignRoleToUserCommandRequest assignRoleToUserCommandRequest)
         {
@@ -94,7 +94,7 @@ namespace OHS_program_api.API.Controllers
         }
 
         [HttpDelete("{Id}")]
-        [Authorize(AuthenticationSchemes = "Admin")]
+        [Authorize(AuthenticationSchemes = "Admin", Roles = "SuperAdmin")]
         [AuthorizeDefinition(ActionType = ActionType.Deleting, Definition = "Remove User", Menu = "Users")]
         public async Task<IActionResult> RemoveUser([FromRoute] RemoveUserCommandRequest removeUserCommandRequest)
         {

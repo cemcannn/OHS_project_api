@@ -8,6 +8,7 @@ namespace OHS_program_api.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin", Roles = "SuperAdmin")]
 
     public class AuthorizationEndpointsController : ControllerBase
     {
