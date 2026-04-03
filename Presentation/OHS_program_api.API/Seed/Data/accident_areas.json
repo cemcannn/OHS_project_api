@@ -1,0 +1,170 @@
+[
+  {
+    "code": "11",
+    "name": "Ayak İçi / Pano",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "12",
+    "name": "Hazırlık Galerisi / Malz.Baca",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "13",
+    "name": "Kömür Baca / Kömür Yolu",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "14",
+    "name": "Ana İhraç Yolu / Galeri",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "15",
+    "name": "Bant Boyu / Konveyör Yolu",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "16",
+    "name": "Kuyu / Eğimli Kuyu",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "17",
+    "name": "Vinç Altı / Pompa İst.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "18",
+    "name": "Tertip Odası / Beke",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "19",
+    "name": "Kavşak / Sapak Noktası",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "20",
+    "name": "Havalandırma / Kaçamak Yolu",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "21",
+    "name": "Dolgu / Tavan Arası",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "22",
+    "name": "YA Diğer",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "31",
+    "name": "Tesisler / Kırıcı-Silo-Tikiner",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "32",
+    "name": "Açık Ocak / Şev Kenarı",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "33",
+    "name": "Atölyeler / Kaynakhane",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "34",
+    "name": "Pazarlama / Kantar Sahası",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "35",
+    "name": "Sosyal Tes. / İdari Bina",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "36",
+    "name": "Servis Yolu / Ulaşım",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "37",
+    "name": "Laboratuvar / Numune Haz.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "38",
+    "name": "Pasa Döküm / Stok Sahası",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "39",
+    "name": "Malzeme Deposu / Ambar",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "40",
+    "name": "Bant Hattı (Yerüstü)",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "41",
+    "name": "Park / Garaj Sahası",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  },
+  {
+    "code": "42",
+    "name": "YÜ Diğer",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": null
+  }
+]

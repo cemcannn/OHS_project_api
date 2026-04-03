@@ -152,6 +152,12 @@ if (app.Environment.IsDevelopment())
     await SuperAdminSeeder.SeedAsync(scope.ServiceProvider, app.Configuration, app.Logger);
 }
 
+// Tanımlama seed'i tüm ortamlarda eksik kayıtları tamamlar (idempotent).
+using (var scope = app.Services.CreateScope())
+{
+    await DefinitionSeeder.SeedAsync(scope.ServiceProvider, app.Configuration, app.Logger);
+}
+
 // Rate limiting middleware
 app.UseMiddleware<RateLimitingMiddleware>();
 

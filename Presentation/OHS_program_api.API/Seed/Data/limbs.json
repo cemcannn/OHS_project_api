@@ -1,0 +1,233 @@
+[
+  {
+    "code": "10",
+    "name": "BAŞ (Genel)",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "11",
+    "name": "Kafa/Kafatası",
+    "parentCode": "10",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "12",
+    "name": "Göz",
+    "parentCode": "10",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "13",
+    "name": "Kulak",
+    "parentCode": "10",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "14",
+    "name": "Burun",
+    "parentCode": "10",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "15",
+    "name": "Yüz/Çene/Alın",
+    "parentCode": "10",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "20",
+    "name": "BOYUN",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "30",
+    "name": "KOL (Genel)",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "31",
+    "name": "Omuz/Kürek Kemiği",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "32",
+    "name": "Üst Kol",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "33",
+    "name": "Dirsek",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "34",
+    "name": "Ön Kol",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "35",
+    "name": "El Bileği",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "36",
+    "name": "EL (Genel)",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "37",
+    "name": "Parmaklar (El)",
+    "parentCode": "30",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "40",
+    "name": "BACAK (Genel)",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "41",
+    "name": "Kalça/Uyluk",
+    "parentCode": "40",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "42",
+    "name": "Diz",
+    "parentCode": "40",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "43",
+    "name": "Alt Bacak/Baldır",
+    "parentCode": "40",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "44",
+    "name": "Ayak Bileği",
+    "parentCode": "40",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "45",
+    "name": "AYAK (Genel)",
+    "parentCode": "40",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "46",
+    "name": "Parmaklar (Ayak)",
+    "parentCode": "40",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "50",
+    "name": "GÖVDE (Genel)",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "51",
+    "name": "Göğüs/Kaburgalar",
+    "parentCode": "50",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "52",
+    "name": "Sırt (Üst)",
+    "parentCode": "50",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "53",
+    "name": "Bel (Alt Sırt)",
+    "parentCode": "50",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "54",
+    "name": "Karın/Böbrek",
+    "parentCode": "50",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "55",
+    "name": "Pelvis/Leğen K.",
+    "parentCode": "50",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "60",
+    "name": "OMURGA/DİSK",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "70",
+    "name": "İÇ ORGANLAR",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "80",
+    "name": "MUHTELİF",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "90",
+    "name": "TÜM VÜCUT",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "99",
+    "name": "DİĞER",
+    "parentCode": null,
+    "workType": null,
+    "description": null
+  }
+]

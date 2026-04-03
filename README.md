@@ -104,3 +104,59 @@ Tarayıcı HTTPS uyarısı alırsanız:
 dotnet dev-certs https --trust
 ```
 
+## Kalıcı Tanımlama Seed'i
+
+Projede tanımlama verileri için kalıcı seed altyapısı vardır.
+
+- Seed dosyaları: `Presentation/OHS_program_api.API/Seed/Data/*.json`
+- Çalışma zamanı: API açılışında otomatik
+- Davranış: idempotent (sadece eksik kodları ekler, var olanları ezmez)
+
+Seed edilen tablolar:
+
+- `AccidentAreas`
+- `TypeOfAccident`
+- `Professions`
+- `Limbs`
+
+### Seed geçmişi
+
+Uygulama ilk çalışmada `DefinitionSeedHistory` tablosunu otomatik oluşturur.
+Her çalıştırmada tabloya seed özeti yazılır:
+
+- `SeedName`
+- `Version`
+- `InsertedCount`
+- `SkippedCount`
+- `LastAppliedUtc`
+
+Kontrol için:
+
+```sql
+SELECT * FROM "DefinitionSeedHistory" ORDER BY "SeedName";
+```
+
+### Seed'i kapatma
+
+`appsettings.json` içine:
+
+```json
+"DefinitionSeed": {
+   "Enabled": false
+}
+```
+
+### Seed güncelleme adımları
+
+1. İlgili JSON dosyasını güncelle:
+    - `Seed/Data/accident_areas.json`
+    - `Seed/Data/type_of_accident.json`
+    - `Seed/Data/professions.json`
+    - `Seed/Data/limbs.json`
+2. `code` alanını mümkün olduğunca sabit tut (eşleştirme anahtarıdır).
+3. Yeni kayıt gerekiyorsa yeni `code` ile ekle.
+4. `Presentation/OHS_program_api.API/Seed/DefinitionSeeder.cs` dosyasında `CurrentVersion` değerini artır.
+5. API'yi yeniden başlatıp `DefinitionSeedHistory` tablosundan sonucu doğrula.
+
+Not: Bu seed yaklaşımı kullanıcı tarafından güncellenen mevcut kayıtları ezmez. Mevcut kaydı zorunlu toplu güncellemek istersen ayrı migration/patch script tercih edilmelidir.
+

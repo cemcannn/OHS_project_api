@@ -1,0 +1,569 @@
+[
+  {
+    "code": "1",
+    "name": "MEKANİZE KAZI OP.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Shearer Op."
+  },
+  {
+    "code": "2",
+    "name": "YÜR.TAHKİMAT SÜR.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Şilt Sürücü"
+  },
+  {
+    "code": "3",
+    "name": "Y.A.HAZ.İŞÇİSİ",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Hazırlıkçı"
+  },
+  {
+    "code": "4",
+    "name": "Y.A.HAZ.İŞÇ.YEDEK",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "5",
+    "name": "Y.A.HAZ.USTASI",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Ekip Başı"
+  },
+  {
+    "code": "6",
+    "name": "Y.A.MAD.HAZ.ELEM.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "7",
+    "name": "BEDEN İŞÇ.(Y.A.)",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Amele"
+  },
+  {
+    "code": "8",
+    "name": "DELİKÇİ",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Perforatörcü"
+  },
+  {
+    "code": "9",
+    "name": "ATEŞÇİ",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Dinamitçi"
+  },
+  {
+    "code": "10",
+    "name": "ZEM.DELGİ MAK.OP.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Boltçu"
+  },
+  {
+    "code": "11",
+    "name": "TAHKİMATÇI",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Bağcı-Direkçi"
+  },
+  {
+    "code": "12",
+    "name": "KONVEYÖR OP.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Bantçı"
+  },
+  {
+    "code": "13",
+    "name": "MONORAY OP.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Kulikar Op."
+  },
+  {
+    "code": "14",
+    "name": "DESANDRE VİNÇÇİSİ",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Vinççi"
+  },
+  {
+    "code": "15",
+    "name": "MALZ.TAK.DAĞ.İŞÇ.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Malzemeci"
+  },
+  {
+    "code": "16",
+    "name": "TAMİR BAKIM USTA",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Mekanikçi"
+  },
+  {
+    "code": "17",
+    "name": "ELEKTRİKÇİ(Y.A.)",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "18",
+    "name": "EL.ELEK.TEK.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Otomasyon Tek."
+  },
+  {
+    "code": "19",
+    "name": "TULUMBACI",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Pompacı"
+  },
+  {
+    "code": "20",
+    "name": "KUM.MERKEZİ OP.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Panel Op."
+  },
+  {
+    "code": "21",
+    "name": "İŞL.ELEK.BAKIMCI",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": null
+  },
+  {
+    "code": "22",
+    "name": "MADEN TEKNİKERİ",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Tek.Gözetmen"
+  },
+  {
+    "code": "23",
+    "name": "ÖLÇÜ TESPİT ELEM.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Ölçücü"
+  },
+  {
+    "code": "24",
+    "name": "ÖLÇÜ TESPİT SOR.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Markşayder"
+  },
+  {
+    "code": "25",
+    "name": "NEZARETÇİ",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Vardiya Amiri"
+  },
+  {
+    "code": "26",
+    "name": "Y.A.İSG DESTEK EL.",
+    "parentCode": null,
+    "workType": "Yeraltı",
+    "description": "Gaz Ölçümcü"
+  },
+  {
+    "code": "51",
+    "name": "DOZER OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Dozerci"
+  },
+  {
+    "code": "52",
+    "name": "EKSKAVATÖR OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Kepçeci"
+  },
+  {
+    "code": "53",
+    "name": "İŞ MAK.OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Makine Operatörü"
+  },
+  {
+    "code": "54",
+    "name": "GREYDER OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Greyderci"
+  },
+  {
+    "code": "55",
+    "name": "YÜKLEYİCİ OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Loderci"
+  },
+  {
+    "code": "56",
+    "name": "FORKLİFT OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Forkliftçi"
+  },
+  {
+    "code": "57",
+    "name": "VİNÇ OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Vinççi"
+  },
+  {
+    "code": "58",
+    "name": "KAMYON ŞOF.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Damperci"
+  },
+  {
+    "code": "59",
+    "name": "KAYA KAM.OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Ağır Kamyon"
+  },
+  {
+    "code": "60",
+    "name": "ŞOFÖR",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Servis Şoförü"
+  },
+  {
+    "code": "61",
+    "name": "TESİS İŞÇ.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Kırıcı Op."
+  },
+  {
+    "code": "62",
+    "name": "TESİS İŞÇ.2",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Tesis Yrd."
+  },
+  {
+    "code": "63",
+    "name": "MANEVRACI",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Harmancı"
+  },
+  {
+    "code": "64",
+    "name": "KANTAR GÖR.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Kantarcı"
+  },
+  {
+    "code": "65",
+    "name": "NUMUNECİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Numune Alma El."
+  },
+  {
+    "code": "66",
+    "name": "BEDEN İŞÇ.(Y.Ü.)",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Amele"
+  },
+  {
+    "code": "67",
+    "name": "TAH.TAH.İŞÇ.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Yükçü"
+  },
+  {
+    "code": "68",
+    "name": "AKARYAKIT SOR.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Yakıt İst.Şefi"
+  },
+  {
+    "code": "69",
+    "name": "AKARYAKIT DOL.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Pompacı-Yakıtçı"
+  },
+  {
+    "code": "70",
+    "name": "İŞ MAK.BAK.ON.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Ağır Mak.Tam."
+  },
+  {
+    "code": "71",
+    "name": "İŞ MAK.BAK.ON.2",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Mek.Çırağı"
+  },
+  {
+    "code": "72",
+    "name": "MEK.BAK.ON.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Mekanikçi"
+  },
+  {
+    "code": "73",
+    "name": "MEK.BAK.ON.2",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Mek.Yrd."
+  },
+  {
+    "code": "74",
+    "name": "KAYNAKÇI",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Kaynak Ustası"
+  },
+  {
+    "code": "75",
+    "name": "SOĞUK DEMİRCİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Demirci"
+  },
+  {
+    "code": "76",
+    "name": "TESVİYECİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Tesviye Ustası"
+  },
+  {
+    "code": "77",
+    "name": "TORNACI",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Torna Op."
+  },
+  {
+    "code": "78",
+    "name": "FREZECİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Freze Op."
+  },
+  {
+    "code": "79",
+    "name": "DÖK.MODELCİSİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Kalıpçı"
+  },
+  {
+    "code": "80",
+    "name": "MARANGOZ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Doğramacı"
+  },
+  {
+    "code": "81",
+    "name": "RADYATÖR TAM.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Radyatörcü"
+  },
+  {
+    "code": "82",
+    "name": "OTO.ELEKTRİKÇİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Araç Elek."
+  },
+  {
+    "code": "83",
+    "name": "BOYACI",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Boya Ustası"
+  },
+  {
+    "code": "84",
+    "name": "İNŞAAT İŞÇ.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Betoncu"
+  },
+  {
+    "code": "85",
+    "name": "İNŞAAT USTA",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Kalfa"
+  },
+  {
+    "code": "86",
+    "name": "ELEKTRİK TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Elek.Teknisyen"
+  },
+  {
+    "code": "87",
+    "name": "ELEKTRONİK TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Elektronikçi"
+  },
+  {
+    "code": "88",
+    "name": "HARİTA TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Haritacı"
+  },
+  {
+    "code": "89",
+    "name": "HARİTA TEKN.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Ölçüm Tekn."
+  },
+  {
+    "code": "90",
+    "name": "TOPOĞRAF YRD.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Ölçüm Yrd."
+  },
+  {
+    "code": "91",
+    "name": "KİMYA TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Lab Tekniker"
+  },
+  {
+    "code": "92",
+    "name": "KİMYA TEKN.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Analiz Tekn."
+  },
+  {
+    "code": "93",
+    "name": "İNŞ.TEK.TEKNİKERİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "İnş.Tek."
+  },
+  {
+    "code": "94",
+    "name": "MAKİNE TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Mak.Teknisyen"
+  },
+  {
+    "code": "95",
+    "name": "MAKİNE RES.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "CAD Op."
+  },
+  {
+    "code": "96",
+    "name": "İDARİ BÜRO 1",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Büro Memuru"
+  },
+  {
+    "code": "97",
+    "name": "İDARİ BÜRO 2",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Sekreter"
+  },
+  {
+    "code": "98",
+    "name": "BİLG.İŞLETMENİ",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "PC Op."
+  },
+  {
+    "code": "99",
+    "name": "BİLG.TEK.TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "BT Teknikeri"
+  },
+  {
+    "code": "100",
+    "name": "SANTRAL OP.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Santralci"
+  },
+  {
+    "code": "101",
+    "name": "ÇEVRE SAĞ.TEK.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Çevreci"
+  },
+  {
+    "code": "102",
+    "name": "DİĞ.SAĞ.PER.",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Revir Gör."
+  },
+  {
+    "code": "103",
+    "name": "AŞÇI",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Mutfak Gör."
+  },
+  {
+    "code": "104",
+    "name": "ŞEF GARSON",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Garson Başı"
+  },
+  {
+    "code": "105",
+    "name": "BAHÇIVAN",
+    "parentCode": null,
+    "workType": "Yerüstü",
+    "description": "Bahçe İşçisi"
+  }
+]

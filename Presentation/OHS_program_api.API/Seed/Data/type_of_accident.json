@@ -1,0 +1,898 @@
+[
+  {
+    "code": "0100",
+    "name": "GÖÇÜK / TAŞ-KÖMÜR DÜŞMESİ /KAYMA",
+    "parentCode": null,
+    "workType": null,
+    "description": "Fall of Ground / Slide"
+  },
+  {
+    "code": "0110",
+    "name": "Tavandan taş/kömür düşmesi",
+    "parentCode": "0100",
+    "workType": null,
+    "description": "Bump/Plaka"
+  },
+  {
+    "code": "0120",
+    "name": "Yan duvar/kanat düşmesi",
+    "parentCode": "0100",
+    "workType": null,
+    "description": "Rib fall"
+  },
+  {
+    "code": "0130",
+    "name": "Ayna göçüğü / Ayna düşmesi",
+    "parentCode": "0100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0160",
+    "name": "Topuk/Ayak göçüğü",
+    "parentCode": "0100",
+    "workType": null,
+    "description": "Longwall"
+  },
+  {
+    "code": "0170",
+    "name": "Açık ocak şev kayması / Göçüğü",
+    "parentCode": "0100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0180",
+    "name": "Dolgu/Tavan arası çökmesi",
+    "parentCode": "0100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0190",
+    "name": "Diğer göçük/düşme olayları",
+    "parentCode": "0100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0200",
+    "name": "MALZEME DÜŞMESİ / SIKIŞMA / EZİLME",
+    "parentCode": null,
+    "workType": null,
+    "description": "Struck By"
+  },
+  {
+    "code": "0210",
+    "name": "Malzeme arası sıkışma",
+    "parentCode": "0200",
+    "workType": null,
+    "description": "El/Parmak"
+  },
+  {
+    "code": "0220",
+    "name": "Makine/ekipman parçası düşmesi",
+    "parentCode": "0200",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0230",
+    "name": "Tahkimat malzemesi düşmesi",
+    "parentCode": "0200",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0240",
+    "name": "Dönen/hareketli parçaya kapılma",
+    "parentCode": "0200",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0250",
+    "name": "Konveyör/bant kazası",
+    "parentCode": "0200",
+    "workType": null,
+    "description": "Kapılma"
+  },
+  {
+    "code": "0260",
+    "name": "Yükleme/boşaltma sırasında ezilme",
+    "parentCode": "0200",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0270",
+    "name": "Diğer malzeme düşmesi/sıkışma",
+    "parentCode": "0200",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0300",
+    "name": "DÜŞME KİŞİ",
+    "parentCode": null,
+    "workType": null,
+    "description": "Slip or Fall of Person"
+  },
+  {
+    "code": "0310",
+    "name": "Yürürken düşme / Aynı seviye",
+    "parentCode": "0300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0320",
+    "name": "Yüksekten düşme",
+    "parentCode": "0300",
+    "workType": null,
+    "description": "Platform/Merdiven"
+  },
+  {
+    "code": "0330",
+    "name": "Boşluğa/kanala düşme",
+    "parentCode": "0300",
+    "workType": null,
+    "description": "Hendek"
+  },
+  {
+    "code": "0340",
+    "name": "Araçtan/iş makinesinden  düşme",
+    "parentCode": "0300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0350",
+    "name": "Kuyu/eğimli kuyu içi düşme",
+    "parentCode": "0300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0360",
+    "name": "Duran nesneye çarpıp/takılıp düşme",
+    "parentCode": "0300",
+    "workType": null,
+    "description": "Ray/Kablo"
+  },
+  {
+    "code": "0370",
+    "name": "El aleti ile çalışırken düşme",
+    "parentCode": "0300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0380",
+    "name": "Diğer kişi düşme olayları",
+    "parentCode": "0300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0400",
+    "name": "ÇARPMA / VURMA / BATMA",
+    "parentCode": null,
+    "workType": null,
+    "description": "Striking / Bumping"
+  },
+  {
+    "code": "0410",
+    "name": "Aletle çalırıken kendine vurma, sıkıştırma, çarpma, kesme",
+    "parentCode": "0400",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0420",
+    "name": "Makine/iş makinesi çarpması",
+    "parentCode": "0400",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0430",
+    "name": "Tel/çapak/kıymık batması",
+    "parentCode": "0400",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0440",
+    "name": "Sabit nesneye çarpma",
+    "parentCode": "0400",
+    "workType": null,
+    "description": "Tavan/Dikme/Kama"
+  },
+  {
+    "code": "0450",
+    "name": "Fırlayan/sıçrayan parça",
+    "parentCode": "0400",
+    "workType": null,
+    "description": "Halat/Zincir"
+  },
+  {
+    "code": "0460",
+    "name": "Basınçlı madde/su sıçraması",
+    "parentCode": "0400",
+    "workType": null,
+    "description": "Hidrolik"
+  },
+  {
+    "code": "0470",
+    "name": "Diğer çarpma/vurma olayları",
+    "parentCode": "0400",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0500",
+    "name": "MOTORLU NAKLİYE / ARAÇ",
+    "parentCode": null,
+    "workType": null,
+    "description": "Powered Haulage"
+  },
+  {
+    "code": "0510",
+    "name": "Servis aracı kazası",
+    "parentCode": "0500",
+    "workType": null,
+    "description": "Devrilme"
+  },
+  {
+    "code": "0520",
+    "name": "İş makinası kazası",
+    "parentCode": "0500",
+    "workType": null,
+    "description": "Dozer/Ekskavatör"
+  },
+  {
+    "code": "0530",
+    "name": "Maden kamyonu kazası",
+    "parentCode": "0500",
+    "workType": null,
+    "description": "Damperli"
+  },
+  {
+    "code": "0540",
+    "name": "Vagon/araba kayması",
+    "parentCode": "0500",
+    "workType": null,
+    "description": "Fren"
+  },
+  {
+    "code": "0550",
+    "name": "Kulikar/monoray kazası",
+    "parentCode": "0500",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0560",
+    "name": "Yaya-araç çarpışması",
+    "parentCode": "0500",
+    "workType": null,
+    "description": "Manevra"
+  },
+  {
+    "code": "0570",
+    "name": "Diğer motorlu nakliye kazaları",
+    "parentCode": "0500",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0600",
+    "name": "MOTORSUZ NAKLİYE",
+    "parentCode": null,
+    "workType": null,
+    "description": "Non-Powered Haulage"
+  },
+  {
+    "code": "0610",
+    "name": "El arabası/manuel vagon kazası",
+    "parentCode": "0600",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0620",
+    "name": "Kızak/oluk kayması",
+    "parentCode": "0600",
+    "workType": null,
+    "description": "Chute"
+  },
+  {
+    "code": "0630",
+    "name": "Diğer motorsuz nakliye",
+    "parentCode": "0600",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0700",
+    "name": "VİNÇ / KALDIRMA",
+    "parentCode": null,
+    "workType": null,
+    "description": "Hoisting"
+  },
+  {
+    "code": "0710",
+    "name": "Kafes/skip kazası",
+    "parentCode": "0700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0720",
+    "name": "Vinç halatı/zincir kopması",
+    "parentCode": "0700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0730",
+    "name": "Kaldırma sırasında yük düşmesi",
+    "parentCode": "0700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0740",
+    "name": "Kuyu dibi/başı kazası",
+    "parentCode": "0700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0750",
+    "name": "Diğer vinç/kaldırma kazaları",
+    "parentCode": "0700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0800",
+    "name": "MAKİNE KAZASI",
+    "parentCode": null,
+    "workType": null,
+    "description": "Machinery"
+  },
+  {
+    "code": "0810",
+    "name": "Kazı makinesi kazası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": "Shearer/RH"
+  },
+  {
+    "code": "0820",
+    "name": "Matkap/delici kazası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": "Perforatör"
+  },
+  {
+    "code": "0830",
+    "name": "Kompresör/pompa kazası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0840",
+    "name": "Kırıcı/öğütücü kazası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0850",
+    "name": "Kaynak makinesi kazası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0860",
+    "name": "Hidrolik sistem arızası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": "Hat patl."
+  },
+  {
+    "code": "0870",
+    "name": "Tahkimat ekipmanı arızası",
+    "parentCode": "0800",
+    "workType": null,
+    "description": "Direk/Şilt"
+  },
+  {
+    "code": "0880",
+    "name": "Diğer makine kazaları",
+    "parentCode": "0800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0900",
+    "name": "ELEKTRİK KAZASI",
+    "parentCode": null,
+    "workType": null,
+    "description": "Electrical"
+  },
+  {
+    "code": "0910",
+    "name": "Elektrik çarpması",
+    "parentCode": "0900",
+    "workType": null,
+    "description": "Kaçak akım"
+  },
+  {
+    "code": "0920",
+    "name": "Elektrik arkı/yanığı",
+    "parentCode": "0900",
+    "workType": null,
+    "description": "Kısa devre"
+  },
+  {
+    "code": "0930",
+    "name": "Statik elektrik kaynaklı kaza",
+    "parentCode": "0900",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "0940",
+    "name": "Diğer elektrik kazaları",
+    "parentCode": "0900",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1000",
+    "name": "GAZ/TOZ PATLAMASI",
+    "parentCode": null,
+    "workType": null,
+    "description": "Ignition/Explosion"
+  },
+  {
+    "code": "1010",
+    "name": "Grizu/metan patlaması",
+    "parentCode": "1000",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1020",
+    "name": "Kömür tozu patlaması",
+    "parentCode": "1000",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1030",
+    "name": "Gaz sızıntısı/zehirlenme",
+    "parentCode": "1000",
+    "workType": null,
+    "description": "CO/H₂S"
+  },
+  {
+    "code": "1040",
+    "name": "Ani gaz püskürmesi",
+    "parentCode": "1000",
+    "workType": null,
+    "description": "Outburst"
+  },
+  {
+    "code": "1050",
+    "name": "Diğer gaz/toz olayları",
+    "parentCode": "1000",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1100",
+    "name": "YANGIN",
+    "parentCode": null,
+    "workType": null,
+    "description": "Fire"
+  },
+  {
+    "code": "1110",
+    "name": "Yeraltı yangını",
+    "parentCode": "1100",
+    "workType": null,
+    "description": "Kendiliğinden yanma"
+  },
+  {
+    "code": "1120",
+    "name": "Yerüstü yangını",
+    "parentCode": "1100",
+    "workType": null,
+    "description": "Tesis/Atölye/Araç"
+  },
+  {
+    "code": "1130",
+    "name": "Araç/iş makinesi yangını",
+    "parentCode": "1100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1140",
+    "name": "Alet/makine yangını",
+    "parentCode": "1100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1150",
+    "name": "Elektrik yangını",
+    "parentCode": "1100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1160",
+    "name": "Diğer yangın olayları",
+    "parentCode": "1100",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1200",
+    "name": "SU BASKINI / İNÜNDASYON",
+    "parentCode": null,
+    "workType": null,
+    "description": "Inundation"
+  },
+  {
+    "code": "1210",
+    "name": "Yeraltı su baskını",
+    "parentCode": "1200",
+    "workType": null,
+    "description": "Fay/Eski galeri"
+  },
+  {
+    "code": "1220",
+    "name": "Çamur/kum akması",
+    "parentCode": "1200",
+    "workType": null,
+    "description": "Sıvılaşma"
+  },
+  {
+    "code": "1230",
+    "name": "Yüzey suyu taşkını",
+    "parentCode": "1200",
+    "workType": null,
+    "description": "Sel"
+  },
+  {
+    "code": "1240",
+    "name": "Diğer su/sıvı baskınları",
+    "parentCode": "1200",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1300",
+    "name": "PATLAYICI MADDE KAZASI",
+    "parentCode": null,
+    "workType": null,
+    "description": "Explosives"
+  },
+  {
+    "code": "1310",
+    "name": "Dinamit atışı sırasında",
+    "parentCode": "1300",
+    "workType": null,
+    "description": "Taş sekmesi"
+  },
+  {
+    "code": "1320",
+    "name": "Patlayıcı depolama/taşıma kazası",
+    "parentCode": "1300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1330",
+    "name": "Ateşleme sistemi arızası",
+    "parentCode": "1300",
+    "workType": null,
+    "description": "Kapsül/Fitil"
+  },
+  {
+    "code": "1340",
+    "name": "Sıkışmış patlayıcı",
+    "parentCode": "1300",
+    "workType": null,
+    "description": "Misfire"
+  },
+  {
+    "code": "1350",
+    "name": "Diğer patlayıcı madde kazaları",
+    "parentCode": "1300",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1400",
+    "name": "ELLE TAŞIMA / ZORLANMA /BURKULMA",
+    "parentCode": null,
+    "workType": null,
+    "description": "Overexertion"
+  },
+  {
+    "code": "1410",
+    "name": "Bel incitmesi/zorlanma",
+    "parentCode": "1400",
+    "workType": null,
+    "description": "Disk"
+  },
+  {
+    "code": "1420",
+    "name": "Kas/eklem zorlanması",
+    "parentCode": "1400",
+    "workType": null,
+    "description": "Burkulma"
+  },
+  {
+    "code": "1430",
+    "name": "Tekrarlayan hareket yaralanması",
+    "parentCode": "1400",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1440",
+    "name": "Diğer zorlanma olayları",
+    "parentCode": "1400",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1500",
+    "name": "MAHSUR KALMA",
+    "parentCode": null,
+    "workType": null,
+    "description": "Entrapment"
+  },
+  {
+    "code": "1510",
+    "name": "Göçük sonrası mahsur kalma",
+    "parentCode": "1500",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1520",
+    "name": "Yangın/gaz nedeniyle mahsur kalma",
+    "parentCode": "1500",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1530",
+    "name": "Su baskını nedeniyle mahsur kalma",
+    "parentCode": "1500",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1540",
+    "name": "Diğer mahsur kalma olayları",
+    "parentCode": "1500",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1600",
+    "name": "SICAK ÇALIŞMA / KAYNAK",
+    "parentCode": null,
+    "workType": null,
+    "description": "Hot Work"
+  },
+  {
+    "code": "1610",
+    "name": "Kaynak dumanı/kıvılcım",
+    "parentCode": "1600",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1620",
+    "name": "Sıcak yüzey yanığı",
+    "parentCode": "1600",
+    "workType": null,
+    "description": "Metal/Buhar"
+  },
+  {
+    "code": "1630",
+    "name": "Kesme/taşlama kazası",
+    "parentCode": "1600",
+    "workType": null,
+    "description": "Disk kırılması"
+  },
+  {
+    "code": "1640",
+    "name": "Diğer sıcak çalışma kazaları",
+    "parentCode": "1600",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1700",
+    "name": "SAĞLIK SORUNU İŞYERİNDE",
+    "parentCode": null,
+    "workType": null,
+    "description": "Occ. Health"
+  },
+  {
+    "code": "1710",
+    "name": "Baş dönmesi/tansiyon/bayılma",
+    "parentCode": "1700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1720",
+    "name": "Mide/karın ağrıs/ishal/kusma",
+    "parentCode": "1700",
+    "workType": null,
+    "description": "Zehirlenme"
+  },
+  {
+    "code": "1730",
+    "name": "Göğüs/kalp sıkışması",
+    "parentCode": "1700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1740",
+    "name": "Ateş/üşüme/halsizlik",
+    "parentCode": "1700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1750",
+    "name": "Sara nöbeti / Epilepsi",
+    "parentCode": "1700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1760",
+    "name": "Isı çarpması / Hipotermi",
+    "parentCode": "1700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1770",
+    "name": "Toz maruziyeti (akut)",
+    "parentCode": "1700",
+    "workType": null,
+    "description": "Öksürük"
+  },
+  {
+    "code": "1780",
+    "name": "Gürültü maruziyeti (akut)",
+    "parentCode": "1700",
+    "workType": null,
+    "description": "Çınlama"
+  },
+  {
+    "code": "1790",
+    "name": "Diğer sağlık sorunları",
+    "parentCode": "1700",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1800",
+    "name": "BASINÇLI KAP PATLAMASI",
+    "parentCode": null,
+    "workType": null,
+    "description": "Pressure Vessel"
+  },
+  {
+    "code": "1810",
+    "name": "Hava hortumu/tankı patlaması",
+    "parentCode": "1800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1820",
+    "name": "Hidrolik hat/hortum patlaması",
+    "parentCode": "1800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1830",
+    "name": "Lastik patlaması",
+    "parentCode": "1800",
+    "workType": null,
+    "description": "Araç/Ekipman"
+  },
+  {
+    "code": "1840",
+    "name": "Diğer basınçlı kap patlamaları",
+    "parentCode": "1800",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1900",
+    "name": "DİĞER NEDENLER",
+    "parentCode": null,
+    "workType": null,
+    "description": "Other"
+  },
+  {
+    "code": "1910",
+    "name": "Hayvan/böcek saldırısı",
+    "parentCode": "1900",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1920",
+    "name": "Doğal afet etkisi",
+    "parentCode": "1900",
+    "workType": null,
+    "description": "Deprem/Sel"
+  },
+  {
+    "code": "1930",
+    "name": "Şiddet/saldırı",
+    "parentCode": "1900",
+    "workType": null,
+    "description": "Darp"
+  },
+  {
+    "code": "1940",
+    "name": "Nesneye basma",
+    "parentCode": "1900",
+    "workType": null,
+    "description": "Çivi/Cam"
+  },
+  {
+    "code": "1950",
+    "name": "Kimyasal madde teması",
+    "parentCode": "1900",
+    "workType": null,
+    "description": "Asit/Solvent"
+  },
+  {
+    "code": "1960",
+    "name": "Göze toz/toprak/yabancı madde kaçması",
+    "parentCode": "1900",
+    "workType": null,
+    "description": "Gözde batma"
+  },
+  {
+    "code": "1970",
+    "name": "Radyasyon maruziyeti",
+    "parentCode": "1900",
+    "workType": null,
+    "description": null
+  },
+  {
+    "code": "1990",
+    "name": "Diğer (sınıflandırılamayan)",
+    "parentCode": "1900",
+    "workType": null,
+    "description": null
+  }
+]
