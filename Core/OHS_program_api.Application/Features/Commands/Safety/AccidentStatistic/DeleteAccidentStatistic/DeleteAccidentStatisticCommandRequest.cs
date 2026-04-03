@@ -5,5 +5,6 @@ namespace OHS_program_api.Application.Features.Commands.Safety.AccidentStatistic
     public class DeleteAccidentStatisticCommandRequest : IRequest<DeleteAccidentStatisticCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

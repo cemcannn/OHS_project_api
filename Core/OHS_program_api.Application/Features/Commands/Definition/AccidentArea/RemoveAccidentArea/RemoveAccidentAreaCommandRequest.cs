@@ -5,5 +5,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.AccidentArea.
     public class RemoveAccidentAreaCommandRequest : IRequest<RemoveAccidentAreaCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

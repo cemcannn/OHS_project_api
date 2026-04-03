@@ -11,5 +11,6 @@ namespace OHS_program_api.Application.Features.Commands.Personnel.RemovePersonne
     public class RemovePersonnelCommandRequest : IRequest<RemovePersonnelCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

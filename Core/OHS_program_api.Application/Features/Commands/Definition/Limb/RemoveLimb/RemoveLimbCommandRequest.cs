@@ -5,5 +5,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Limb.RemoveLi
     public class RemoveLimbCommandRequest : IRequest<RemoveLimbCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

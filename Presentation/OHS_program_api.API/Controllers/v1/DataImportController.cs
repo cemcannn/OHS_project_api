@@ -4,6 +4,7 @@ using OHS_program_api.Application.Consts;
 using OHS_program_api.Application.CustomAttributes;
 using OHS_program_api.Application.Enums;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace OHS_program_api.API.Controllers.v1
@@ -13,7 +14,7 @@ namespace OHS_program_api.API.Controllers.v1
     [Authorize(AuthenticationSchemes = "Admin")]
     public class DataImportController : ControllerBase
     {
-        // Excel dosyalarının (Veri.xlsx, Veri Yevmiye.xlsx) bulunduğu klasör
+        // Excel dosyalarının (GLİ.xlsx, Veri Yevmiye.xlsx) bulunduğu klasör
         private static readonly string BaseDir =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                          "OHS_Program");
@@ -32,7 +33,7 @@ namespace OHS_program_api.API.Controllers.v1
         [AuthorizeDefinition(ActionType = ActionType.Writing,
                              Definition = "Import Veri",
                              Menu = AuthorizeDefinitionConstants.DataImport)]
-        public async Task<IActionResult> ImportVeri(IFormFile file)
+        public async Task<IActionResult> ImportVeri([FromForm] IFormFile file, [FromForm] string directorate, [FromForm] string year)
         {
             if (file == null || file.Length == 0)
                 return BadRequest(new { success = false, lines = new[] { "Dosya seçilmedi." } });
@@ -40,10 +41,21 @@ namespace OHS_program_api.API.Controllers.v1
             if (!file.FileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
                 return BadRequest(new { success = false, lines = new[] { "Sadece .xlsx dosyası kabul edilir." } });
 
-            var targetPath = Path.Combine(BaseDir, "Veri.xlsx");
-            await SaveFile(file, targetPath);
+            directorate = string.IsNullOrWhiteSpace(directorate)
+                ? InferDirectorateFromFileName(file.FileName)
+                : directorate.Trim();
 
-            var result = await RunScript("--mode veri");
+            if (string.IsNullOrWhiteSpace(directorate))
+                return BadRequest(new { success = false, lines = new[] { "Lütfen işletme seçiniz." } });
+
+            if (string.IsNullOrWhiteSpace(year) || !int.TryParse(year.Trim(), out var selectedYear))
+                return BadRequest(new { success = false, lines = new[] { "Lütfen yıl seçiniz." } });
+
+            var targetPath = Path.Combine(BaseDir, "GLİ.xlsx");
+            await SaveFile(file, targetPath);
+            var sourceLabel = Path.GetFileName(file.FileName).Replace("\"", "\\\"");
+
+            var result = await RunScript($"--mode both --directorate \"{directorate}\" --year {selectedYear} --source-label \"{sourceLabel}\"");
             return Ok(result);
         }
 
@@ -64,8 +76,9 @@ namespace OHS_program_api.API.Controllers.v1
 
             var targetPath = Path.Combine(BaseDir, "Veri Yevmiye.xlsx");
             await SaveFile(file, targetPath);
+            var sourceLabel = Path.GetFileName(file.FileName).Replace("\"", "\\\"");
 
-            var result = await RunScript("--mode yevmiye");
+            var result = await RunScript($"--mode yevmiye --source-label \"{sourceLabel}\"");
             return Ok(result);
         }
 
@@ -76,6 +89,43 @@ namespace OHS_program_api.API.Controllers.v1
         {
             await using var stream = new FileStream(targetPath, FileMode.Create, FileAccess.Write);
             await file.CopyToAsync(stream);
+        }
+
+        private static string? InferDirectorateFromFileName(string fileName)
+        {
+            var normalized = RemoveDiacritics(fileName).ToUpperInvariant();
+
+            if (normalized.Contains("AELI") || normalized.Contains("AFIS-ELBISTAN") || normalized.Contains("AFIS ELBISTAN"))
+                return "5";
+
+            if (normalized.Contains("ELI"))
+                return "3";
+
+            if (normalized.Contains("CLI") || normalized.Contains("CAN LINYITLERI") || normalized.Contains("CAN LINYITLER"))
+                return "4";
+
+            if (normalized.Contains("GLI") || normalized.Contains("GARP LINYITLER"))
+                return "2";
+
+            if (normalized.Contains("TKI"))
+                return "1";
+
+            return null;
+        }
+
+        private static string RemoveDiacritics(string value)
+        {
+            var normalized = value.Normalize(NormalizationForm.FormD);
+            var builder = new StringBuilder(normalized.Length);
+
+            foreach (var character in normalized)
+            {
+                var category = CharUnicodeInfo.GetUnicodeCategory(character);
+                if (category != UnicodeCategory.NonSpacingMark)
+                    builder.Append(character);
+            }
+
+            return builder.ToString().Normalize(NormalizationForm.FormC);
         }
 
         private static async Task<object> RunScript(string modeArg)

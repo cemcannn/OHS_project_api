@@ -6,8 +6,7 @@ Bu klasör OHS Program için Excel dosyalarından veritabanına veri aktarma iş
 
 ```
 OHS_Program/                  # ← Excel dosyaları BURAYA (.gitignore ile korunur)
-├── Veri.xlsx
-├── Veri Yevmiye.xlsx
+├── GLİ.xlsx
 ├── İş_Kazaları_Genişletilmiş_Kodlama.xlsx
 └── OHS_project_api/
     └── ExcelDataImport/
@@ -55,6 +54,7 @@ python3 import_data.py --mode yevmiye
 - ✅ **Akıllı Kodlama**: Excel'deki kodları anlamlı isimlere dönüştürür
 - ✅ **Hata Toleransı**: Bir satırda hata olsa bile diğer satırları işlemeye devam eder
 - ✅ **İlerleme Göstergesi**: Her 100 satırda bir ilerleme bilgisi verir
+- ✅ **GLİ Şablonu**: Veri importu ilk sayfadaki A-S sütunlarını baz alır; A-L kaza verileri, M-S aylık yevmiye verileridir
 
 ## Veritabanı Bağlantısı
 

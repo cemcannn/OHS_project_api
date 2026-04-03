@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Definition.AccidentAreaRepository;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.AccidentArea.RemoveAccidentArea
@@ -13,6 +14,8 @@ namespace OHS_program_api.Application.Features.Commands.Definition.AccidentArea.
         }
         public async Task<RemoveAccidentAreaCommandResponse> Handle(RemoveAccidentAreaCommandRequest request, CancellationToken cancellationToken)
         {
+            var accidentArea = await _accidentAreaWriteRepository.Table.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id));
+            request.Name = accidentArea?.Name ?? request.Name;
             await _accidentAreaWriteRepository.RemoveAsync(request.Id);
             await _accidentAreaWriteRepository.SaveAsync();
             return new();

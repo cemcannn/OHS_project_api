@@ -21,6 +21,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.U
             if (_directorate != null)
             {
                 _directorate.Id = new Guid(request.Id);
+                _directorate.Code = NormalizeCode(request.Code);
                 _directorate.Name = request.Name;
 
                 await _directorateWriteRepository.SaveAsync();
@@ -29,6 +30,14 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.U
             {
                 Succeeded = true
             };
+        }
+
+        private static string? NormalizeCode(string? code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+                return null;
+
+            return code.Trim().ToUpperInvariant();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.U
     public class UpdateDirectorateCommandRequest : IRequest<UpdateDirectorateCommandResponse>
     {
         public string Id { get; set; }
+        public string? Code { get; set; }
         public string Name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Features.Commands.Personnel.RemovePersonnel;
 using OHS_program_api.Application.Repositories;
 using OHS_program_api.Application.Repositories.Definition.TypeOfAccidentRepository;
@@ -21,6 +22,8 @@ namespace OHS_program_api.Application.Features.Commands.Definition.TypeOfAcciden
 
         public async Task<RemoveTypeOfAccidentCommandResponse> Handle(RemoveTypeOfAccidentCommandRequest request, CancellationToken cancellationToken)
         {
+            var typeOfAccident = await _typeOfAccidentWriteRepository.Table.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id));
+            request.Name = typeOfAccident?.Name ?? request.Name;
             await _typeOfAccidentWriteRepository.RemoveAsync(request.Id);
             await _typeOfAccidentWriteRepository.SaveAsync();
             return new();

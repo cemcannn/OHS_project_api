@@ -40,7 +40,12 @@ namespace OHS_program_api.Infrastructure.Services.Token
                 new("display_name", user.Name ?? user.UserName ?? string.Empty)
             };
 
-            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            // Emit roles in both claim shapes for compatibility across JWT handlers.
+            claims.AddRange(roles.SelectMany(role => new[]
+            {
+                new Claim(ClaimTypes.Role, role),
+                new Claim("role", role)
+            }));
 
             //Oluşturulacak token ayarlarını veriyoruz.
             token.Expiration = DateTime.UtcNow.AddSeconds(second);

@@ -16,6 +16,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.C
         {
             await _directorateWriteRepository.AddAsync(new()
             {
+                Code = NormalizeCode(request.Code),
                 Name = request.Name,
             });
             await _directorateWriteRepository.SaveAsync();
@@ -24,6 +25,14 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.C
             {
                 Succeeded = true
             };
+        }
+
+        private static string? NormalizeCode(string? code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+                return null;
+
+            return code.Trim().ToUpperInvariant();
         }
     }
 }

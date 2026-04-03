@@ -4,6 +4,7 @@ namespace OHS_program_api.Domain.Entities.Definitions
 {
     public class Directorate : BaseEntity
     {
+        public string? Code { get; set; }
         public string Name { get; set; }
     }
 }

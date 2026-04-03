@@ -21,11 +21,6 @@ namespace OHS_program_api.Application.Validators.AccidentStatistics
                 .Matches(@"^\d{4}$")
                     .WithMessage("Yıl 4 haneli olmalıdır.");
 
-            RuleFor(x => x.Directorate)
-                .NotEmpty()
-                .NotNull()
-                    .WithMessage("Lütfen müdürlük seçiniz.");
-
             RuleFor(x => x.ActualDailyWageSurface)
                 .Must(value => string.IsNullOrEmpty(value) || (double.TryParse(value, out var result) && result >= 0))
                     .WithMessage("Yüzey günlük yevmiye negatif olamaz.");

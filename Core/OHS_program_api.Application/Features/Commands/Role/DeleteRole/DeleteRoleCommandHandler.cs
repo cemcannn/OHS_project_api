@@ -14,6 +14,8 @@ namespace OHS_program_api.Application.Features.Commands.Role.DeleteRole
 
         public async Task<DeleteRoleCommandResponse> Handle(DeleteRoleCommandRequest request, CancellationToken cancellationToken)
         {
+            var role = await _roleService.GetRoleById(request.Id);
+            request.Name = string.IsNullOrWhiteSpace(role.name) ? request.Name : role.name;
             var result = await _roleService.DeleteRole(request.Id);
             return new()
             {

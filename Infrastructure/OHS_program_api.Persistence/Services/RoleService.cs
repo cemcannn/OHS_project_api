@@ -43,8 +43,8 @@ namespace OHS_program_api.Persistence.Services
 
         public async Task<(string id, string name)> GetRoleById(string id)
         {
-            string role = await _roleManager.GetRoleIdAsync(new() { Id = id });
-            return (id, role);
+            AppRole role = await _roleManager.FindByIdAsync(id);
+            return (id, role?.Name ?? string.Empty);
         }
 
         public async Task<bool> UpdateRole(string id, string name)

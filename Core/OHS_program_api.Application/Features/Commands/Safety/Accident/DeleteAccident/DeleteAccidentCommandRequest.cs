@@ -10,5 +10,6 @@ namespace OHS_program_api.Application.Features.Commands.Safety.Accident.DeleteAc
     public class DeleteAccidentCommandRequest : IRequest<DeleteAccidentCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

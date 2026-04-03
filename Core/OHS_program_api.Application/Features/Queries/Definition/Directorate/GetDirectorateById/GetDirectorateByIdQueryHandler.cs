@@ -20,6 +20,7 @@ namespace OHS_program_api.Application.Features.Queries.Definition.Directorate.Ge
             return new()
             {
                 Id = directorate.Id.ToString(),
+                Code = directorate.Code,
                 Name = directorate.Name
             };
         }

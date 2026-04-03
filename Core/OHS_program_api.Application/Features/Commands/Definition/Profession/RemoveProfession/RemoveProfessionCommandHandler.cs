@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using OHS_program_api.Application.Repositories.Definition.ProfessionRepository;
 
 namespace OHS_program_api.Application.Features.Commands.Definition.Profession.RemoveProfession
@@ -13,6 +14,8 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Profession.Re
         }
         public async Task<RemoveProfessionCommandResponse> Handle(RemoveProfessionCommandRequest request, CancellationToken cancellationToken)
         {
+            var profession = await _professionWriteRepository.Table.FirstOrDefaultAsync(x => x.Id == Guid.Parse(request.Id));
+            request.Name = profession?.Name ?? request.Name;
             await _professionWriteRepository.RemoveAsync(request.Id);
             await _professionWriteRepository.SaveAsync();
             return new();

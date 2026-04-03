@@ -4,6 +4,7 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.C
 {
     public class CreateDirectorateCommandRequest : IRequest<CreateDirectorateCommandResponse>
     {
+        public string? Code { get; set; }
         public string Name { get; set; }
     }
 }

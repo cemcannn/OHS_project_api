@@ -24,6 +24,7 @@ using Serilog.Sinks.PostgreSQL;
 using System.Security.Claims;
 using System.Text;
 using OHS_program_api.API.Seed;
+using System.Linq;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -119,13 +120,43 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["Token:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey)),
         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null ? expires > DateTime.UtcNow : false,
-        NameClaimType = ClaimTypes.Name
+        NameClaimType = ClaimTypes.Name,
+        RoleClaimType = ClaimTypes.Role
     };
 
     // SignalR WebSocket/SSE bağlantılarında token querystring'den gelebilir:
     // https://localhost:7170/accidents-hub?access_token=...
     options.Events = new JwtBearerEvents
     {
+        OnTokenValidated = context =>
+        {
+            if (context.Principal?.Identity is ClaimsIdentity identity)
+            {
+                var roleClaimTypes = new[]
+                {
+                    ClaimTypes.Role,
+                    "role",
+                    "roles",
+                    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+                    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/role"
+                };
+
+                var roleValues = context.Principal.Claims
+                    .Where(c => roleClaimTypes.Any(t => string.Equals(t, c.Type, StringComparison.OrdinalIgnoreCase)))
+                    .Select(c => c.Value)
+                    .Where(v => !string.IsNullOrWhiteSpace(v))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+
+                foreach (var role in roleValues)
+                {
+                    if (!identity.HasClaim(ClaimTypes.Role, role))
+                        identity.AddClaim(new Claim(ClaimTypes.Role, role));
+                }
+            }
+
+            return Task.CompletedTask;
+        },
         OnMessageReceived = context =>
         {
             var accessToken = context.Request.Query["access_token"];

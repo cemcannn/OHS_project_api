@@ -3,9 +3,8 @@
 OHS Program — Excel → PostgreSQL Veri İçe Aktarma Scripti
 ==========================================================
 Kaynak dosyalar:
-  • Veri.xlsx                              → Personnels + Accidents tablolarına
-  • İş_Kazaları_Genişletilmiş_Kodlama.xlsx → Kod → İsim sözlükleri
-  • Veri Yevmiye.xlsx                      → AccidentStatistics tablosuna
+        • GLİ.xlsx                               → Personnels + Accidents + AccidentStatistics tablolarına
+    • İş_Kazaları_Genişletilmiş_Kodlama.xlsx → Kod → İsim sözlükleri
 
 Özellikler:
   • İdempotent: Tekrar çalıştırılabilir, var olan kayıtları atlar
@@ -18,10 +17,12 @@ Kaynak dosyalar:
 import sys
 import uuid
 import argparse
-from datetime import datetime, date
+import re
+from datetime import datetime, date, timezone
 
 import pandas as pd
 import psycopg2
+from openpyxl import load_workbook
 
 # ─────────────────────────────────────────────────────────────────────────────
 # AYARLAR
@@ -36,8 +37,15 @@ BASE_DIR     = os.path.dirname(SCRIPT_DIR)                          # ExcelDataI
 PROJECT_ROOT = os.path.dirname(BASE_DIR)                            # OHS_project_api  
 OHS_ROOT     = os.path.dirname(PROJECT_ROOT)                        # OHS_Program
 
-VERI_FILE    = os.path.join(OHS_ROOT, "Veri.xlsx")
-YEVMIYE_FILE = os.path.join(OHS_ROOT, "Veri Yevmiye.xlsx")
+VERI_FILE    = os.path.join(OHS_ROOT, "GLİ.xlsx")
+VERI_SHEET_NAME = 0
+VERI_USECOLS = "A:S"
+
+GLI_MONTH_COL = 12
+GLI_YERALTI_WORKER_COL = 13
+GLI_YERUSTU_WORKER_COL = 14
+GLI_YERALTI_YEVMIYE_COL = 16
+GLI_YERUSTU_YEVMIYE_COL = 17
 
 DB = {
     "host":     "localhost",
@@ -55,7 +63,7 @@ MONTHS_TR = {
 }
 
 # Kazalanan Uzuv / Vücut Bölgesi Kodlamaları
-# Eski sistem (1-8) : Veri.xlsx mevcut veriler için (geçici, sonra güncellenecek)
+# Eski sistem (1-8) : GLİ.xlsx içindeki mevcut veriler için (geçici, sonra güncellenecek)
 # Yeni sistem (10-99): İş Kazaları Kodlama.xlsx (resmi GLİ sistemi)
 UZUV_MAP = {
     # ── Eski sistem (1-8) — Geçici ──
@@ -413,14 +421,77 @@ def get_conn():
 
 
 def now_utc() -> datetime:
-    return datetime.utcnow()
+    return datetime.now(timezone.utc)
+
+
+def parse_excel_date(value) -> date | None:
+    """Excel kaynaklı tarih değerlerini güvenli şekilde date nesnesine çevirir."""
+    if pd.isna(value):
+        return None
+
+    if isinstance(value, (datetime, pd.Timestamp)):
+        return value.date()
+
+    if isinstance(value, date):
+        return value
+
+    parsed = pd.to_datetime(str(value).strip(), dayfirst=True, errors="coerce")
+    if pd.isna(parsed):
+        return None
+
+    return parsed.date()
+
+
+def resolve_directorate(row: pd.Series, fallback_directorate: str | None) -> str | None:
+    row_directorate = row.get("İşletme")
+    if pd.notna(row_directorate):
+        value = str(row_directorate).strip()
+        if value:
+            return value
+    if fallback_directorate:
+        value = fallback_directorate.strip()
+        if value:
+            return value
+    return None
+
+
+def read_veri_template(path: str) -> pd.DataFrame:
+    """
+    GLİ.xlsx şablonunun ilk sayfasındaki A-S sütunlarını okur.
+    Kaza verileri A-L, yevmiye verileri M-S sütunlarında yer alır.
+    """
+    return pd.read_excel(path, sheet_name=VERI_SHEET_NAME, usecols=VERI_USECOLS)
+
+
+def infer_workbook_year(path: str) -> int | None:
+    """Workbook içindeki Genel sayfasından veya başlıklardan import yılını çıkarır."""
+    try:
+        wb = load_workbook(path, data_only=True, read_only=True)
+    except Exception:
+        return None
+
+    candidates: list[str] = []
+
+    if "Genel" in wb.sheetnames:
+        ws = wb["Genel"]
+        for row in ws.iter_rows(values_only=True):
+            for value in row:
+                if isinstance(value, str) and value.strip():
+                    candidates.append(value.strip())
+
+    for candidate in candidates:
+        match = re.search(r"\b(19|20)\d{2}\b", candidate)
+        if match:
+            return int(match.group(0))
+
+    return None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PERSONNEL
 # ─────────────────────────────────────────────────────────────────────────────
 
-def upsert_personnel(cur, row: pd.Series, dry_run: bool) -> str | None:
+def upsert_personnel(cur, row: pd.Series, dry_run: bool, fallback_directorate: str | None) -> str | None:
     """
     TKIId (Sicil No) ile personeli ara; yoksa ekle.
     Personel ID'sini (UUID string) döndürür.
@@ -440,14 +511,14 @@ def upsert_personnel(cur, row: pd.Series, dry_run: bool) -> str | None:
         if pd.notna(sanat) else None
     )
 
-    # Doğum tarihi: ya sadece yıl (1988) ya da tam tarih (1975-06-27)
+    # Doğum tarihi: yıl, tarih ya da tarih stringi olabilir
     born_raw = row["Doğum-tarihi"]
     born_date: date | None = None
     if pd.notna(born_raw):
-        if isinstance(born_raw, (datetime, pd.Timestamp)):
-            born_date = born_raw.date()          # Tam tarih → olduğu gibi kullan
-        else:
+        if isinstance(born_raw, (int, float)) and not pd.isna(born_raw):
             born_date = date(int(born_raw), 1, 1)  # Sadece yıl → 1 Ocak
+        else:
+            born_date = parse_excel_date(born_raw)
 
     pid = str(uuid.uuid4())
     if not dry_run:
@@ -466,7 +537,7 @@ def upsert_personnel(cur, row: pd.Series, dry_run: bool) -> str | None:
                 str(row["Soyadı"]).strip() if pd.notna(row["Soyadı"]) else None,
                 born_date,
                 profession,
-                str(row["İşletme"]).strip() if pd.notna(row["İşletme"]) else None,
+                resolve_directorate(row, fallback_directorate),
                 now_utc(), now_utc(),
             ),
         )
@@ -488,11 +559,9 @@ def insert_accident(
     Aynı personel + tarih + saat kombinasyonu varsa atla.
     True döner → eklendi, False → atlandı.
     """
-    acc_date = row["Kaza-tarihi"]
-    if pd.isna(acc_date):
+    acc_date_val = parse_excel_date(row["Kaza-tarihi"])
+    if acc_date_val is None:
         return False
-
-    acc_date_val = pd.to_datetime(acc_date).date()
 
     # Saat string normalize (timedelta olabilir)
     saat_raw = row["Saat"]
@@ -561,14 +630,23 @@ def insert_accident(
 # ACCIDENT STATISTIC (Yevmiye)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def insert_statistic(cur, row: pd.Series, dry_run: bool) -> bool:
+def upsert_statistic(
+    cur,
+    row: pd.Series,
+    dry_run: bool,
+    fallback_directorate: str | None,
+    fallback_year: int | None,
+) -> str | None:
     """
     Aylık yevmiye/istatistik kaydı ekle.
     Aynı Yıl + Ay + İşletme varsa atla.
     """
-    yil   = str(int(row["Yıl"])) if pd.notna(row["Yıl"]) else None
-    ay_tr = str(row["Ay"]).strip() if pd.notna(row["Ay"]) else None
-    islt  = str(row["İşletme"]).strip() if pd.notna(row["İşletme"]) else None
+    acc_date_val = parse_excel_date(row["Kaza-tarihi"])
+    yil = str(acc_date_val.year) if acc_date_val is not None else (str(fallback_year) if fallback_year else None)
+
+    ay_tr_raw = row.iloc[GLI_MONTH_COL] if len(row) > GLI_MONTH_COL else None
+    ay_tr = str(ay_tr_raw).strip() if pd.notna(ay_tr_raw) else None
+    islt = resolve_directorate(row, fallback_directorate)
 
     if not yil or not ay_tr or not islt:
         return False
@@ -585,11 +663,19 @@ def insert_statistic(cur, row: pd.Series, dry_run: bool) -> bool:
         """,
         (yil, ay, islt),
     )
-    if cur.fetchone():
-        return False
+    existing = cur.fetchone()
 
     def safe_int(val):
         return int(val) if pd.notna(val) else None
+
+    underground_yevmiye = safe_int(row.iloc[GLI_YERALTI_YEVMIYE_COL] if len(row) > GLI_YERALTI_YEVMIYE_COL else None)
+    surface_yevmiye = safe_int(row.iloc[GLI_YERUSTU_YEVMIYE_COL] if len(row) > GLI_YERUSTU_YEVMIYE_COL else None)
+    underground_workers = safe_int(row.iloc[GLI_YERALTI_WORKER_COL] if len(row) > GLI_YERALTI_WORKER_COL else None)
+    surface_workers = safe_int(row.iloc[GLI_YERUSTU_WORKER_COL] if len(row) > GLI_YERUSTU_WORKER_COL else None)
+
+    if existing:
+        # Aynı yıl+ay+işletme kaydı varsa tekrar importta değiştirme/ekleme yapma.
+        return "skipped_existing"
 
     sid = str(uuid.uuid4())
     if not dry_run:
@@ -604,14 +690,14 @@ def insert_statistic(cur, row: pd.Series, dry_run: bool) -> bool:
             """,
             (
                 sid, yil, ay, islt,
-                safe_int(row.get("Yeraltı Yevmiye")),
-                safe_int(row.get("Yerüstü Yevmiye")),
-                safe_int(row.get("Yeraltı İşçi")),
-                safe_int(row.get("Yerüstü İşçi")),
+                underground_yevmiye,
+                surface_yevmiye,
+                underground_workers,
+                surface_workers,
                 now_utc(), now_utc(),
             ),
         )
-    return True
+    return "created"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -624,9 +710,18 @@ def main():
                         help="Veritabanına yazmadan sonuçları göster")
     parser.add_argument("--mode", choices=["veri", "yevmiye", "both"], default="both",
                         help="Import modu: veri | yevmiye | both (varsayılan: both)")
+    parser.add_argument("--directorate", default=None,
+                        help="GLİ.xlsx veri importu için varsayılan işletme")
+    parser.add_argument("--year", type=int, default=None,
+                        help="Aylık istatistikler için seçilen yıl")
+    parser.add_argument("--source-label", default=None,
+                        help="Loglarda gösterilecek kaynak dosya adı")
     args = parser.parse_args()
     dry_run = args.dry_run
     mode = args.mode
+    directorate = args.directorate
+    selected_year = args.year
+    source_label = args.source_label or os.path.basename(VERI_FILE)
 
     if dry_run:
         print("⚠️  KUR ÇALIŞTIRIM (dry-run) — veritabanına yazılmayacak\n")
@@ -639,12 +734,16 @@ def main():
         print("\n📖 Kodlama sözlükleri hazır")
         print(f"   TİS (Sanatı): {len(TIS_MAP)} kod  |  Yer: {len(YER_MAP)} kod  |  Neden: {len(NEDEN_MAP)} kod")
 
-    # ── Veri.xlsx ─────────────────────────────────────────────────────────────
+    # ── Kaynak Excel ─────────────────────────────────────────────────────────
     df_veri = None
-    if mode in ("veri", "both"):
-        print("\n📂 Veri.xlsx okunuyor...")
-        df_veri = pd.read_excel(VERI_FILE)
+    if mode in ("veri", "both", "yevmiye"):
+        print(f"\n📂 {source_label} okunuyor...")
+        df_veri = read_veri_template(VERI_FILE)
         print(f"   {len(df_veri)} satır bulundu")
+
+    workbook_year = selected_year or infer_workbook_year(VERI_FILE)
+    if workbook_year:
+        print(f"   ℹ️  Çalışma yılı: {workbook_year}")
 
     # Yer kodları 23-26 Kodlama'da yok (eski sistem) → fallback tanımla (global dict'e ekle)
     YER_MAP.update({
@@ -664,13 +763,6 @@ def main():
         print(f"   ⚠️  TİS (Sanatı) eşleşemeyen kodlar: {sorted(unmatched_tis)}")
     print(f"   ℹ️  Uzuv 1-8 sistemi manuel haritalama kullanılıyor")
 
-    # ── Yevmiye ───────────────────────────────────────────────────────────────
-    df_yev = None
-    if mode in ("yevmiye", "both"):
-        print("\n📂 Veri Yevmiye.xlsx okunuyor...")
-        df_yev = pd.read_excel(YEVMIYE_FILE)
-        print(f"   {len(df_yev)} satır bulundu")
-
     # ── Bağlantı ──────────────────────────────────────────────────────────────
     print("\n🔌 PostgreSQL bağlantısı kuruluyor...")
     try:
@@ -683,38 +775,54 @@ def main():
     cur.execute("SELECT version()")
     print(f"   {cur.fetchone()[0][:60]}")
 
-    # ── Veri.xlsx import ──────────────────────────────────────────────────────
+    # ── Kaynak Excel import ──────────────────────────────────────────────────
     p_created = p_skipped = a_created = a_skipped = a_error = 0
+    s_created = s_updated = s_skipped = 0
     if df_veri is not None:
-      print(f"\n{'[DRY-RUN] ' if dry_run else ''}🚀 Veri.xlsx aktarılıyor...")
+        print(f"\n{'[DRY-RUN] ' if dry_run else ''}🚀 {source_label} aktarılıyor...")
 
     if df_veri is not None:
-        # Duplicate kontrolü: TKIId'leri önceden yükle
         existing_tkiids: set[str] = set()
-        if not dry_run:
-            cur.execute('SELECT "TKIId" FROM "Personnels"')
-            existing_tkiids = {r[0] for r in cur.fetchall() if r[0]}
+        if mode in ("veri", "both"):
+            # Duplicate kontrolü: TKIId'leri önceden yükle
+            if not dry_run:
+                cur.execute('SELECT "TKIId" FROM "Personnels"')
+                existing_tkiids = {r[0] for r in cur.fetchall() if r[0]}
 
         for idx, row in df_veri.iterrows():
             try:
-                tkiid = str(row["Sicil No"]).strip().replace(".0", "")
-                if tkiid in existing_tkiids:
-                    p_skipped += 1
-                    if not dry_run:
-                        cur.execute('SELECT "Id" FROM "Personnels" WHERE "TKIId" = %s', (tkiid,))
-                        pid = str(cur.fetchone()[0])
-                    else:
-                        pid = str(uuid.uuid4())
-                else:
-                    pid = upsert_personnel(cur, row, dry_run)
-                    existing_tkiids.add(tkiid)
-                    p_created += 1
+                if mode in ("veri", "both"):
+                    if pd.notna(row.get("Sicil No")) and pd.notna(row.get("Kaza-tarihi")):
+                        tkiid = str(row["Sicil No"]).strip().replace(".0", "")
+                        if tkiid in existing_tkiids:
+                            p_skipped += 1
+                            if not dry_run:
+                                cur.execute('SELECT "Id" FROM "Personnels" WHERE "TKIId" = %s', (tkiid,))
+                                pid = str(cur.fetchone()[0])
+                            else:
+                                pid = str(uuid.uuid4())
+                        else:
+                            pid = upsert_personnel(cur, row, dry_run, directorate)
+                            existing_tkiids.add(tkiid)
+                            p_created += 1
 
-                inserted = insert_accident(cur, row, pid, dry_run)
-                if inserted:
-                    a_created += 1
-                else:
-                    a_skipped += 1
+                        inserted = insert_accident(cur, row, pid, dry_run)
+                        if inserted:
+                            a_created += 1
+                        else:
+                            a_skipped += 1
+
+                statistic_result = None
+                if mode in ("yevmiye", "both"):
+                    statistic_result = upsert_statistic(cur, row, dry_run, directorate, workbook_year)
+                if statistic_result == "created":
+                    s_created += 1
+                elif statistic_result == "updated":
+                    s_updated += 1
+                elif statistic_result == "skipped_existing":
+                    s_skipped += 1
+                elif mode in ("yevmiye", "both"):
+                    s_skipped += 1
 
                 if not dry_run and idx % 100 == 0:
                     conn.commit()
@@ -730,30 +838,10 @@ def main():
             conn.commit()
 
         print(f"\n   Personel  → Eklendi: {p_created}  |  Atlandı (var): {p_skipped}")
-        print(f"   Kaza      → Eklendi: {a_created}  |  Atlandı (var): {a_skipped}  |  Hata: {a_error}")
-
-    # ── Yevmiye import ────────────────────────────────────────────────────────
-    s_created = s_skipped = s_error = 0
-    if df_yev is not None:
-        print(f"\n{'[DRY-RUN] ' if dry_run else ''}🚀 Veri Yevmiye.xlsx aktarılıyor...")
-
-        for idx, row in df_yev.iterrows():
-            try:
-                inserted = insert_statistic(cur, row, dry_run)
-                if inserted:
-                    s_created += 1
-                else:
-                    s_skipped += 1
-            except Exception as e:
-                s_error += 1
-                print(f"   ⚠️  Satır {idx} hatası: {e}")
-                if not dry_run:
-                    conn.rollback()
-
-        if not dry_run:
-            conn.commit()
-
-        print(f"\n   İstatistik → Eklendi: {s_created}  |  Atlandı (var): {s_skipped}  |  Hata: {s_error}")
+        if mode in ("veri", "both"):
+            print(f"   Kaza      → Eklendi: {a_created}  |  Atlandı (var): {a_skipped}  |  Hata: {a_error}")
+        if mode in ("yevmiye", "both"):
+            print(f"   İstatistik → Eklendi: {s_created}  |  Güncellendi: {s_updated}  |  Atlandı (boş/var): {s_skipped}")
 
     cur.close()
     conn.close()
@@ -763,7 +851,7 @@ def main():
     print("✅ TAMAMLANDI" + (" (KUR ÇALIŞTIRIM)" if dry_run else ""))
     print(f"   Personel   : {p_created} eklendi")
     print(f"   Kaza       : {a_created} eklendi")
-    print(f"   İstatistik : {s_created} eklendi")
+    print(f"   İstatistik : {s_created} eklendi, {s_updated} güncellendi")
     if dry_run:
         print("\n   Gerçek import için: python3 import_data.py")
     print("─" * 55)

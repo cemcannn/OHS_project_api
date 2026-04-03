@@ -1,11 +1,13 @@
 using FluentValidation;
-using OHS_program_api.Application.ViewModels.Definitions.Limb;
+using OHS_program_api.Application.Features.Commands.Definition.Limb.CreateLimb;
+using OHS_program_api.Application.Helpers;
+using OHS_program_api.Application.Repositories.Definition.LimbRepository;
 
 namespace OHS_program_api.Application.Validators.Definitions.Limb
 {
-    public class CreateLimbValidator : AbstractValidator<VM_Create_Limb>
+    public class CreateLimbValidator : AbstractValidator<CreateLimbCommandRequest>
     {
-        public CreateLimbValidator()
+        public CreateLimbValidator(ILimbReadRepository limbReadRepository)
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
@@ -14,6 +16,20 @@ namespace OHS_program_api.Application.Validators.Definitions.Limb
                 .MaximumLength(100)
                 .MinimumLength(2)
                     .WithMessage("Uzuv adı 2 ile 100 karakter arası olmalıdır.");
+
+            RuleFor(x => x.Description)
+                .Must(DefinitionValidationHelper.HasCode)
+                    .WithMessage("Lütfen uzuv kodunu giriniz.");
+
+            RuleFor(x => x.Name)
+                .MustAsync(async (request, name, cancellationToken) =>
+                    !await DefinitionValidationHelper.HasDuplicateNameAsync(limbReadRepository, name))
+                    .WithMessage("Aynı isimde uzuv zaten mevcut.");
+
+            RuleFor(x => x.Description)
+                .MustAsync(async (request, description, cancellationToken) =>
+                    !await DefinitionValidationHelper.HasDuplicateDescriptionCodeAsync(limbReadRepository, description))
+                    .WithMessage("Aynı kodda uzuv zaten mevcut.");
         }
     }
 }

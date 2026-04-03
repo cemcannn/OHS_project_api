@@ -5,5 +5,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.Directorate.R
     public class RemoveDirectorateCommandRequest : IRequest<RemoveDirectorateCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

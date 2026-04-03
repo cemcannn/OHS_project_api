@@ -11,5 +11,6 @@ namespace OHS_program_api.Application.Features.Commands.Definition.TypeOfAcciden
     public class RemoveTypeOfAccidentCommandRequest : IRequest<RemoveTypeOfAccidentCommandResponse>
     {
         public string Id { get; set; }
+        public string? Name { get; set; }
     }
 }

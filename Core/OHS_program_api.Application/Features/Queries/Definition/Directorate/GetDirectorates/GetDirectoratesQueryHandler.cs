@@ -23,6 +23,7 @@ namespace OHS_program_api.Application.Features.Queries.Definition.Directorate.Ge
                 .Select(p => new
                 {
                     p.Id,
+                    p.Code,
                     p.Name
                 })
                 .ToListAsync(cancellationToken);

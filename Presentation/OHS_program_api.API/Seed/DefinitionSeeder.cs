@@ -26,6 +26,7 @@ namespace OHS_program_api.API.Seed
 
             var dbContext = services.GetRequiredService<OHSProgramAPIDbContext>();
 
+            await EnsureDirectorateCodeColumnAsync(dbContext);
             await EnsureSeedHistoryTableAsync(dbContext);
 
             var assembly = typeof(DefinitionSeeder).Assembly;
@@ -269,6 +270,18 @@ CREATE TABLE IF NOT EXISTS ""DefinitionSeedHistory"" (
     ""SkippedCount"" integer NOT NULL,
     ""LastAppliedUtc"" timestamp with time zone NOT NULL
 );";
+
+            await dbContext.Database.ExecuteSqlRawAsync(sql);
+        }
+
+        private static async Task EnsureDirectorateCodeColumnAsync(OHSProgramAPIDbContext dbContext)
+        {
+            const string sql = @"
+ALTER TABLE IF EXISTS ""Directorates""
+ADD COLUMN IF NOT EXISTS ""Code"" text;
+
+CREATE UNIQUE INDEX IF NOT EXISTS ""IX_Directorates_Code""
+ON ""Directorates"" (""Code"");";
 
             await dbContext.Database.ExecuteSqlRawAsync(sql);
         }

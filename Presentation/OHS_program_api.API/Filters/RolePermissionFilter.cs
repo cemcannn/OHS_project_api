@@ -53,6 +53,12 @@ namespace OHS_program_api.API.Filters
                 var isAdmin = userRoles.Any(r => string.Equals(r, AdminRoleName, StringComparison.OrdinalIgnoreCase));
                 var isObserverOnly = userRoles.Any(r => string.Equals(r, ObserverRoleName, StringComparison.OrdinalIgnoreCase)) && !isSuperAdmin && !isAdmin;
 
+                if (isSuperAdmin)
+                {
+                    await next();
+                    return;
+                }
+
                 if (isAdmin)
                 {
                     await next();
